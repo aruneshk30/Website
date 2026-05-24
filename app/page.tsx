@@ -76,7 +76,7 @@ export default function HomePage() {
             <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft">
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.04),transparent_35%)]" />
               <Image
-                src="/profile.jpg"
+                src="/profile.png"
                 alt="Arunesh Kumar"
                 width={1272}
                 height={1450}
