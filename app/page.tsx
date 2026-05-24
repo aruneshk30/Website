@@ -71,7 +71,33 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-sm lg:max-w-md">
+          <div<div className="relative mx-auto w-full max-w-[560px] lg:translate-x-8">
+  {/* glow background */}
+  <div className="absolute right-10 top-10 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-3xl" />
+  <div className="absolute right-12 top-16 h-[360px] w-[360px] rounded-full bg-indigo-100/40 blur-[90px]" />
+
+  {/* image */}
+  <div className="relative z-10">
+    <Image
+      src="/profile.png"
+      alt="Arunesh Kumar"
+      width={1272}
+      height={1450}
+      priority
+      className="w-full object-contain drop-shadow-[0_35px_40px_rgba(15,23,42,0.18)]"
+    />
+  </div>
+
+  {/* floating badge */}
+  <div className="absolute bottom-6 left-0 z-20 rounded-[1.5rem] border border-slate-200 bg-white/90 px-5 py-4 shadow-xl backdrop-blur-md">
+    <p className="text-sm font-semibold text-slate-900">
+      Product · Growth · Systems
+    </p>
+    <p className="mt-1 max-w-[260px] text-sm leading-6 text-slate-600">
+      Building revenue-driving product experiences and AI-powered workflows.
+    </p>
+  </div>
+</div>>
             <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-[2rem] border border-slate-200 bg-slate-100" />
             <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft">
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.04),transparent_35%)]" />
@@ -127,7 +153,6 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Why it works"
             title="The homepage stays lean"
             subtitle="It introduces you, shows your strongest metrics, and points people to the right deep-dive page."
           />
