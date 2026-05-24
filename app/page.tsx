@@ -6,133 +6,92 @@ import {
   Blocks,
   Briefcase,
   CalendarDays,
+  ChevronRight,
   Linkedin,
   Mail,
   MessageCircle,
   Sparkles,
-  TrendingUp,
-  Zap,
+  type LucideIcon,
 } from "lucide-react";
 
 const stats = [
   {
     value: "₹1.5Cr+",
-    label: "monthly revenue impact from pricing calculator",
+    label: "monthly revenue impact",
     tint: "from-blue-50 to-indigo-50",
   },
   {
     value: "500+",
-    label: "bundle SKUs automated through pricing logic",
+    label: "bundle SKUs automated",
     tint: "from-emerald-50 to-teal-50",
   },
   {
     value: "20→14%",
-    label: "ATC diversion reduced in checkout flow",
+    label: "ATC diversion reduced",
     tint: "from-amber-50 to-orange-50",
   },
   {
     value: "30%",
-    label: "conversion improvement in sales quoting",
+    label: "sales quoting improvement",
     tint: "from-violet-50 to-fuchsia-50",
   },
 ];
 
 const projects = [
   {
-    id: "01",
     title: "Checkout Funnel Optimization",
-    problem:
-      "Users were dropping off between Add-to-Cart and checkout because the flow had friction and data-loss issues.",
-    solution:
-      "Identified friction with Clarity recordings and BI dashboards, then coordinated UX changes to remove distractions and make the checkout step more structured.",
-    impact: [
-      "ATC diversion reduced from 20% to 14%",
-      "Checkout abandonment improved from 84.09% to 72.77%",
-      "~₹2.89Cr monthly revenue impact",
-    ],
+    summary:
+      "Reduced friction in checkout using behavioral analysis, Clarity recordings, and UX improvements.",
+    impact: "ATC diversion 20% → 14%",
   },
   {
-    id: "02",
     title: "Automated SKU Pricing System",
-    problem:
-      "500+ bundled SKUs had manual parent-child pricing mismatches, creating operational overhead and revenue leakage.",
-    solution:
-      "Proposed and drove automated pricing cascade with variant-level child SKU mapping and dynamic price synchronization.",
-    impact: [
-      "Automated pricing sync across 500+ SKUs",
-      "SKU mapping time reduced from 28 min to 7 min",
-      "~₹35–40 lakh monthly exposure protected",
-    ],
+    summary:
+      "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
+    impact: "~₹35–40 lakh monthly exposure protected",
   },
   {
-    id: "03",
     title: "Real-Time Pricing Calculator",
-    problem:
-      "The U.S. sales team waited 1–2 days for custom quotes, slowing customer decisions and reducing conversion speed.",
-    solution:
-      "Gathered requirements, defined pricing logic, and coordinated with pricing and IT teams to ship a real-time quoting tool.",
-    impact: [
-      "Quote generation moved to real-time",
-      "~30% conversion improvement",
-      "~₹1.5Cr additional monthly revenue",
-    ],
+    summary:
+      "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
+    impact: "~₹1.5Cr additional monthly revenue",
   },
 ];
 
-const systems = [
+const systems: {
+  icon: LucideIcon;
+  title: string;
+  summary: string;
+  href: string;
+}[] = [
   {
     icon: Sparkles,
     title: "PM Research & Strategy Hub",
-    description:
-      "An AI-assisted operating system for product work — research synthesis, hypothesis generation, PRD structuring, prioritization, and stakeholder communication.",
-    chips: [
-      "Funnel Analysis",
-      "PRD Writing",
-      "Hypothesis Builder",
-      "Experiment Planning",
-      "Persona Builder",
-    ],
+    summary:
+      "AI-assisted product operating system for research, PRDs, prioritization, and stakeholder communication.",
     href: "/ai-systems/pm-hub",
   },
   {
     icon: Blocks,
     title: "9-Agent CRO Workflow",
-    description:
-      "A structured workflow for turning e-commerce data into product decisions — combining customer signals, UX diagnosis, prioritization, and experimentation planning.",
-    chips: ["Customer Voice", "UX Review", "Research", "RICE Scoring", "Action Plan"],
+    summary:
+      "Multi-agent workflow for conversion analysis, UX diagnosis, and experimentation planning.",
     href: "/ai-systems/9-agent-cro",
   },
 ];
 
 const experience = [
   {
-    role: "Product Manager",
-    company: "Sierra Living Concepts",
-    period: "Nov 2025 – Present",
-    bullets: [
-      "Drove automated pricing cascade across 500+ bundled furniture SKUs, resolving mismatches and protecting revenue.",
-      "Identified checkout friction using Clarity and BI dashboards, then coordinated UX changes that improved conversion.",
-      "Shipped a real-time pricing calculator for the U.S. sales team, reducing quote latency from days to live calls.",
-    ],
+    title: "Sierra Living Concepts",
+    summary:
+      "Product Manager driving pricing systems, checkout improvements, and real-time sales tooling.",
+    href: "/experience",
   },
   {
-    role: "Management Trainee (Product Strategy)",
-    company: "Sierra Living Concepts",
-    period: "Jun 2025 – Oct 2025",
-    bullets: [
-      "Worked across sourcing, pricing, finance, operations, design, and marketing to support launches.",
-      "Conducted market and competitor analysis for Kids Furniture expansion in the U.S. market.",
-      "Helped introduce new products in Daybeds and supported category growth.",
-    ],
-  },
-  {
-    role: "Marketing Intern — Digital Strategy & Growth Analytics",
-    company: "BoostGrad",
-    period: "Feb 2024 – Nov 2024",
-    bullets: [
-      "Analyzed user behavior and campaign performance to improve brand reach and engagement insights.",
-      "Built dashboards for senior stakeholders to support product positioning and prioritization discussions.",
-    ],
+    title: "BoostGrad",
+    summary:
+      "Digital strategy and growth analytics work focused on insights, dashboards, and engagement.",
+    href: "/experience",
   },
 ];
 
@@ -141,15 +100,17 @@ function SectionHeading({
   title,
   subtitle,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   subtitle?: string;
 }) {
   return (
     <div className="max-w-3xl">
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
-        {eyebrow}
-      </p>
+      {eyebrow ? (
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
+          {eyebrow}
+        </p>
+      ) : null}
       <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
         {title}
       </h2>
@@ -286,6 +247,15 @@ export default function HomePage() {
             <div className="absolute right-10 top-10 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-3xl" />
             <div className="absolute right-12 top-16 h-[360px] w-[360px] rounded-full bg-indigo-100/40 blur-[90px]" />
 
+            <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_72%_28%,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_35%_75%,rgba(59,130,246,0.14),transparent_22%),linear-gradient(135deg,rgba(255,255,255,0.24),rgba(255,255,255,0))]" />
+            <div className="absolute inset-0 rounded-[2.5rem] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.55)_50%,transparent_100%)] opacity-30 animate-[pulse_7s_ease-in-out_infinite]" />
+            <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle,_rgba(255,255,255,0.55)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
+
+            <div className="absolute right-8 top-8 h-[380px] w-[380px] rounded-full border border-indigo-200/70 animate-[spin_36s_linear_infinite]" />
+            <div className="absolute right-2 top-2 h-[460px] w-[460px] rounded-full border border-slate-200/70 animate-[spin_52s_linear_infinite] [animation-direction:reverse]" />
+            <div className="absolute right-6 top-20 h-3 w-3 rounded-full bg-indigo-400/70 shadow-[0_0_30px_rgba(99,102,241,0.8)] animate-[pulse_4s_ease-in-out_infinite]" />
+            <div className="absolute left-10 top-28 h-2 w-2 rounded-full bg-sky-400/70 shadow-[0_0_20px_rgba(56,189,248,0.8)] animate-[pulse_5s_ease-in-out_infinite]" />
+
             <div className="relative z-10">
               <Image
                 src="/profile.png"
@@ -313,62 +283,62 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Selected Work"
+            title="Three spaces, one story"
+            subtitle="Dedicated pages for projects, AI systems, and experience — the homepage only gives a preview."
+          />
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <PageCard
+              href="/work"
+              title="Projects"
+              description="Quick glimpse of case studies. Open the page to see the full problem, solution, and impact story."
+            />
+            <PageCard
+              href="/ai-systems"
+              title="AI Systems"
+              description="PM Hub and 9-Agent CRO Workflow. Open the page to enter each system."
+              accent
+            />
+            <PageCard
+              href="/experience"
+              title="Experience"
+              description="Short preview of Sierra and BoostGrad. Open the page for the full journey."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white/70 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <SectionHeading
             title="Impact through product"
-            subtitle="Three case studies that show how you think: problem, solution, and measurable outcome."
+            subtitle="Just a glimpse here — click into the Work page for the full case studies."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             {projects.map((item) => (
-              <article
-                key={item.id}
-                className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              <Link
+                key={item.title}
+                href="/work"
+                className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      {item.id}
+                      Preview
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
                       {item.title}
                     </h3>
                   </div>
-                  <div className="rounded-full border border-slate-200 bg-slate-50 p-3 text-slate-600">
+                  <div className="rounded-full border border-slate-200 bg-slate-50 p-3 text-slate-600 transition group-hover:border-slate-300 group-hover:bg-white group-hover:text-slate-950">
                     <Briefcase className="h-5 w-5" />
                   </div>
                 </div>
-
-                <div className="mt-5 space-y-4">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      Problem
-                    </p>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">
-                      {item.problem}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      Solution
-                    </p>
-                    <p className="mt-2 text-sm leading-7 text-slate-600">
-                      {item.solution}
-                    </p>
-                  </div>
+                <p className="mt-5 text-sm leading-7 text-slate-600">{item.summary}</p>
+                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-slate-900">
+                  {item.impact}
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </div>
-
-                <div className="mt-6 space-y-3 border-t border-slate-200 pt-5">
-                  {item.impact.map((point) => (
-                    <div
-                      key={point}
-                      className="flex gap-3 text-sm leading-6 text-slate-700"
-                    >
-                      <BadgeCheck className="mt-0.5 h-4 w-4 flex-none text-slate-500" />
-                      <span>{point}</span>
-                    </div>
-                  ))}
-                </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
@@ -377,9 +347,8 @@ export default function HomePage() {
       <section className="border-y border-slate-200 bg-white py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
-            eyebrow="AI Product Systems"
-            title="Systems I built using AI to move faster as a PM"
-            subtitle="These are the two systems that show leverage: product research and conversion optimization workflows."
+            title="AI systems built for leverage"
+            subtitle="Two systems, two deep-dive pages. The homepage stays light and points people to the right place."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {systems.map((item) => {
@@ -399,17 +368,10 @@ export default function HomePage() {
                         {item.title}
                       </h3>
                       <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                        {item.description}
+                        {item.summary}
                       </p>
                     </div>
                   </div>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {item.chips.map((chip) => (
-                      <Chip key={chip}>{chip}</Chip>
-                    ))}
-                  </div>
-
                   <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
                     Open system <ArrowRight className="h-4 w-4" />
                   </div>
@@ -423,42 +385,29 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Experience"
-            title="Where the work happened"
-            subtitle="Product systems, growth, and execution across a premium D2C furniture business and earlier marketing analytics work."
+            title="Experience snapshot"
+            subtitle="A quick preview here — the full timeline lives on the Experience page."
           />
-          <div className="mt-10 space-y-6">
-            {experience.map((job) => (
-              <article
-                key={job.role}
-                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm"
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {experience.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="grid gap-4 lg:grid-cols-[260px_1fr] lg:items-start">
-                  <div>
-                    <p className="text-sm font-medium text-slate-500">
-                      {job.period}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-                      {job.role}
-                    </h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">
-                      {job.company}
-                    </p>
-                  </div>
-
-                  <ul className="space-y-3">
-                    {job.bullets.map((bullet) => (
-                      <li
-                        key={bullet}
-                        className="flex gap-3 text-sm leading-7 text-slate-600"
-                      >
-                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-400" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
+                  Preview
+                </p>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {item.summary}
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
+                  Open experience <ArrowRight className="h-4 w-4" />
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
