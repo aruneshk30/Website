@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f4f7fb;
+  color: #0f172a;
+  font-feature-settings: "ss01" 1, "ss02" 1, "cv01" 1, "cv02" 1;
+}
+
+::selection {
+  background: rgba(15, 23, 42, 0.12);
+}
