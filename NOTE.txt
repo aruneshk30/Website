@@ -1,0 +1,4 @@
+Update these before deploying:
+1. Replace https://calendly.com/your-link with your real Calendly URL in app/connect/page.tsx and components/site-footer.tsx.
+2. If you want a different profile crop, replace public/profile.jpg.
+3. Run npm install, then npm run dev.
