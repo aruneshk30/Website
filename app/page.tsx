@@ -183,9 +183,39 @@ function IconButton({
   );
 }
 
+function PreviewCard({
+  title,
+  summary,
+  href,
+}: {
+  title: string;
+  summary: string;
+  href: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+    >
+      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
+        Preview
+      </p>
+      <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+        {title}
+      </h3>
+      <p className="mt-4 text-sm leading-7 text-slate-600">{summary}</p>
+      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
+        Open page{" "}
+        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+      </div>
+    </Link>
+  );
+}
+
 export default function HomePage() {
   return (
     <main>
+      {/* HERO */}
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_42%,#f8fafc_100%)]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.12),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.10),_transparent_24%),radial-gradient(circle_at_center,_rgba(148,163,184,0.08),_transparent_35%)]" />
         <div className="absolute right-[10%] top-20 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-[100px]" />
@@ -243,18 +273,19 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* HERO IMAGE WITH SUBTLE ANIMATION */}
           <div className="relative mx-auto w-full max-w-[560px] lg:translate-x-8">
             <div className="absolute right-10 top-10 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-3xl" />
             <div className="absolute right-12 top-16 h-[360px] w-[360px] rounded-full bg-indigo-100/40 blur-[90px]" />
 
             <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_72%_28%,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_35%_75%,rgba(59,130,246,0.14),transparent_22%),linear-gradient(135deg,rgba(255,255,255,0.24),rgba(255,255,255,0))]" />
-            <div className="absolute inset-0 rounded-[2.5rem] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.55)_50%,transparent_100%)] opacity-30 animate-[pulse_7s_ease-in-out_infinite]" />
+            <div className="absolute inset-0 rounded-[2.5rem] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.55)_50%,transparent_100%)] opacity-30 animate-pulse" />
             <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle,_rgba(255,255,255,0.55)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
 
             <div className="absolute right-8 top-8 h-[380px] w-[380px] rounded-full border border-indigo-200/70 animate-[spin_36s_linear_infinite]" />
             <div className="absolute right-2 top-2 h-[460px] w-[460px] rounded-full border border-slate-200/70 animate-[spin_52s_linear_infinite] [animation-direction:reverse]" />
-            <div className="absolute right-6 top-20 h-3 w-3 rounded-full bg-indigo-400/70 shadow-[0_0_30px_rgba(99,102,241,0.8)] animate-[pulse_4s_ease-in-out_infinite]" />
-            <div className="absolute left-10 top-28 h-2 w-2 rounded-full bg-sky-400/70 shadow-[0_0_20px_rgba(56,189,248,0.8)] animate-[pulse_5s_ease-in-out_infinite]" />
+            <div className="absolute right-6 top-20 h-3 w-3 rounded-full bg-indigo-400/70 shadow-[0_0_30px_rgba(99,102,241,0.8)] animate-pulse" />
+            <div className="absolute left-10 top-28 h-2 w-2 rounded-full bg-sky-400/70 shadow-[0_0_20px_rgba(56,189,248,0.8)] animate-pulse" />
 
             <div className="relative z-10">
               <Image
@@ -280,6 +311,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* THREE SPACES */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -307,6 +339,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* PROJECT PREVIEW */}
       <section className="bg-white/70 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -323,7 +356,7 @@ export default function HomePage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      Preview
+                      {item.title}
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
                       {item.title}
@@ -333,7 +366,9 @@ export default function HomePage() {
                     <Briefcase className="h-5 w-5" />
                   </div>
                 </div>
-                <p className="mt-5 text-sm leading-7 text-slate-600">{item.summary}</p>
+                <p className="mt-5 text-sm leading-7 text-slate-600">
+                  {item.summary}
+                </p>
                 <div className="mt-6 flex items-center gap-2 text-sm font-medium text-slate-900">
                   {item.impact}
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -344,6 +379,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* AI SYSTEMS PREVIEW */}
       <section className="border-y border-slate-200 bg-white py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -382,6 +418,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* EXPERIENCE PREVIEW */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -413,6 +450,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <section className="border-t border-slate-200 bg-[linear-gradient(180deg,#eef2ff_0%,#f8fafc_100%)] py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-10 rounded-[2rem] border border-slate-200 bg-white/80 p-8 shadow-xl backdrop-blur md:grid-cols-3">
@@ -463,7 +501,10 @@ export default function HomePage() {
                 <IconButton href="https://wa.me/919012666192" label="WhatsApp">
                   <MessageCircle className="h-5 w-5" />
                 </IconButton>
-                <IconButton href="https://calendly.com/your-link" label="Book a meeting">
+                <IconButton
+                  href="https://calendly.com/your-link"
+                  label="Book a meeting"
+                >
                   <CalendarDays className="h-5 w-5" />
                 </IconButton>
               </div>
