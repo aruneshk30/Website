@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeCheck,
   Blocks,
   Briefcase,
   CalendarDays,
@@ -37,7 +36,7 @@ const stats = [
   },
 ];
 
-const projects = [
+const projectPreviews = [
   {
     title: "Checkout Funnel Optimization",
     summary:
@@ -121,42 +120,20 @@ function SectionHeading({
   );
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm text-slate-600 shadow-sm">
-      {children}
-    </span>
-  );
-}
-
-function PageCard({
-  title,
-  description,
+function CardButton({
   href,
-  accent = false,
+  children,
 }: {
-  title: string;
-  description: string;
   href: string;
-  accent?: boolean;
+  children: React.ReactNode;
 }) {
   return (
     <Link
       href={href}
-      className={`group rounded-[1.75rem] border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
-        accent ? "border-slate-300" : "border-slate-200"
-      }`}
+      className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 transition hover:gap-3"
     >
-      <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
-        Open section
-      </div>
-      <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
-        {title}
-      </h3>
-      <p className="mt-4 text-sm leading-7 text-slate-600">{description}</p>
-      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700 transition group-hover:text-slate-950">
-        Explore <ArrowRight className="h-4 w-4" />
-      </div>
+      {children}
+      <ChevronRight className="h-4 w-4" />
     </Link>
   );
 }
@@ -187,10 +164,12 @@ function PreviewCard({
   title,
   summary,
   href,
+  badge,
 }: {
   title: string;
   summary: string;
   href: string;
+  badge?: string;
 }) {
   return (
     <Link
@@ -204,9 +183,11 @@ function PreviewCard({
         {title}
       </h3>
       <p className="mt-4 text-sm leading-7 text-slate-600">{summary}</p>
+      {badge ? (
+        <p className="mt-5 text-sm font-medium text-slate-500">{badge}</p>
+      ) : null}
       <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-        Open page{" "}
-        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+        Open page <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
       </div>
     </Link>
   );
@@ -215,7 +196,6 @@ function PreviewCard({
 export default function HomePage() {
   return (
     <main>
-      {/* HERO */}
       <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_42%,#f8fafc_100%)]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.12),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.10),_transparent_24%),radial-gradient(circle_at_center,_rgba(148,163,184,0.08),_transparent_35%)]" />
         <div className="absolute right-[10%] top-20 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-[100px]" />
@@ -273,7 +253,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* HERO IMAGE WITH SUBTLE ANIMATION */}
           <div className="relative mx-auto w-full max-w-[560px] lg:translate-x-8">
             <div className="absolute right-10 top-10 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-3xl" />
             <div className="absolute right-12 top-16 h-[360px] w-[360px] rounded-full bg-indigo-100/40 blur-[90px]" />
@@ -311,7 +290,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* THREE SPACES */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -319,35 +297,36 @@ export default function HomePage() {
             subtitle="Dedicated pages for projects, AI systems, and experience — the homepage only gives a preview."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            <PageCard
+            <PreviewCard
               href="/work"
               title="Projects"
-              description="Quick glimpse of case studies. Open the page to see the full problem, solution, and impact story."
+              summary="Quick glimpse of case studies. Open the page to see the full problem, solution, and impact story."
+              badge="Checkout • Pricing • Calculator"
             />
-            <PageCard
+            <PreviewCard
               href="/ai-systems"
               title="AI Systems"
-              description="PM Hub and 9-Agent CRO Workflow. Open the page to enter each system."
-              accent
+              summary="PM Hub and 9-Agent CRO Workflow. Open the page to enter each system."
+              badge="Research hub • CRO workflow"
             />
-            <PageCard
+            <PreviewCard
               href="/experience"
               title="Experience"
-              description="Short preview of Sierra and BoostGrad. Open the page for the full journey."
+              summary="Short preview of Sierra and BoostGrad. Open the page for the full journey."
+              badge="Sierra • BoostGrad"
             />
           </div>
         </div>
       </section>
 
-      {/* PROJECT PREVIEW */}
       <section className="bg-white/70 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
             title="Impact through product"
-            subtitle="Just a glimpse here — click into the Work page for the full case studies."
+            subtitle="A short glimpse here — click into the Work page for the full case studies."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {projects.map((item) => (
+            {projectPreviews.map((item) => (
               <Link
                 key={item.title}
                 href="/work"
@@ -356,7 +335,7 @@ export default function HomePage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      {item.title}
+                      Preview
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
                       {item.title}
@@ -369,9 +348,8 @@ export default function HomePage() {
                 <p className="mt-5 text-sm leading-7 text-slate-600">
                   {item.summary}
                 </p>
-                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-slate-900">
-                  {item.impact}
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
+                  {item.impact} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </div>
               </Link>
             ))}
@@ -379,7 +357,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AI SYSTEMS PREVIEW */}
       <section className="border-y border-slate-200 bg-white py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -418,7 +395,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* EXPERIENCE PREVIEW */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
@@ -450,10 +426,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <section className="border-t border-slate-200 bg-[linear-gradient(180deg,#eef2ff_0%,#f8fafc_100%)] py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-10 rounded-[2rem] border border-slate-200 bg-white/80 p-8 shadow-xl backdrop-blur md:grid-cols-3">
+          <div className="grid gap-10 rounded-[2rem] border border-slate-200 bg-white/85 p-8 shadow-xl backdrop-blur md:grid-cols-4">
             <div>
               <h3 className="text-xl font-semibold text-slate-950">
                 Arunesh Kumar
@@ -481,6 +456,28 @@ export default function HomePage() {
                 <Link href="#experience" className="block hover:text-slate-950">
                   Experience
                 </Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">
+                Resources
+              </h4>
+              <div className="mt-4 space-y-4 text-sm text-slate-600">
+                <a
+                  href="/Arunesh_Kumar_Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block transition hover:text-indigo-600"
+                >
+                  Resume →
+                </a>
+                <a
+                  href="mailto:aruneshk30@gmail.com"
+                  className="block transition hover:text-indigo-600"
+                >
+                  aruneshk30@gmail.com
+                </a>
               </div>
             </div>
 
