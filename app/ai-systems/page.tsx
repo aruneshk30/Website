@@ -17,10 +17,10 @@ export default function AiSystemsPage() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
-              Open PM Hub <ArrowRight className="h-4 w-4" />
+              Explore PM Hub <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-950">
-              Explore 9-Agent Workflow
+              Explore 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
