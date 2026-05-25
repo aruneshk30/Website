@@ -6,13 +6,13 @@ import { aiSystemCards } from "@/lib/site-data";
 export default function AiSystemsPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-white/70 py-20">
+     <section className="border-b border-slate-200 bg-gradient-to-b from-indigo-50 to-white py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">AI Systems</p>
             <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">Systems that increase PM leverage</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              This page opens the two AI builds you wanted to showcase: the PM Research & Strategy Hub and the 9-Agent CRO Workflow.
+              Two AI systems built to increase PM leverage — a 17-module research and strategy hub, and a 9-agent workflow for conversion optimization.
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -30,8 +30,8 @@ export default function AiSystemsPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
             eyebrow="Featured Systems"
-            title="Two links, one story"
-            subtitle="One card opens the PM Hub. The other opens the 9-agent product. The page also gives each system enough room to feel like a landing page, not a list."
+            title="Two systems, one goal"
+            subtitle="Each system targets a different layer of PM work — research and strategy on one side, conversion diagnosis and experimentation on the other."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {aiSystemCards.map((card) => (
