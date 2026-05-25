@@ -10,7 +10,9 @@ import {
   Blocks,
 } from "lucide-react";
 
-// ── DATA ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────
 
 const stats = [
   { value: "₹1.5Cr+", label: "monthly revenue impact" },
@@ -28,47 +30,47 @@ const previews = [
   {
     href: "#ai-systems",
     label: "AI Systems",
-    desc: "PM Hub and CRO workflows built for leverage.",
+    desc: "AI-powered systems and workflow automation.",
   },
   {
     href: "#experience",
     label: "Experience",
-    desc: "Sierra Living Concepts and BoostGrad journey.",
+    desc: "Product, growth, experimentation, and systems work.",
   },
 ];
 
 const projects = [
   {
     title: "Checkout Funnel Optimization",
-    desc: "Reduced checkout friction using behavioral analysis and UX improvements.",
-    impact: "ATC diversion 20% → 14%",
+    desc: "Reduced friction across the checkout journey using behavioral analysis and UX optimization.",
+    impact: "ATC diversion reduced",
     Icon: TrendingUp,
   },
   {
-    title: "Automated SKU Pricing System",
-    desc: "Automated pricing cascade for 500+ bundled SKUs.",
-    impact: "~₹35–40L protected",
+    title: "Automated SKU Pricing",
+    desc: "Built automated pricing logic for bundled and configurable products.",
+    impact: "500+ SKUs automated",
     Icon: Monitor,
   },
   {
-    title: "Real-Time Pricing Calculator",
-    desc: "Built live quoting flow for sales operations.",
-    impact: "~₹1.5Cr monthly revenue",
+    title: "Real-Time Sales Calculator",
+    desc: "Created live pricing workflows for internal sales operations.",
+    impact: "Revenue acceleration",
     Icon: Briefcase,
   },
 ];
 
 const aiSystems = [
   {
-    title: "PM Research & Strategy Hub",
-    desc: "AI-assisted operating system for research and prioritization.",
-    href: "/ai-systems/pm-hub",
+    title: "PM Research Hub",
+    desc: "AI-powered product management operating system for research and prioritization.",
+    href: "#",
     Icon: Sparkles,
   },
   {
     title: "9-Agent CRO Workflow",
-    desc: "Multi-agent workflow for CRO analysis and experimentation.",
-    href: "/ai-systems/9-agent-cro",
+    desc: "Multi-agent experimentation and CRO workflow system.",
+    href: "#",
     Icon: Blocks,
   },
 ];
@@ -77,23 +79,28 @@ const experience = [
   {
     title: "Sierra Living Concepts",
     role: "Product Manager",
-    desc: "Driving pricing systems, checkout improvements, and sales tooling.",
+    desc: "Leading pricing systems, checkout optimization, experimentation, and operational tooling.",
   },
   {
     title: "BoostGrad",
     role: "Growth & Analytics",
-    desc: "Focused on analytics, dashboards, and growth systems.",
+    desc: "Worked on analytics systems, dashboards, funnels, and growth initiatives.",
   },
 ];
 
-function SectionLabel({ children }: { children: string }) {
+// ─────────────────────────────────────────────────────────────
+// COMPONENTS
+// ─────────────────────────────────────────────────────────────
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-indigo-500">
+    <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-indigo-500">
       {children}
     </p>
   );
 }
-function SectionTitle({ children }: { children: string }) {
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="text-5xl font-bold tracking-tight text-slate-950 md:text-6xl">
       {children}
@@ -101,7 +108,7 @@ function SectionTitle({ children }: { children: string }) {
   );
 }
 
-function SectionSub({ children }: { children: string }) {
+function SectionSub({ children }: { children: React.ReactNode }) {
   return (
     <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-500 md:text-xl">
       {children}
@@ -109,182 +116,169 @@ function SectionSub({ children }: { children: string }) {
   );
 }
 
+// ─────────────────────────────────────────────────────────────
+// PAGE
+// ─────────────────────────────────────────────────────────────
+
 export default function HomePage() {
   return (
     <>
       <style>{`
         @keyframes drift {
           0%,100% { transform: translate(0,0) scale(1); }
-          33%     { transform: translate(40px,-30px) scale(1.05); }
-          66%     { transform: translate(-20px,40px) scale(0.95); }
+          33% { transform: translate(40px,-30px) scale(1.05); }
+          66% { transform: translate(-20px,40px) scale(0.95); }
         }
+
         @keyframes spinRing {
-          to { transform: translate(-50%,-50%) rotate(360deg); }
-        }
-        @keyframes pulseGlow {
-          0%,100% { opacity:1; transform:scale(1); }
-          50%     { opacity:0.4; transform:scale(1.5); }
-        }
-        @keyframes pulseDot {
-          0%,100% { box-shadow:0 0 0 0 rgba(34,197,94,0.4); }
-          50%     { box-shadow:0 0 0 7px rgba(34,197,94,0); }
+          to {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
         }
       `}</style>
 
-      {/* ── FIXED BACKGROUND ── */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      {/* BACKGROUND */}
+      <div className="fixed inset-0 -z-10 overflow-hidden bg-slate-50">
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(99,102,241,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.04) 1px,transparent 1px)",
+              "linear-gradient(rgba(99,102,241,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
 
         <div
-          className="absolute -top-48 -right-24 h-[600px] w-[600px] rounded-full opacity-30"
+          className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full opacity-30"
           style={{
             background: "radial-gradient(circle,#c7d2fe,#818cf8)",
             filter: "blur(80px)",
             animation: "drift 18s ease-in-out infinite",
           }}
         />
-
-        <div
-          className="absolute bottom-20 -left-24 h-[380px] w-[380px] rounded-full opacity-25"
-          style={{
-            background: "radial-gradient(circle,#bae6fd,#38bdf8)",
-            filter: "blur(80px)",
-            animation: "drift 22s ease-in-out -7s infinite",
-          }}
-        />
       </div>
 
       <main className="relative z-10">
 
-        {/* ── HERO ── */}
+        {/* HERO */}
         <section
           id="home"
-          className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-24 lg:px-8"
+          className="flex min-h-screen items-center px-6 py-20 lg:px-8"
         >
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
 
-            {/* Left */}
+            {/* LEFT */}
             <div>
 
               {/* Badge */}
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-5 py-3 text-sm font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
-                <span
-                  className="h-2.5 w-2.5 rounded-full bg-emerald-500"
-                  style={{ animation: "pulseDot 2s ease-in-out infinite" }}
-                />
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 shadow-sm">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 Arunesh Kumar
               </div>
 
-              {/* Main Heading */}
+              {/* HERO TITLE */}
               <h1 className="max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
-  Product Manager <br />
-                
-  <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
-    Growth &amp; Digital Strategy
-  </span>
-</h1>
+                Product Manager
+                <br />
 
-              <p className="mt-8 max-w-2xl text-xl leading-9 text-slate-500 md:text-2xl">
-                I build revenue-driving product experiences across e-commerce
-                systems, experimentation, and AI-powered workflows.
+                <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
+                  Growth &amp; Digital Strategy
+                </span>
+              </h1>
+
+              {/* DESCRIPTION */}
+              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-500 md:text-xl">
+                I build revenue-driving product experiences across e-commerce,
+                experimentation, and AI-powered workflows.
               </p>
 
-              {/* CTA */}
-              <div className="mt-10 flex flex-wrap gap-4">
+              {/* BUTTON */}
+              <div className="mt-10">
                 <Link
                   href="#work"
-                  className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-base font-semibold text-white shadow-lg transition hover:scale-[1.02]"
                 >
-                  View Work <ArrowRight className="h-5 w-5" />
+                  View Work
+                  <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
 
-              {/* Stats */}
-              <div className="mt-12 grid max-w-2xl grid-cols-2 gap-5">
-                {stats.map((s, i) => {
-                  const bg = [
-                    "from-blue-50 to-indigo-50",
-                    "from-emerald-50 to-teal-50",
-                    "from-amber-50 to-orange-50",
-                    "from-violet-50 to-fuchsia-50",
-                  ][i];
+              {/* STATS */}
+              <div className="mt-14 grid grid-cols-2 gap-5">
+                {stats.map((s) => (
+                  <div
+                    key={s.label}
+                    className="rounded-[1.8rem] border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur"
+                  >
+                    <p className="text-4xl font-bold text-slate-950">
+                      {s.value}
+                    </p>
 
-                  return (
-                    <div
-                      key={s.label}
-                      className={`rounded-[1.7rem] border border-slate-200/80 bg-gradient-to-br ${bg} p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
-                    >
-                      <p className="text-4xl font-bold tracking-tight text-slate-950">
-                        {s.value}
-                      </p>
-
-                      <p className="mt-2 text-base text-slate-500">
-                        {s.label}
-                      </p>
-                    </div>
-                  );
-                })}
+                    <p className="mt-2 text-base text-slate-500">
+                      {s.label}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right */}
-            <div className="relative hidden lg:flex justify-center">
-              <div className="relative flex h-[560px] w-[500px] items-center justify-center">
+            {/* RIGHT */}
+            <div className="relative hidden lg:flex items-center justify-center">
 
-                {[
-                  { size: 380, dur: "32s", dir: "normal" },
-                  { size: 500, dur: "48s", dir: "reverse" },
-                ].map((r, i) => (
-                  <div
-                    key={i}
-                    className="absolute rounded-full border border-indigo-200/40"
-                    style={{
-                      width: r.size,
-                      height: r.size,
-                      top: "50%",
-                      left: "50%",
-                      animation: `spinRing ${r.dur} linear infinite`,
-                      animationDirection: r.dir as any,
-                    }}
-                  />
-                ))}
+              <div className="relative flex h-[500px] w-[440px] items-center justify-center">
 
-                <div className="relative z-10">
-                  <Image
-                    src="/profile.png"
-                    alt="Arunesh Kumar"
-                    width={430}
-                    height={500}
-                    priority
-                    className="rounded-3xl object-contain drop-shadow-2xl"
-                  />
-                </div>
+                {/* Rings */}
+                <div
+                  className="absolute rounded-full border border-indigo-100"
+                  style={{
+                    width: 380,
+                    height: 380,
+                    top: "50%",
+                    left: "50%",
+                    animation: "spinRing 30s linear infinite",
+                  }}
+                />
+
+                <div
+                  className="absolute rounded-full border border-indigo-50"
+                  style={{
+                    width: 520,
+                    height: 520,
+                    top: "50%",
+                    left: "50%",
+                    animation: "spinRing 40s linear infinite reverse",
+                  }}
+                />
+
+                {/* IMAGE */}
+                <Image
+                  src="/profile.png"
+                  alt="Arunesh Kumar"
+                  width={390}
+                  height={450}
+                  priority
+                  className="relative z-10 object-contain drop-shadow-2xl"
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── OVERVIEW ── */}
-        <section className="bg-white/70 py-24">
+        {/* OVERVIEW */}
+        <section className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-            <div className="mb-16">
-              <SectionLabel>Overview</SectionLabel>
-              <SectionTitle>Three spaces, one story</SectionTitle>
+            <SectionLabel>Overview</SectionLabel>
 
-              <SectionSub>
-                Dedicated pages for projects, AI systems, and experience.
-              </SectionSub>
-            </div>
+            <SectionTitle>
+              Three spaces, one story
+            </SectionTitle>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <SectionSub>
+              Projects, AI systems, and experience — organized into focused sections.
+            </SectionSub>
+
+            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
               {previews.map((p) => (
                 <Link
                   key={p.label}
@@ -295,7 +289,7 @@ export default function HomePage() {
                     Preview
                   </p>
 
-                  <h3 className="mt-4 text-4xl font-bold tracking-tight text-slate-950">
+                  <h3 className="mt-4 text-3xl font-bold text-slate-950">
                     {p.label}
                   </h3>
 
@@ -313,38 +307,40 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── PROJECTS ── */}
+        {/* PROJECTS */}
         <section id="work" className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-            <div className="mb-16">
-              <SectionLabel>Projects</SectionLabel>
-              <SectionTitle>Impact through product</SectionTitle>
+            <SectionLabel>Projects</SectionLabel>
 
-              <SectionSub>
-                Three projects with measurable business outcomes.
-              </SectionSub>
-            </div>
+            <SectionTitle>
+              Impact through product
+            </SectionTitle>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <SectionSub>
+              Product initiatives focused on revenue, operations, and experimentation.
+            </SectionSub>
+
+            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
               {projects.map((p) => (
                 <div
                   key={p.title}
-                  className="group rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="mb-6 flex items-start justify-between gap-4">
+
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
                         Case Study
                       </p>
 
-                      <h3 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">
+                      <h3 className="mt-3 text-3xl font-bold text-slate-950">
                         {p.title}
                       </h3>
                     </div>
 
-                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-500">
-                      <p.Icon className="h-6 w-6" />
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
+                      <p.Icon className="h-6 w-6 text-slate-600" />
                     </div>
                   </div>
 
@@ -354,7 +350,7 @@ export default function HomePage() {
 
                   <div className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
                     {p.impact}
-                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5" />
                   </div>
                 </div>
               ))}
@@ -362,37 +358,38 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── AI SYSTEMS ── */}
+        {/* AI SYSTEMS */}
         <section
           id="ai-systems"
-          className="border-y border-slate-200 bg-white/70 py-24"
+          className="border-y border-slate-200 bg-white/60 py-24"
         >
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-            <div className="mb-16">
-              <SectionLabel>AI Systems</SectionLabel>
-              <SectionTitle>AI systems built for leverage</SectionTitle>
+            <SectionLabel>AI Systems</SectionLabel>
 
-              <SectionSub>
-                AI-powered systems designed to amplify PM and growth workflows.
-              </SectionSub>
-            </div>
+            <SectionTitle>
+              AI systems built for leverage
+            </SectionTitle>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <SectionSub>
+              Workflow automation, research systems, and experimentation tooling.
+            </SectionSub>
+
+            <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {aiSystems.map((s) => (
                 <Link
                   key={s.title}
                   href={s.href}
-                  className="group rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="flex items-start gap-5">
 
-                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm">
-                      <s.Icon className="h-7 w-7" />
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50">
+                      <s.Icon className="h-6 w-6 text-slate-700" />
                     </div>
 
                     <div>
-                      <h3 className="text-4xl font-bold tracking-tight text-slate-950">
+                      <h3 className="text-3xl font-bold text-slate-950">
                         {s.title}
                       </h3>
 
@@ -402,8 +399,8 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="mt-7 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
-                    Open system
+                  <div className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
+                    Open System
                     <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
@@ -412,20 +409,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── EXPERIENCE ── */}
+        {/* EXPERIENCE */}
         <section id="experience" className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-            <div className="mb-16">
-              <SectionLabel>Experience</SectionLabel>
-              <SectionTitle>Experience snapshot</SectionTitle>
+            <SectionLabel>Experience</SectionLabel>
 
-              <SectionSub>
-                Product, growth, systems, and experimentation experience.
-              </SectionSub>
-            </div>
+            <SectionTitle>
+              Experience snapshot
+            </SectionTitle>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <SectionSub>
+              Product, systems, experimentation, and growth operations experience.
+            </SectionSub>
+
+            <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {experience.map((e, i) => (
                 <div
                   key={e.title}
@@ -435,7 +433,7 @@ export default function HomePage() {
                     {i === 0 ? "Current Role" : "Previous Role"}
                   </p>
 
-                  <h3 className="mt-4 text-4xl font-bold tracking-tight text-slate-950">
+                  <h3 className="mt-4 text-3xl font-bold text-slate-950">
                     {e.title}
                   </h3>
 
@@ -450,27 +448,27 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-
-            {/* Footer */}
-            <div className="mt-20 flex flex-wrap items-center justify-center gap-10 border-t border-slate-200 pt-8">
-              {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="text-lg font-semibold text-slate-500 transition hover:text-slate-900"
-                >
-                  {href.
-                 href
-  .replace("#", "")
-  .replace("-", " ")
-  .replace(/\b\w/g, (c) => c.toUpperCase())
-                  }
-                </Link>
-              ))}
-            </div>
           </div>
         </section>
 
+        {/* FOOTER */}
+        <footer className="border-t border-slate-200 py-10">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-10 px-6 lg:px-8">
+
+            {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-lg font-medium text-slate-500 transition hover:text-slate-900"
+              >
+                {href
+                  .replace("#", "")
+                  .replace("-", " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase())}
+              </Link>
+            ))}
+          </div>
+        </footer>
       </main>
     </>
   );
