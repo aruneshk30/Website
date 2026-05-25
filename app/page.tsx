@@ -106,7 +106,7 @@ const contactLinks = [
     hoverBg: "hover:bg-green-50",
   },
   {
-    href: "https://calendly.com/https://calendly.com/aruneshk30/30min",
+    href: "https://calendly.com/aruneshk30/30min?month=2026-05",
     label: "Book a call",
     sub: "Calendly",
     emoji: "📅",
