@@ -9,6 +9,90 @@ import {
   Sparkles,
   Blocks,
 } from "lucide-react";
+
+// ── DATA ──────────────────────────────────────────────────
+
+const stats = [
+  { value: "₹1.5Cr+", label: "monthly revenue impact" },
+  { value: "500+", label: "bundle SKUs automated" },
+  { value: "20→14%", label: "ATC diversion reduced" },
+  { value: "30%", label: "sales quoting improvement" },
+];
+
+const previews = [
+  {
+    href: "#work",
+    label: "Projects",
+    desc: "Case studies on checkout, pricing, and real-time tooling.",
+  },
+  {
+    href: "#ai-systems",
+    label: "AI Systems",
+    desc: "PM Hub and CRO workflows built for leverage.",
+  },
+  {
+    href: "#experience",
+    label: "Experience",
+    desc: "Sierra Living Concepts and BoostGrad journey.",
+  },
+];
+
+const projects = [
+  {
+    title: "Checkout Funnel Optimization",
+    desc: "Reduced checkout friction using behavioral analysis and UX improvements.",
+    impact: "ATC diversion 20% → 14%",
+    Icon: TrendingUp,
+  },
+  {
+    title: "Automated SKU Pricing System",
+    desc: "Automated pricing cascade for 500+ bundled SKUs.",
+    impact: "~₹35–40L protected",
+    Icon: Monitor,
+  },
+  {
+    title: "Real-Time Pricing Calculator",
+    desc: "Built live quoting flow for sales operations.",
+    impact: "~₹1.5Cr monthly revenue",
+    Icon: Briefcase,
+  },
+];
+
+const aiSystems = [
+  {
+    title: "PM Research & Strategy Hub",
+    desc: "AI-assisted operating system for research and prioritization.",
+    href: "/ai-systems/pm-hub",
+    Icon: Sparkles,
+  },
+  {
+    title: "9-Agent CRO Workflow",
+    desc: "Multi-agent workflow for CRO analysis and experimentation.",
+    href: "/ai-systems/9-agent-cro",
+    Icon: Blocks,
+  },
+];
+
+const experience = [
+  {
+    title: "Sierra Living Concepts",
+    role: "Product Manager",
+    desc: "Driving pricing systems, checkout improvements, and sales tooling.",
+  },
+  {
+    title: "BoostGrad",
+    role: "Growth & Analytics",
+    desc: "Focused on analytics, dashboards, and growth systems.",
+  },
+];
+
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <p className="mb-4 text-sm font-bold uppercase tracking-[0.3em] text-indigo-500">
+      {children}
+    </p>
+  );
+}
 function SectionTitle({ children }: { children: string }) {
   return (
     <h2 className="text-5xl font-bold tracking-tight text-slate-950 md:text-6xl">
