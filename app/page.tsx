@@ -183,7 +183,7 @@ export default function HomePage() {
               </div>
 
               {/* Main Heading */}
-              <h1 className="max-w-4xl text-6xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-7xl lg:text-8xl">
+              <h1 className="max-w-3xl text-5xl font-bold leading-[1.07] tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
                 Product Manager
                 <span className="text-slate-300"> | </span>
                 <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
