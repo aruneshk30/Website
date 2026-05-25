@@ -1,465 +1,653 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import {
   ArrowRight,
-  Blocks,
   Briefcase,
-  CalendarDays,
-  ChevronRight,
-  Linkedin,
-  Mail,
-  MessageCircle,
+  Monitor,
+  TrendingUp,
   Sparkles,
-  type LucideIcon,
+  Blocks,
+  Mail,
+  Linkedin,
+  MessageCircle,
+  CalendarDays,
 } from "lucide-react";
 
+// ── DATA ──────────────────────────────────────────────────
 const stats = [
+  { value: "₹1.5Cr+", label: "monthly revenue impact" },
+  { value: "500+", label: "bundle SKUs automated" },
+  { value: "20→14%", label: "ATC diversion reduced" },
+  { value: "30%", label: "sales quoting improvement" },
+];
+
+const previews = [
   {
-    value: "₹1.5Cr+",
-    label: "monthly revenue impact",
-    tint: "from-blue-50 to-indigo-50",
+    href: "#work",
+    label: "Projects",
+    desc: "Case studies on checkout, pricing, and real-time tooling.",
+    badge: "Checkout • Pricing • Calculator",
   },
   {
-    value: "500+",
-    label: "bundle SKUs automated",
-    tint: "from-emerald-50 to-teal-50",
+    href: "#ai-systems",
+    label: "AI Systems",
+    desc: "PM Hub and 9-Agent CRO Workflow built for leverage.",
+    badge: "Research hub • CRO workflow",
   },
   {
-    value: "20→14%",
-    label: "ATC diversion reduced",
-    tint: "from-amber-50 to-orange-50",
-  },
-  {
-    value: "30%",
-    label: "sales quoting improvement",
-    tint: "from-violet-50 to-fuchsia-50",
+    href: "#experience",
+    label: "Experience",
+    desc: "Sierra Living Concepts and BoostGrad — full journey.",
+    badge: "Sierra • BoostGrad",
   },
 ];
 
-const projectPreviews = [
+const projects = [
   {
     title: "Checkout Funnel Optimization",
-    summary:
-      "Reduced friction in checkout using behavioral analysis, Clarity recordings, and UX improvements.",
+    desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.",
     impact: "ATC diversion 20% → 14%",
+    Icon: TrendingUp,
   },
   {
     title: "Automated SKU Pricing System",
-    summary:
-      "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
-    impact: "~₹35–40 lakh monthly exposure protected",
+    desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
+    impact: "~₹35–40L monthly exposure protected",
+    Icon: Monitor,
   },
   {
     title: "Real-Time Pricing Calculator",
-    summary:
-      "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
+    desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
     impact: "~₹1.5Cr additional monthly revenue",
+    Icon: Briefcase,
   },
 ];
 
-const systems: {
-  icon: LucideIcon;
-  title: string;
-  summary: string;
-  href: string;
-}[] = [
+const aiSystems = [
   {
-    icon: Sparkles,
     title: "PM Research & Strategy Hub",
-    summary:
-      "AI-assisted product operating system for research, PRDs, prioritization, and stakeholder communication.",
+    desc: "AI-assisted product operating system for research, PRDs, prioritization, funnel analysis, hypothesis testing, and stakeholder communication — 17 modules in one place.",
     href: "/ai-systems/pm-hub",
+    Icon: Sparkles,
   },
   {
-    icon: Blocks,
     title: "9-Agent CRO Workflow",
-    summary:
-      "Multi-agent workflow for conversion analysis, UX diagnosis, and experimentation planning.",
+    desc: "Multi-agent workflow for conversion analysis, UX diagnosis, and experimentation planning. Each agent handles a specific layer of the CRO stack.",
     href: "/ai-systems/9-agent-cro",
+    Icon: Blocks,
   },
 ];
 
 const experience = [
   {
     title: "Sierra Living Concepts",
-    summary:
-      "Product Manager driving pricing systems, checkout improvements, and real-time sales tooling.",
-    href: "/experience",
+    role: "Product Manager",
+    desc: "Driving pricing systems, checkout improvements, and real-time sales tooling. Working across product, engineering, and growth to ship revenue-impacting features.",
   },
   {
     title: "BoostGrad",
-    summary:
-      "Digital strategy and growth analytics work focused on insights, dashboards, and engagement.",
-    href: "/experience",
+    role: "Growth & Analytics",
+    desc: "Digital strategy and growth analytics focused on insights, dashboards, and student engagement. Built data pipelines and reporting systems.",
   },
 ];
 
-function SectionHeading({
-  eyebrow,
-  title,
-  subtitle,
-}: {
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-}) {
-  return (
-    <div className="max-w-3xl">
-      {eyebrow ? (
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
-          {eyebrow}
-        </p>
-      ) : null}
-      <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
-        {title}
-      </h2>
-      {subtitle ? (
-        <p className="mt-4 text-base leading-7 text-slate-600">{subtitle}</p>
-      ) : null}
-    </div>
-  );
-}
+const contactLinks = [
+  {
+    href: "https://linkedin.com/in/arunesh-k",
+    label: "LinkedIn",
+    sub: "arunesh-k",
+    emoji: "in",
+    hoverBorder: "hover:border-indigo-300",
+    hoverBg: "hover:bg-indigo-50",
+  },
+  {
+    href: "https://wa.me/919012666192",
+    label: "WhatsApp",
+    sub: "+91 90126 66192",
+    emoji: "💬",
+    hoverBorder: "hover:border-green-300",
+    hoverBg: "hover:bg-green-50",
+  },
+  {
+    href: "https://calendly.com/your-link",
+    label: "Book a call",
+    sub: "Calendly",
+    emoji: "📅",
+    hoverBorder: "hover:border-amber-300",
+    hoverBg: "hover:bg-amber-50",
+  },
+];
 
-function IconButton({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: React.ReactNode;
-}) {
+// ── COMPONENTS ────────────────────────────────────────────
+function SectionLabel({ children }: { children: string }) {
   return (
-    <a
-      href={href}
-      aria-label={label}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noreferrer" : undefined}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950"
-    >
+    <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-500">
       {children}
-    </a>
+    </p>
   );
 }
 
-function PreviewCard({
-  title,
-  summary,
-  href,
-  badge,
-}: {
-  title: string;
-  summary: string;
-  href: string;
-  badge?: string;
-}) {
+function SectionTitle({ children }: { children: string }) {
   return (
-    <Link
-      href={href}
-      className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-    >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
-        Preview
-      </p>
-      <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
-        {title}
-      </h3>
-      <p className="mt-4 text-sm leading-7 text-slate-600">{summary}</p>
-      {badge ? (
-        <p className="mt-5 text-sm font-medium text-slate-500">{badge}</p>
-      ) : null}
-      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-        Open page <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-      </div>
-    </Link>
+    <h2 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+      {children}
+    </h2>
   );
 }
 
+function SectionSub({ children }: { children: string }) {
+  return (
+    <p className="mt-4 max-w-xl text-base leading-7 text-slate-500">
+      {children}
+    </p>
+  );
+}
+
+// ── PAGE ─────────────────────────────────────────────────
 export default function HomePage() {
+  const particlesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = particlesRef.current;
+    if (!container) return;
+    const colors = ["#c7d2fe", "#bae6fd", "#d1fae5", "#fde68a", "#fbcfe8"];
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement("div");
+      const size = Math.random() * 5 + 3;
+      p.style.cssText = `
+        position:absolute;border-radius:50%;pointer-events:none;
+        width:${size}px;height:${size}px;
+        background:${colors[Math.floor(Math.random() * colors.length)]};
+        left:${Math.random() * 100}%;
+        animation:floatUp ${Math.random() * 18 + 14}s linear ${-Math.random() * 20}s infinite;
+        opacity:${Math.random() * 0.5 + 0.2};
+      `;
+      container.appendChild(p);
+    }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("opacity-100", "translate-y-0");
+        }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".fade-section").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_42%,#f8fafc_100%)]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.12),_transparent_28%),radial-gradient(circle_at_top_right,_rgba(59,130,246,0.10),_transparent_24%),radial-gradient(circle_at_center,_rgba(148,163,184,0.08),_transparent_35%)]" />
-        <div className="absolute right-[10%] top-20 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-[100px]" />
-        <div className="absolute left-[12%] top-32 h-56 w-56 rounded-full bg-indigo-200/20 blur-3xl" />
+    <>
+      {/* Keyframes */}
+      <style>{`
+        @keyframes floatUp {
+          0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+          10%  { opacity: 1; }
+          90%  { opacity: 0.5; }
+          100% { transform: translateY(-80px) scale(1); opacity: 0; }
+        }
+        @keyframes drift {
+          0%,100% { transform: translate(0,0) scale(1); }
+          33%     { transform: translate(40px,-30px) scale(1.05); }
+          66%     { transform: translate(-20px,40px) scale(0.95); }
+        }
+        @keyframes spinRing {
+          to { transform: translate(-50%,-50%) rotate(360deg); }
+        }
+        @keyframes pulseGlow {
+          0%,100% { opacity:1; transform:scale(1); }
+          50%     { opacity:0.4; transform:scale(1.5); }
+        }
+        @keyframes pulseDot {
+          0%,100% { box-shadow:0 0 0 0 rgba(34,197,94,0.4); }
+          50%     { box-shadow:0 0 0 7px rgba(34,197,94,0); }
+        }
+        .fade-section {
+          opacity:0; transform:translateY(24px);
+          transition:opacity 0.65s ease, transform 0.65s ease;
+        }
+      `}</style>
 
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
-          <div className="relative z-10">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-500 shadow-sm backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              Arunesh Kumar
-            </div>
+      {/* ── FIXED BACKGROUND ── */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        {/* Grid */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(99,102,241,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.04) 1px,transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        {/* Dots */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle,rgba(99,102,241,0.1) 1px,transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        {/* Orbs */}
+        <div
+          className="absolute -top-48 -right-24 h-[600px] w-[600px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle,#c7d2fe,#818cf8)",
+            filter: "blur(80px)",
+            animation: "drift 18s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute bottom-20 -left-24 h-[380px] w-[380px] rounded-full opacity-25"
+          style={{
+            background: "radial-gradient(circle,#bae6fd,#38bdf8)",
+            filter: "blur(80px)",
+            animation: "drift 22s ease-in-out -7s infinite",
+          }}
+        />
+        <div
+          className="absolute top-1/2 right-1/4 h-[300px] w-[300px] rounded-full opacity-20"
+          style={{
+            background: "radial-gradient(circle,#d1fae5,#34d399)",
+            filter: "blur(70px)",
+            animation: "drift 26s ease-in-out -14s infinite",
+          }}
+        />
+        {/* Particles container */}
+        <div ref={particlesRef} className="absolute inset-0" />
+      </div>
 
-            <h1 className="max-w-4xl text-5xl font-semibold leading-[1.05] tracking-tight text-slate-950 md:text-7xl">
-              Product Manager
-              <span className="text-slate-400"> | </span>
-              <span className="bg-gradient-to-r from-slate-900 via-indigo-700 to-blue-500 bg-clip-text text-transparent">
-                Growth & Digital Strategy
-              </span>
-            </h1>
+      <main className="relative z-10">
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 md:text-xl">
-              I build revenue-driving product experiences across e-commerce
-              systems, experimentation, and AI-powered workflows.
-            </p>
+        {/* ── HERO ── */}
+        <section
+          id="home"
+          className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-24 lg:px-8"
+        >
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/work"
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-800 px-6 py-3.5 text-sm font-medium text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
-              >
-                View Work <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/connect"
-                className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-sm transition hover:border-indigo-200 hover:bg-indigo-50"
-              >
-                Connect
-              </Link>
-            </div>
+            {/* Left */}
+            <div className="fade-section">
+              {/* Badge */}
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
+                <span
+                  className="h-2 w-2 rounded-full bg-emerald-500"
+                  style={{ animation: "pulseDot 2s ease-in-out infinite" }}
+                />
+                Arunesh Kumar · Product Manager
+              </div>
 
-            <div className="mt-10 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className={`rounded-[1.75rem] border border-slate-200/80 bg-gradient-to-br ${stat.tint} p-5 shadow-md backdrop-blur-sm transition hover:-translate-y-1 hover:shadow-xl`}
+              {/* Headline */}
+              <h1 className="max-w-3xl text-5xl font-bold leading-[1.07] tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
+                Product Manager
+                <span className="text-slate-300"> | </span>
+                <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
+                  Growth &amp; Digital Strategy
+                </span>
+              </h1>
+
+              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-500 md:text-xl">
+                I build revenue-driving product experiences across e-commerce
+                systems, experimentation, and AI-powered workflows.
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="#work"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
                 >
-                  <p className="text-2xl font-semibold tracking-tight text-slate-950">
-                    {stat.value}
+                  View Work <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="#connect"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur transition hover:border-indigo-200 hover:bg-indigo-50"
+                >
+                  Connect
+                </Link>
+              </div>
+
+              {/* Stats */}
+              <div className="mt-10 grid max-w-lg grid-cols-2 gap-3">
+                {stats.map((s, i) => {
+                  const bg = [
+                    "from-blue-50 to-indigo-50",
+                    "from-emerald-50 to-teal-50",
+                    "from-amber-50 to-orange-50",
+                    "from-violet-50 to-fuchsia-50",
+                  ][i];
+                  return (
+                    <div
+                      key={s.label}
+                      className={`rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br ${bg} p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
+                    >
+                      <p className="text-2xl font-bold tracking-tight text-slate-950">
+                        {s.value}
+                      </p>
+                      <p className="mt-1 text-sm text-slate-500">{s.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right — profile image with rings */}
+            <div className="relative hidden lg:flex justify-center">
+              <div className="relative flex h-[520px] w-[460px] items-center justify-center">
+                {/* Rings */}
+                {[
+                  { size: 360, dur: "32s", dir: "normal" },
+                  { size: 460, dur: "48s", dir: "reverse" },
+                ].map((r, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full border border-indigo-200/40"
+                    style={{
+                      width: r.size,
+                      height: r.size,
+                      top: "50%",
+                      left: "50%",
+                      animation: `spinRing ${r.dur} linear infinite`,
+                      animationDirection: r.dir as any,
+                    }}
+                  />
+                ))}
+                {/* Glow dots */}
+                {[
+                  { top: 60, right: 80, color: "#818cf8", delay: "0s" },
+                  { top: 320, left: 60, color: "#38bdf8", delay: "-1.5s" },
+                ].map((d, i) => (
+                  <div
+                    key={i}
+                    className="absolute h-3 w-3 rounded-full"
+                    style={{
+                      background: d.color,
+                      boxShadow: `0 0 20px ${d.color}`,
+                      top: (d as any).top,
+                      right: (d as any).right,
+                      left: (d as any).left,
+                      animation: `pulseGlow 3s ease-in-out ${d.delay} infinite`,
+                    }}
+                  />
+                ))}
+                {/* Image */}
+                <div className="relative z-10">
+                  <Image
+                    src="/profile.png"
+                    alt="Arunesh Kumar"
+                    width={400}
+                    height={460}
+                    priority
+                    className="rounded-3xl object-contain drop-shadow-2xl"
+                  />
+                </div>
+                {/* Tag */}
+                <div className="absolute -left-6 bottom-10 z-20 rounded-2xl border border-slate-200 bg-white/95 px-5 py-4 shadow-xl backdrop-blur">
+                  <p className="text-sm font-bold text-slate-900">
+                    Product · Growth · Systems
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-slate-600">
-                    {stat.label}
+                  <p className="mt-1 max-w-[200px] text-sm leading-6 text-slate-500">
+                    Building revenue-driving experiences and AI workflows.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── OVERVIEW ── */}
+        <section className="bg-white/70 py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="fade-section mb-12">
+              <SectionLabel>Overview</SectionLabel>
+              <SectionTitle>Three spaces, one story</SectionTitle>
+              <SectionSub>
+                Dedicated pages for projects, AI systems, and experience — scroll
+                down for a preview of each.
+              </SectionSub>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {previews.map((p) => (
+                <Link
+                  key={p.label}
+                  href={p.href}
+                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                    Preview
+                  </p>
+                  <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-950">
+                    {p.label}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-500">{p.desc}</p>
+                  <p className="mt-4 text-xs font-medium text-slate-400">{p.badge}</p>
+                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    Open <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PROJECTS ── */}
+        <section id="work" className="py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="fade-section mb-12">
+              <SectionLabel>Projects</SectionLabel>
+              <SectionTitle>Impact through product</SectionTitle>
+              <SectionSub>
+                Three projects, measurable outcomes — driven by data, UX insight,
+                and systematic thinking.
+              </SectionSub>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {projects.map((p) => (
+                <div
+                  key={p.title}
+                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                        Case Study
+                      </p>
+                      <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-950">
+                        {p.title}
+                      </h3>
+                    </div>
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-500 transition group-hover:border-slate-300 group-hover:bg-white">
+                      <p.Icon className="h-5 w-5" />
+                    </div>
+                  </div>
+                  <p className="text-sm leading-7 text-slate-500">{p.desc}</p>
+                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    {p.impact}{" "}
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
+        </section>
 
-          {/* HERO IMAGE WITH SUBTLE ANIMATION */}
-          <div className="relative mx-auto w-full max-w-[560px] lg:translate-x-8">
-            <div className="absolute right-10 top-10 h-[420px] w-[420px] rounded-full bg-slate-300/20 blur-3xl" />
-            <div className="absolute right-12 top-16 h-[360px] w-[360px] rounded-full bg-indigo-100/40 blur-[90px]" />
-
-            <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_72%_28%,rgba(99,102,241,0.18),transparent_24%),radial-gradient(circle_at_35%_75%,rgba(59,130,246,0.14),transparent_22%),linear-gradient(135deg,rgba(255,255,255,0.24),rgba(255,255,255,0))]" />
-            <div className="absolute inset-0 rounded-[2.5rem] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.55)_50%,transparent_100%)] opacity-30 animate-pulse" />
-            <div className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle,_rgba(255,255,255,0.55)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
-
-            <div className="absolute right-8 top-8 h-[380px] w-[380px] rounded-full border border-indigo-200/70 animate-[spin_36s_linear_infinite]" />
-            <div className="absolute right-2 top-2 h-[460px] w-[460px] rounded-full border border-slate-200/70 animate-[spin_52s_linear_infinite] [animation-direction:reverse]" />
-            <div className="absolute right-6 top-20 h-3 w-3 rounded-full bg-indigo-400/70 shadow-[0_0_30px_rgba(99,102,241,0.8)] animate-pulse" />
-            <div className="absolute left-10 top-28 h-2 w-2 rounded-full bg-sky-400/70 shadow-[0_0_20px_rgba(56,189,248,0.8)] animate-pulse" />
-
-            <div className="relative z-10">
-              <Image
-                src="/profile.png"
-                alt="Arunesh Kumar"
-                width={1272}
-                height={1450}
-                priority
-                className="w-full object-contain drop-shadow-[0_35px_40px_rgba(15,23,42,0.18)]"
-              />
+        {/* ── AI SYSTEMS ── */}
+        <section id="ai-systems" className="border-y border-slate-200 bg-white/70 py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="fade-section mb-12">
+              <SectionLabel>AI Systems</SectionLabel>
+              <SectionTitle>AI systems built for leverage</SectionTitle>
+              <SectionSub>
+                Two AI-powered systems designed to amplify PM and growth workflows
+                through structured intelligence.
+              </SectionSub>
             </div>
-
-            <div className="absolute bottom-6 left-0 z-20 rounded-[1.5rem] border border-slate-200 bg-white/90 px-5 py-4 shadow-xl backdrop-blur-md">
-              <p className="text-sm font-semibold text-slate-900">
-                Product · Growth · Systems
-              </p>
-              <p className="mt-1 max-w-[260px] text-sm leading-6 text-slate-600">
-                Building revenue-driving product experiences and AI-powered
-                workflows.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* THREE SPACES */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionHeading
-            title="Three spaces, one story"
-            subtitle="Dedicated pages for projects, AI systems, and experience — the homepage only gives a preview."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            <PreviewCard
-              href="/work"
-              title="Projects"
-              summary="Quick glimpse of case studies. Open the page to see the full problem, solution, and impact story."
-              badge="Checkout • Pricing • Calculator"
-            />
-            <PreviewCard
-              href="/ai-systems"
-              title="AI Systems"
-              summary="PM Hub and 9-Agent CRO Workflow. Open the page to enter each system."
-              badge="Research hub • CRO workflow"
-            />
-            <PreviewCard
-              href="/experience"
-              title="Experience"
-              summary="Short preview of Sierra and BoostGrad. Open the page for the full journey."
-              badge="Sierra • BoostGrad"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECT PREVIEW */}
-      <section className="bg-white/70 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionHeading
-            title="Impact through product"
-            subtitle="A short glimpse here — click into the Work page for the full case studies."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {projectPreviews.map((item) => (
-              <Link
-                key={item.title}
-                href="/work"
-                className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">
-                      Preview
-                    </p>
-                    <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <div className="rounded-full border border-slate-200 bg-slate-50 p-3 text-slate-600 transition group-hover:border-slate-300 group-hover:bg-white group-hover:text-slate-950">
-                    <Briefcase className="h-5 w-5" />
-                  </div>
-                </div>
-                <p className="mt-5 text-sm leading-7 text-slate-600">
-                  {item.summary}
-                </p>
-                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-                  {item.impact} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI SYSTEMS PREVIEW */}
-      <section className="border-y border-slate-200 bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionHeading
-            title="AI systems built for leverage"
-            subtitle="Two systems, two deep-dive pages. The homepage stays light and points people to the right place."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            {systems.map((item) => {
-              const Icon = item.icon;
-              return (
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              {aiSystems.map((s) => (
                 <Link
-                  key={item.title}
-                  href={item.href}
-                  className="rounded-[1.75rem] border border-slate-200 bg-[#f8fafc] p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  key={s.title}
+                  href={s.href}
+                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="rounded-2xl border border-slate-200 bg-white p-3 text-slate-700 shadow-sm">
-                      <Icon className="h-6 w-6" />
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm">
+                      <s.Icon className="h-6 w-6" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-slate-950">
-                        {item.title}
+                      <h3 className="text-2xl font-bold tracking-tight text-slate-950">
+                        {s.title}
                       </h3>
-                      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
-                        {item.summary}
+                      <p className="mt-3 text-sm leading-7 text-slate-500">
+                        {s.desc}
                       </p>
                     </div>
                   </div>
-                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-                    Open system <ArrowRight className="h-4 w-4" />
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    Open system{" "}
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* EXPERIENCE PREVIEW */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionHeading
-            title="Experience snapshot"
-            subtitle="A quick preview here — the full timeline lives on the Experience page."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            {experience.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
-                  Preview
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-slate-600">
-                  {item.summary}
-                </p>
-                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-                  Open experience <ArrowRight className="h-4 w-4" />
+        {/* ── EXPERIENCE ── */}
+        <section id="experience" className="py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="fade-section mb-12">
+              <SectionLabel>Experience</SectionLabel>
+              <SectionTitle>Experience snapshot</SectionTitle>
+              <SectionSub>
+                Two roles, both focused on measurable product and growth outcomes.
+              </SectionSub>
+            </div>
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              {experience.map((e, i) => (
+                <div
+                  key={e.title}
+                  className="fade-section rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                    {i === 0 ? "Current Role" : "Previous Role"}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-950">
+                    {e.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-slate-500">{e.desc}</p>
+                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                    {e.role} <ArrowRight className="h-4 w-4" />
+                  </div>
                 </div>
-              </Link>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FOOTER */}
-      <section className="border-t border-slate-200 bg-[linear-gradient(180deg,#eef2ff_0%,#f8fafc_100%)] py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-10 rounded-[2rem] border border-slate-200 bg-white/85 p-8 shadow-xl backdrop-blur md:grid-cols-4">
-            <div>
-              <h3 className="text-xl font-semibold text-slate-950">Arunesh Kumar</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                Product Manager building systems that improve growth, experience,
-                and measurable business outcomes.
+        {/* ── CONNECT / FOOTER ── */}
+        <section
+          id="connect"
+          className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 pb-0 pt-20"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            {/* Heading */}
+            <div className="fade-section mb-12 text-center">
+              <SectionLabel>Let's Talk</SectionLabel>
+              <SectionTitle>Get in touch</SectionTitle>
+              <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-500">
+                Open to product roles, collaborations, and conversations about
+                growth, systems, and AI.
               </p>
             </div>
 
-            <div>
-              <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">
-                Pages
-              </h4>
-              <div className="mt-4 space-y-3 text-sm text-slate-600">
-                <Link href="#home" className="block hover:text-slate-950">Home</Link>
-                <Link href="#projects" className="block hover:text-slate-950">Projects</Link>
-                <Link href="#systems" className="block hover:text-slate-950">AI Systems</Link>
-                <Link href="#experience" className="block hover:text-slate-950">Experience</Link>
+            {/* Single connect card */}
+            <div className="fade-section mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-2xl shadow-slate-200">
+              <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1px_1fr] lg:items-center">
+
+                {/* Left — bio + CTAs */}
+                <div>
+                  <p className="text-2xl font-bold tracking-tight text-slate-950">
+                    Arunesh Kumar
+                  </p>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-indigo-500">
+                    Product Manager
+                  </p>
+                  <p className="mt-5 text-sm leading-7 text-slate-500">
+                    Building revenue-driving product experiences across e-commerce
+                    systems, experimentation, and AI-powered workflows.
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <a
+                      href="mailto:aruneshk30@gmail.com"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
+                    >
+                      <Mail className="h-4 w-4" /> Email me
+                    </a>
+                    <a
+                      href="/Arunesh_Kumar_Resume.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50"
+                    >
+                      ↓ Resume
+                    </a>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="hidden bg-slate-200 lg:block" style={{ minHeight: 180 }} />
+
+                {/* Right — social links */}
+                <div>
+                  <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                    Find me on
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {contactLinks.map((c) => (
+                      <a
+                        key={c.label}
+                        href={c.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 no-underline transition hover:translate-x-1 ${c.hoverBorder} ${c.hoverBg}`}
+                      >
+                        <span className="text-xl">{c.emoji}</span>
+                        <div>
+                          <p className="text-sm font-semibold">{c.label}</p>
+                          <p className="text-xs text-slate-400">{c.sub}</p>
+                        </div>
+                        <ArrowRight className="ml-auto h-4 w-4 text-slate-300" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div>
-              <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">
-                Resources
-              </h4>
-              <div className="mt-4 space-y-4 text-sm text-slate-600">
-                <a href="/Arunesh_Kumar_Resume.pdf" target="_blank" rel="noreferrer" className="block transition hover:text-indigo-600">Resume →</a>
-                <a href="mailto:aruneshk30@gmail.com" className="block transition hover:text-indigo-600">aruneshk30@gmail.com</a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Connect</h4>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <IconButton href="mailto:aruneshk30@gmail.com" label="Email"><Mail className="h-5 w-5" /></IconButton>
-                <IconButton href="https://linkedin.com/in/arunesh-k" label="LinkedIn"><Linkedin className="h-5 w-5" /></IconButton>
-                <IconButton href="https://wa.me/919012666192" label="WhatsApp"><MessageCircle className="h-5 w-5" /></IconButton>
-                <IconButton href="https://calendly.com/your-link" label="Book a meeting"><CalendarDays className="h-5 w-5" /></IconButton>
+            {/* Footer bar */}
+            <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 py-6">
+              <p className="text-xs text-slate-400">
+                © 2025 Arunesh Kumar · Product Manager
+              </p>
+              <div className="flex gap-6">
+                {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="text-xs text-slate-400 transition hover:text-slate-700"
+                  >
+                    {href.replace("#", "").replace("-", " ") || "Home"}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
