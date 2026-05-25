@@ -240,7 +240,7 @@ export default function HomePage() {
                   href="/connect"
                   className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
                 >
-                  Connect
+                  Connect <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
 
