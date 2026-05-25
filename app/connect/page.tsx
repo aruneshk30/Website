@@ -40,7 +40,7 @@ export default function ConnectPage() {
     <main>
 
       {/* Hero */}
-      <section className="border-b border-slate-200 py-20">
+      <section className="border-b border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-indigo-500">Connect</p>
@@ -75,7 +75,7 @@ export default function ConnectPage() {
       </section>
 
       {/* Reach out + Resume */}
-      <section className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-16">
+      <section className="border-t border-slate-200 bg-[#eef2f7] py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_1px_1fr]">
 
