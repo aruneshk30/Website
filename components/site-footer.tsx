@@ -1,27 +1,6 @@
 import Link from "next/link";
 import { CalendarDays, Linkedin, Mail, MessageCircle } from "lucide-react";
 
-const footerColumns = [
-  {
-    title: "Pages",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "Projects", href: "/Projects" },
-      { label: "AI Systems", href: "/ai-systems" },
-      { label: "Experience", href: "/experience" },
-    ],
-  },
-  {
-    title: "Connect",
-    links: [
-      { label: "Email", href: "mailto:aruneshk30@gmail.com" },
-      { label: "LinkedIn", href: "https://linkedin.com/in/arunesh-k" },
-      { label: "WhatsApp", href: "https://wa.me/919012666192" },
-      { label: "Book a Meeting", href: "https://calendly.com/your-link" },
-    ],
-  },
-];
-
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Email: Mail,
   LinkedIn: Linkedin,
@@ -29,11 +8,27 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Book a Meeting": CalendarDays,
 };
 
+const pageLinks = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "AI Systems", href: "/ai-systems" },
+  { label: "Experience", href: "/experience" },
+];
+
+const connectLinks = [
+  { label: "Email", href: "mailto:aruneshk30@gmail.com" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/arunesh-k" },
+  { label: "WhatsApp", href: "https://wa.me/919012666192" },
+  { label: "Book a Meeting", href: "https://calendly.com/aruneshk30/30min" },
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-[#eef2f7]">
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-3">
+
+          {/* Brand */}
           <div>
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-sm font-semibold text-white">
               AK
@@ -44,32 +39,24 @@ export function Footer() {
             </p>
           </div>
 
-          {footerColumns.map((column) => (
-            <div key={column.title}>
-              <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">{column.title}</h4>
-              <div className="mt-4 space-y-3 text-sm text-slate-600">
-                {column.links.map((link) => (
-                  <a key={link.label} href={link.href} className="block transition hover:text-slate-950">
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-
+          {/* Pages */}
           <div>
-            <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Quick Contact</h4>
+            <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Pages</h4>
+            <div className="mt-4 space-y-3 text-sm text-slate-600">
+              {pageLinks.map((link) => (
+                <a key={link.label} href={link.href} className="block transition hover:text-slate-950">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Connect */}
+          <div>
+            <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Connect</h4>
             <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600">
-              {["Email", "LinkedIn", "WhatsApp", "Book a Meeting"].map((label) => {
+              {connectLinks.map(({ label, href }) => {
                 const Icon = iconMap[label];
-                const href =
-                  label === "Email"
-                    ? "mailto:aruneshk30@gmail.com"
-                    : label === "LinkedIn"
-                      ? "https://linkedin.com/in/arunesh-k"
-                      : label === "WhatsApp"
-                        ? "https://wa.me/919012666192"
-                        : "https://calendly.com/your-link";
                 return (
                   <a key={label} href={href} className="flex items-center gap-3 transition hover:text-slate-950">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -81,6 +68,7 @@ export function Footer() {
               })}
             </div>
           </div>
+
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-slate-300 pt-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
