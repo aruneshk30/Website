@@ -179,17 +179,17 @@ export default function HomePage() {
                   className="h-2.5 w-2.5 rounded-full bg-emerald-500"
                   style={{ animation: "pulseDot 2s ease-in-out infinite" }}
                 />
-                Arunesh Kumar · Product Manager
+                Arunesh Kumar
               </div>
 
               {/* Main Heading */}
-              <h1 className="max-w-3xl text-5xl font-bold leading-[1.07] tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
-                Product Manager
-                <span className="text-slate-300"> | </span>
-                <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
-                  Growth &amp; Digital Strategy
-                </span>
-              </h1>
+              <h1 className="max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
+  Product Manager <br />
+                
+  <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
+    Growth &amp; Digital Strategy
+  </span>
+</h1>
 
               <p className="mt-8 max-w-2xl text-xl leading-9 text-slate-500 md:text-2xl">
                 I build revenue-driving product experiences across e-commerce
@@ -459,7 +459,12 @@ export default function HomePage() {
                   href={href}
                   className="text-lg font-semibold text-slate-500 transition hover:text-slate-900"
                 >
-                  {href.replace("#", "").replace("-", " ")}
+                  {href.
+                 href
+  .replace("#", "")
+  .replace("-", " ")
+  .replace(/\b\w/g, (c) => c.toUpperCase())
+                  }
                 </Link>
               ))}
             </div>
