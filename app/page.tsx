@@ -8,12 +8,11 @@ import {
   TrendingUp,
   Sparkles,
   Blocks,
-  Github,
   Linkedin,
-  Twitter,
   Mail,
   FileText,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────
@@ -84,6 +83,7 @@ const projects = [
     title: "Checkout Funnel Optimization",
     desc: "Reduced friction across the checkout journey using behavioral analysis and UX optimization.",
     impact: "ATC diversion reduced",
+    href: "/projects/checkout-funnel-optimization",
     Icon: TrendingUp,
     accent: "from-violet-500 to-indigo-600",
     iconBg: "bg-gradient-to-br from-violet-100 to-indigo-100",
@@ -95,6 +95,7 @@ const projects = [
     title: "Automated SKU Pricing",
     desc: "Built automated pricing logic for bundled and configurable products at scale.",
     impact: "500+ SKUs automated",
+    href: "/projects/automated-sku-pricing",
     Icon: Monitor,
     accent: "from-blue-500 to-cyan-600",
     iconBg: "bg-gradient-to-br from-blue-100 to-cyan-100",
@@ -106,6 +107,7 @@ const projects = [
     title: "Real-Time Sales Calculator",
     desc: "Created live pricing workflows for internal sales operations teams.",
     impact: "Revenue acceleration",
+    href: "/projects/real-time-sales-calculator",
     Icon: Briefcase,
     accent: "from-emerald-500 to-teal-600",
     iconBg: "bg-gradient-to-br from-emerald-100 to-teal-100",
@@ -119,7 +121,7 @@ const aiSystems = [
   {
     title: "PM Research Hub",
     desc: "AI-powered product management operating system for research and prioritization.",
-    href: "#",
+    href: "/ai-systems/pm-research-hub",
     Icon: Sparkles,
     accent: "from-violet-500 to-purple-600",
     iconBg: "bg-gradient-to-br from-violet-100 to-purple-100",
@@ -130,7 +132,7 @@ const aiSystems = [
   {
     title: "9-Agent CRO Workflow",
     desc: "Multi-agent experimentation and conversion-rate-optimization workflow system.",
-    href: "#",
+    href: "/ai-systems/9-agent-cro-workflow",
     Icon: Blocks,
     accent: "from-blue-500 to-indigo-600",
     iconBg: "bg-gradient-to-br from-blue-100 to-indigo-100",
@@ -162,10 +164,9 @@ const experience = [
 ];
 
 const connectLinks = [
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Github, label: "GitHub", href: "#" },
-  { icon: Twitter, label: "Twitter", href: "#" },
-  { icon: Mail, label: "Email", href: "mailto:arunesh@example.com" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/arunesh-k" },
+  { icon: Mail, label: "Email", href: "mailto:aruneshk30@gmail.com" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/919012666192" },
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -285,7 +286,7 @@ export default function HomePage() {
                   <ArrowRight className="h-5 w-5" />
                 </Link>
                 <Link
-                  href="mailto:arunesh@example.com"
+                  href="mailto:aruneshk30@gmail.com"
                   className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-7 py-3.5 text-base font-semibold text-slate-700 shadow-sm transition hover:scale-[1.02] hover:border-indigo-300"
                 >
                   <Mail className="h-5 w-5 text-indigo-500" />
@@ -408,8 +409,9 @@ export default function HomePage() {
 
             <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
               {projects.map((p) => (
-                <div
+                <Link
                   key={p.title}
+                  href={p.href}
                   className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   {/* Top accent bar */}
@@ -441,7 +443,7 @@ export default function HomePage() {
                     {p.impact}
                     <ArrowRight className={`h-4 w-4 ${p.iconColor}`} />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -588,7 +590,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex flex-col gap-4">
                   <Link
-                    href="/resume.pdf"
+                    href="/Arunesh_Kumar_Resume.pdf"
                     target="_blank"
                     className="group inline-flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700"
                   >
@@ -597,11 +599,11 @@ export default function HomePage() {
                     <ExternalLink className="ml-auto h-4 w-4 text-slate-400 group-hover:text-indigo-500" />
                   </Link>
                   <Link
-                    href="mailto:arunesh@example.com"
+                    href="mailto:aruneshk30@gmail.com"
                     className="group inline-flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700"
                   >
                     <Mail className="h-5 w-5 text-indigo-500" />
-                    arunesh@example.com
+                    aruneshk30@gmail.com
                     <ExternalLink className="ml-auto h-4 w-4 text-slate-400 group-hover:text-indigo-500" />
                   </Link>
                 </div>
