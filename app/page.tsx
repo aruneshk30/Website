@@ -1,3 +1,14 @@
+import Link from "next/link";
+import Image from "next/image";
+
+import {
+  ArrowRight,
+  Briefcase,
+  Monitor,
+  TrendingUp,
+  Sparkles,
+  Blocks,
+} from "lucide-react";
 function SectionTitle({ children }: { children: string }) {
   return (
     <h2 className="text-5xl font-bold tracking-tight text-slate-950 md:text-6xl">
