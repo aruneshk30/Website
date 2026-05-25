@@ -43,14 +43,6 @@ export default function AiSystemsPage() {
               </Link>
             ))}
           </div>
-
-          <div className="mt-12 rounded-[1.75rem] border border-slate-200 bg-[#f8fafc] p-7 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Navigation</p>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              From here you can go into the PM Hub or the 9-Agent CRO workflow. The PM Hub page also includes a small 9-agent teaser so the relationship between the two systems stays visible.
-            </p>
-          </div>
-        </div>
       </section>
     </main>
   );
