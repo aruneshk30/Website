@@ -348,7 +348,7 @@ export default function HomePage() {
                 <Link
                   key={p.label}
                   href={p.href}
-                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                 className="fade-section group flex flex-col rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
                     Preview
@@ -358,7 +358,7 @@ export default function HomePage() {
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-slate-500">{p.desc}</p>
                   <p className="mt-4 text-xs font-medium text-slate-400">{p.badge}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                  <div className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
                     Open <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
@@ -383,7 +383,7 @@ export default function HomePage() {
               <Link
                   key={p.title}
                   href="/projects"
-                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="fade-section group flex flex-col rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">
                     <div>
@@ -399,7 +399,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <p className="text-sm leading-7 text-slate-500">{p.desc}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                 <div className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
                     {p.impact}{" "}
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
@@ -474,7 +474,7 @@ export default function HomePage() {
                     {e.title}
                   </h3>
                   <p className="mt-4 text-sm leading-7 text-slate-500">{e.desc}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
+                  <div className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
                     {e.role} <ArrowRight className="h-4 w-4" />
                   </div>
                 </Link>
