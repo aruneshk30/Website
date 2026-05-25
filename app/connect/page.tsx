@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { CalendarDays, Linkedin, Mail, MessageCircle, ArrowRight, Download } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -60,11 +61,11 @@ export default function ConnectPage() {
                 {contactLinks.map(({ label, href }) => {
                   const Icon = iconMap[label];
                   return (
-                    
+                    <Link
                       key={label}
                       href={href}
-                      target={href.startsWith("http") ? "_blank" : undefined}
-                      rel={href.startsWith("http") ? "noreferrer" : undefined}
+                      target="_blank"
+                      rel="noreferrer"
                       className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:text-slate-950"
                     >
                       <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 shadow-sm">
@@ -72,7 +73,7 @@ export default function ConnectPage() {
                       </span>
                       {label}
                       <ArrowRight className="ml-auto h-4 w-4 text-slate-300" />
-                    </a>
+                    </Link>
                   );
                 })}
               </div>
@@ -87,14 +88,14 @@ export default function ConnectPage() {
                 <p className="mt-3 text-sm leading-7 text-slate-600">
                   A full summary of my work, impact, and experience as a Product Manager.
                 </p>
-                
+                <Link
                   href="/Arunesh_Kumar_Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-5 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
                 >
                   <Download className="h-4 w-4" /> Download Resume
-                </a>
+                </Link>
               </div>
 
               <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7 shadow-sm">
