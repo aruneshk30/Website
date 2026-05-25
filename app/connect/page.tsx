@@ -33,7 +33,6 @@ const openTo = [
 export default function ConnectPage() {
   return (
     <main>
-      {/* Hero */}
       <section className="border-b border-slate-200 bg-white/70 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -46,12 +45,10 @@ export default function ConnectPage() {
         </div>
       </section>
 
-      {/* Contact links + Resume */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_1px_1fr]">
 
-            {/* Left — contact links */}
             <div>
               <SectionHeading
                 eyebrow="Reach out"
@@ -80,10 +77,8 @@ export default function ConnectPage() {
               </div>
             </div>
 
-            {/* Divider */}
             <div className="hidden bg-slate-200 lg:block" />
 
-            {/* Right — resume + note */}
             <div className="flex flex-col justify-center gap-6">
               <div className="rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Resume</p>
@@ -108,11 +103,11 @@ export default function ConnectPage() {
                 </p>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Open to */}
       <section className="border-t border-slate-200 bg-[#eef2f7] py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
