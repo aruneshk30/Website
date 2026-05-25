@@ -13,6 +13,7 @@ const pageLinks = [
   { label: "Projects", href: "/projects" },
   { label: "AI Systems", href: "/ai-systems" },
   { label: "Experience", href: "/experience" },
+  { label: "Resume", href: "/Arunesh_Kumar_Resume.pdf" },
 ];
 
 const connectLinks = [
