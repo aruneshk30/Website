@@ -483,6 +483,7 @@ export default function HomePage() {
           </div>
         </section>
 
+        
         {/* ── CONNECT / FOOTER ── */}
         <section
           id="connect"
