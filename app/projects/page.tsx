@@ -1,4 +1,4 @@
-import WorkLandingPage from "@/components/projects-landing";
+import ProjectLandingPage from "@/components/projects-landing";
 export default function Page() {
   return <ProjectsLandingPage />;
 }
