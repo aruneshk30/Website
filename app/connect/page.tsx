@@ -38,7 +38,7 @@ export default function ConnectPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Connect</p>
-            <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">Let's talk</h1>
+            <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">{"Let's talk"}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
               If you have something interesting to discuss - reach out. I respond within 24 hours.
             </p>
@@ -54,7 +54,7 @@ export default function ConnectPage() {
               <SectionHeading
                 eyebrow="Reach out"
                 title="Pick your channel"
-                subtitle="I'm reachable on all of these. Book a call if you'd prefer to talk directly."
+                subtitle="I am reachable on all of these. Book a call if you would prefer to talk directly."
               />
               <div className="mt-8 flex flex-col gap-3">
                 {contactLinks.map(({ label, href }) => {
@@ -100,7 +100,7 @@ export default function ConnectPage() {
               <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Response time</p>
                 <p className="mt-3 text-sm leading-7 text-slate-600">
-                  I typically respond within <span className="font-semibold text-slate-900">24 hours</span> — whichever channel you use.
+                  I typically respond within <span className="font-semibold text-slate-900">24 hours</span> - whichever channel you use.
                 </p>
               </div>
             </div>
