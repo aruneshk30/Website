@@ -20,7 +20,7 @@ const stats = [
 
 const previews = [
   {
-    href: "#work",
+    href: "#projrcts",
     label: "Projects",
     desc: "Case studies on checkout, pricing, and real-time tooling.",
     badge: "Checkout • Pricing • Calculator",
@@ -44,18 +44,21 @@ const projects = [
     title: "Checkout Funnel Optimization",
     desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.",
     impact: "ATC diversion 20% → 14%",
+    href: "/projrcts"
     Icon: TrendingUp,
   },
   {
     title: "Automated SKU Pricing System",
     desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
     impact: "~₹35–40L monthly exposure protected",
+    href: "/projrcts"
     Icon: Monitor,
   },
   {
     title: "Real-Time Pricing Calculator",
     desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
     impact: "~₹1.5Cr additional monthly revenue",
+    href: "/projrcts"
     Icon: Briefcase,
   },
 ];
@@ -80,11 +83,13 @@ const experience = [
     title: "Sierra Living Concepts",
     role: "Product Manager",
     desc: "Driving pricing systems, checkout improvements, and real-time sales tooling. Working across product, engineering, and growth to ship revenue-impacting features.",
+    href: "/experience",
   },
   {
     title: "BoostGrad",
     role: "Growth & Analytics",
     desc: "Digital strategy and growth analytics focused on insights, dashboards, and student engagement. Built data pipelines and reporting systems.",
+    href: "/experience",
   },
 ];
 
@@ -206,7 +211,7 @@ export default function HomePage() {
                   className="h-2 w-2 rounded-full bg-emerald-500"
                   style={{ animation: "pulseDot 2s ease-in-out infinite" }}
                 />
-                Arunesh Kumar · Product Manager
+                Arunesh Kumar
               </div>
 
               {/* Headline */}
@@ -226,7 +231,7 @@ export default function HomePage() {
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="#work"
+                  href="#project"
                   className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
                 >
                   View Work <ArrowRight className="h-4 w-4" />
