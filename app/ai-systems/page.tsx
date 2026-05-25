@@ -9,7 +9,7 @@ export default function AiSystemsPage() {
       <section className="border-b border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">AI Systems</p>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-indigo-500">AI Systems</p>
             <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">Systems that increase PM leverage</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
               Two AI systems built to increase PM leverage - a 17-module research and strategy hub, and a 9-agent workflow for conversion optimization.
@@ -17,10 +17,10 @@ export default function AiSystemsPage() {
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
            <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
-              Explore PM Hub <ArrowRight className="h-4 w-4" />
+              Open PM Hub <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-2xl border border-indigo-300 bg-indigo-50 px-7 py-3.5 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-100 hover:border-indigo-400">
-              Explore 9-Agent Workflow <ArrowRight className="h-4 w-4" />
+            <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
+              Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
