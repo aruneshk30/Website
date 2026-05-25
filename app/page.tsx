@@ -1,132 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
-import {
-  ArrowRight,
-  Briefcase,
-  Monitor,
-  TrendingUp,
-  Sparkles,
-  Blocks,
-  Mail,
-} from "lucide-react";
-
-// ── DATA ──────────────────────────────────────────────────
-const stats = [
-  { value: "₹1.5Cr+", label: "monthly revenue impact" },
-  { value: "500+", label: "bundle SKUs automated" },
-  { value: "20→14%", label: "ATC diversion reduced" },
-  { value: "30%", label: "sales quoting improvement" },
-];
-
-const previews = [
-  {
-    href: "#work",
-    label: "Projects",
-    desc: "Case studies on checkout, pricing, and real-time tooling.",
-    badge: "Checkout • Pricing • Calculator",
-  },
-  {
-    href: "#ai-systems",
-    label: "AI Systems",
-    desc: "PM Hub and 9-Agent CRO Workflow built for leverage.",
-    badge: "Research hub • CRO workflow",
-  },
-  {
-    href: "#experience",
-    label: "Experience",
-    desc: "Sierra Living Concepts and BoostGrad — full journey.",
-    badge: "Sierra • BoostGrad",
-  },
-];
-
-const projects = [
-  {
-    title: "Checkout Funnel Optimization",
-    desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.",
-    impact: "ATC diversion 20% → 14%",
-    Icon: TrendingUp,
-  },
-  {
-    title: "Automated SKU Pricing System",
-    desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
-    impact: "~₹35–40L monthly exposure protected",
-    Icon: Monitor,
-  },
-  {
-    title: "Real-Time Pricing Calculator",
-    desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
-    impact: "~₹1.5Cr additional monthly revenue",
-    Icon: Briefcase,
-  },
-];
-
-const aiSystems = [
-  {
-    title: "PM Research & Strategy Hub",
-    desc: "AI-assisted product operating system for research, PRDs, prioritization, funnel analysis, hypothesis testing, and stakeholder communication — 17 modules in one place.",
-    href: "/ai-systems/pm-hub",
-    Icon: Sparkles,
-  },
-  {
-    title: "9-Agent CRO Workflow",
-    desc: "Multi-agent workflow for conversion analysis, UX diagnosis, and experimentation planning. Each agent handles a specific layer of the CRO stack.",
-    href: "/ai-systems/9-agent-cro",
-    Icon: Blocks,
-  },
-];
-
-const experience = [
-  {
-    title: "Sierra Living Concepts",
-    role: "Product Manager",
-    desc: "Driving pricing systems, checkout improvements, and real-time sales tooling. Working across product, engineering, and growth to ship revenue-impacting features.",
-  },
-  {
-    title: "BoostGrad",
-    role: "Growth & Analytics",
-    desc: "Digital strategy and growth analytics focused on insights, dashboards, and student engagement. Built data pipelines and reporting systems.",
-  },
-];
-
-const contactLinks = [
-  {
-    href: "https://linkedin.com/in/arunesh-k",
-    label: "LinkedIn",
-    sub: "arunesh-k",
-    emoji: "in",
-    hoverBorder: "hover:border-indigo-300",
-    hoverBg: "hover:bg-indigo-50",
-  },
-  {
-    href: "https://wa.me/919012666192",
-    label: "WhatsApp",
-    sub: "+91 90126 66192",
-    emoji: "💬",
-    hoverBorder: "hover:border-green-300",
-    hoverBg: "hover:bg-green-50",
-  },
-  {
-    href: "https://calendly.com/your-link",
-    label: "Book a call",
-    sub: "Calendly",
-    emoji: "📅",
-    hoverBorder: "hover:border-amber-300",
-    hoverBg: "hover:bg-amber-50",
-  },
-];
-
-// ── COMPONENTS ────────────────────────────────────────────
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-500">
-      {children}
-    </p>
-  );
-}
-
 function SectionTitle({ children }: { children: string }) {
   return (
-    <h2 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+    <h2 className="text-5xl font-bold tracking-tight text-slate-950 md:text-6xl">
       {children}
     </h2>
   );
@@ -134,13 +8,12 @@ function SectionTitle({ children }: { children: string }) {
 
 function SectionSub({ children }: { children: string }) {
   return (
-    <p className="mt-4 max-w-xl text-base leading-7 text-slate-500">
+    <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-500 md:text-xl">
       {children}
     </p>
   );
 }
 
-// ── PAGE ─────────────────────────────────────────────────
 export default function HomePage() {
   return (
     <>
@@ -165,7 +38,6 @@ export default function HomePage() {
 
       {/* ── FIXED BACKGROUND ── */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        {/* Grid */}
         <div
           className="absolute inset-0"
           style={{
@@ -174,18 +46,23 @@ export default function HomePage() {
             backgroundSize: "48px 48px",
           }}
         />
-        {/* Orbs */}
+
         <div
           className="absolute -top-48 -right-24 h-[600px] w-[600px] rounded-full opacity-30"
-          style={{ background: "radial-gradient(circle,#c7d2fe,#818cf8)", filter: "blur(80px)", animation: "drift 18s ease-in-out infinite" }}
+          style={{
+            background: "radial-gradient(circle,#c7d2fe,#818cf8)",
+            filter: "blur(80px)",
+            animation: "drift 18s ease-in-out infinite",
+          }}
         />
+
         <div
           className="absolute bottom-20 -left-24 h-[380px] w-[380px] rounded-full opacity-25"
-          style={{ background: "radial-gradient(circle,#bae6fd,#38bdf8)", filter: "blur(80px)", animation: "drift 22s ease-in-out -7s infinite" }}
-        />
-        <div
-          className="absolute top-1/2 right-1/4 h-[300px] w-[300px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle,#d1fae5,#34d399)", filter: "blur(70px)", animation: "drift 26s ease-in-out -14s infinite" }}
+          style={{
+            background: "radial-gradient(circle,#bae6fd,#38bdf8)",
+            filter: "blur(80px)",
+            animation: "drift 22s ease-in-out -7s infinite",
+          }}
         />
       </div>
 
@@ -200,17 +77,18 @@ export default function HomePage() {
 
             {/* Left */}
             <div>
+
               {/* Badge */}
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-5 py-3 text-sm font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
                 <span
-                  className="h-2 w-2 rounded-full bg-emerald-500"
+                  className="h-2.5 w-2.5 rounded-full bg-emerald-500"
                   style={{ animation: "pulseDot 2s ease-in-out infinite" }}
                 />
                 Arunesh Kumar · Product Manager
               </div>
 
-              {/* Headline */}
-              <h1 className="max-w-3xl text-5xl font-bold leading-[1.07] tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
+              {/* Main Heading */}
+              <h1 className="max-w-4xl text-6xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-7xl lg:text-8xl">
                 Product Manager
                 <span className="text-slate-300"> | </span>
                 <span className="bg-gradient-to-r from-slate-900 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
@@ -218,29 +96,23 @@ export default function HomePage() {
                 </span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-500 md:text-xl">
+              <p className="mt-8 max-w-2xl text-xl leading-9 text-slate-500 md:text-2xl">
                 I build revenue-driving product experiences across e-commerce
                 systems, experimentation, and AI-powered workflows.
               </p>
 
-              {/* CTAs */}
-              <div className="mt-8 flex flex-wrap gap-3">
+              {/* CTA */}
+              <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   href="#work"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
+                  className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
                 >
-                  View Work <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="#connect"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur transition hover:border-indigo-200 hover:bg-indigo-50"
-                >
-                  Connect
+                  View Work <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
 
               {/* Stats */}
-              <div className="mt-10 grid max-w-lg grid-cols-2 gap-3">
+              <div className="mt-12 grid max-w-2xl grid-cols-2 gap-5">
                 {stats.map((s, i) => {
                   const bg = [
                     "from-blue-50 to-indigo-50",
@@ -248,28 +120,32 @@ export default function HomePage() {
                     "from-amber-50 to-orange-50",
                     "from-violet-50 to-fuchsia-50",
                   ][i];
+
                   return (
                     <div
                       key={s.label}
-                      className={`rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br ${bg} p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
+                      className={`rounded-[1.7rem] border border-slate-200/80 bg-gradient-to-br ${bg} p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
                     >
-                      <p className="text-2xl font-bold tracking-tight text-slate-950">
+                      <p className="text-4xl font-bold tracking-tight text-slate-950">
                         {s.value}
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">{s.label}</p>
+
+                      <p className="mt-2 text-base text-slate-500">
+                        {s.label}
+                      </p>
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* Right — profile image with rings */}
+            {/* Right */}
             <div className="relative hidden lg:flex justify-center">
-              <div className="relative flex h-[520px] w-[460px] items-center justify-center">
-                {/* Rings */}
+              <div className="relative flex h-[560px] w-[500px] items-center justify-center">
+
                 {[
-                  { size: 360, dur: "32s", dir: "normal" },
-                  { size: 460, dur: "48s", dir: "reverse" },
+                  { size: 380, dur: "32s", dir: "normal" },
+                  { size: 500, dur: "48s", dir: "reverse" },
                 ].map((r, i) => (
                   <div
                     key={i}
@@ -284,43 +160,16 @@ export default function HomePage() {
                     }}
                   />
                 ))}
-                {/* Glow dots */}
-                {[
-                  { top: 60, right: 80, color: "#818cf8", delay: "0s" },
-                  { top: 320, left: 60, color: "#38bdf8", delay: "-1.5s" },
-                ].map((d, i) => (
-                  <div
-                    key={i}
-                    className="absolute h-3 w-3 rounded-full"
-                    style={{
-                      background: d.color,
-                      boxShadow: `0 0 20px ${d.color}`,
-                      top: (d as any).top,
-                      right: (d as any).right,
-                      left: (d as any).left,
-                      animation: `pulseGlow 3s ease-in-out ${d.delay} infinite`,
-                    }}
-                  />
-                ))}
-                {/* Image */}
+
                 <div className="relative z-10">
                   <Image
                     src="/profile.png"
                     alt="Arunesh Kumar"
-                    width={400}
-                    height={460}
+                    width={430}
+                    height={500}
                     priority
                     className="rounded-3xl object-contain drop-shadow-2xl"
                   />
-                </div>
-                {/* Tag */}
-                <div className="absolute -left-6 bottom-10 z-20 rounded-2xl border border-slate-200 bg-white/95 px-5 py-4 shadow-xl backdrop-blur">
-                  <p className="text-sm font-bold text-slate-900">
-                    Product · Growth · Systems
-                  </p>
-                  <p className="mt-1 max-w-[200px] text-sm leading-6 text-slate-500">
-                    Building revenue-driving experiences and AI workflows.
-                  </p>
                 </div>
               </div>
             </div>
@@ -328,33 +177,40 @@ export default function HomePage() {
         </section>
 
         {/* ── OVERVIEW ── */}
-        <section className="bg-white/70 py-20">
+        <section className="bg-white/70 py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mb-12">
+
+            <div className="mb-16">
               <SectionLabel>Overview</SectionLabel>
               <SectionTitle>Three spaces, one story</SectionTitle>
+
               <SectionSub>
-                Dedicated pages for projects, AI systems, and experience — scroll
-                down for a preview of each.
+                Dedicated pages for projects, AI systems, and experience.
               </SectionSub>
             </div>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               {previews.map((p) => (
                 <Link
                   key={p.label}
                   href={p.href}
-                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
                     Preview
                   </p>
-                  <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-950">
+
+                  <h3 className="mt-4 text-4xl font-bold tracking-tight text-slate-950">
                     {p.label}
                   </h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-500">{p.desc}</p>
-                  <p className="mt-4 text-xs font-medium text-slate-400">{p.badge}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-                    Open <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+
+                  <p className="mt-4 text-lg leading-8 text-slate-500">
+                    {p.desc}
+                  </p>
+
+                  <div className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
+                    Open
+                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
               ))}
@@ -363,39 +219,47 @@ export default function HomePage() {
         </section>
 
         {/* ── PROJECTS ── */}
-        <section id="work" className="py-20">
+        <section id="work" className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="fade-section mb-12">
+
+            <div className="mb-16">
               <SectionLabel>Projects</SectionLabel>
               <SectionTitle>Impact through product</SectionTitle>
+
               <SectionSub>
-                Three projects, measurable outcomes — driven by data, UX insight,
-                and systematic thinking.
+                Three projects with measurable business outcomes.
               </SectionSub>
             </div>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               {projects.map((p) => (
                 <div
                   key={p.title}
-                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="mb-5 flex items-start justify-between gap-4">
+                  <div className="mb-6 flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
                         Case Study
                       </p>
-                      <h3 className="mt-2 text-xl font-bold tracking-tight text-slate-950">
+
+                      <h3 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">
                         {p.title}
                       </h3>
                     </div>
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-500 transition group-hover:border-slate-300 group-hover:bg-white">
-                      <p.Icon className="h-5 w-5" />
+
+                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-500">
+                      <p.Icon className="h-6 w-6" />
                     </div>
                   </div>
-                  <p className="text-sm leading-7 text-slate-500">{p.desc}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-                    {p.impact}{" "}
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+
+                  <p className="text-lg leading-8 text-slate-500">
+                    {p.desc}
+                  </p>
+
+                  <div className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
+                    {p.impact}
+                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                   </div>
                 </div>
               ))}
@@ -404,39 +268,48 @@ export default function HomePage() {
         </section>
 
         {/* ── AI SYSTEMS ── */}
-        <section id="ai-systems" className="border-y border-slate-200 bg-white/70 py-20">
+        <section
+          id="ai-systems"
+          className="border-y border-slate-200 bg-white/70 py-24"
+        >
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="fade-section mb-12">
+
+            <div className="mb-16">
               <SectionLabel>AI Systems</SectionLabel>
               <SectionTitle>AI systems built for leverage</SectionTitle>
+
               <SectionSub>
-                Two AI-powered systems designed to amplify PM and growth workflows
-                through structured intelligence.
+                AI-powered systems designed to amplify PM and growth workflows.
               </SectionSub>
             </div>
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {aiSystems.map((s) => (
                 <Link
                   key={s.title}
                   href={s.href}
-                  className="fade-section group rounded-[1.75rem] border border-slate-200 bg-slate-50 p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="group rounded-[2rem] border border-slate-200 bg-slate-50 p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm">
-                      <s.Icon className="h-6 w-6" />
+                  <div className="flex items-start gap-5">
+
+                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm">
+                      <s.Icon className="h-7 w-7" />
                     </div>
+
                     <div>
-                      <h3 className="text-2xl font-bold tracking-tight text-slate-950">
+                      <h3 className="text-4xl font-bold tracking-tight text-slate-950">
                         {s.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-slate-500">
+
+                      <p className="mt-4 text-lg leading-8 text-slate-500">
                         {s.desc}
                       </p>
                     </div>
                   </div>
-                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-                    Open system{" "}
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+
+                  <div className="mt-7 inline-flex items-center gap-2 text-lg font-semibold text-slate-900">
+                    Open system
+                    <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
               ))}
@@ -445,136 +318,59 @@ export default function HomePage() {
         </section>
 
         {/* ── EXPERIENCE ── */}
-        <section id="experience" className="py-20">
+        <section id="experience" className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="fade-section mb-12">
+
+            <div className="mb-16">
               <SectionLabel>Experience</SectionLabel>
               <SectionTitle>Experience snapshot</SectionTitle>
+
               <SectionSub>
-                Two roles, both focused on measurable product and growth outcomes.
+                Product, growth, systems, and experimentation experience.
               </SectionSub>
             </div>
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {experience.map((e, i) => (
                 <div
                   key={e.title}
-                  className="fade-section rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                  className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
+                  <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-400">
                     {i === 0 ? "Current Role" : "Previous Role"}
                   </p>
-                  <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-950">
+
+                  <h3 className="mt-4 text-4xl font-bold tracking-tight text-slate-950">
                     {e.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-slate-500">{e.desc}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
-                    {e.role} <ArrowRight className="h-4 w-4" />
+
+                  <p className="mt-5 text-lg leading-8 text-slate-500">
+                    {e.desc}
+                  </p>
+
+                  <div className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-indigo-600">
+                    {e.role}
+                    <ArrowRight className="h-5 w-5" />
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="mt-20 flex flex-wrap items-center justify-center gap-10 border-t border-slate-200 pt-8">
+              {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-lg font-semibold text-slate-500 transition hover:text-slate-900"
+                >
+                  {href.replace("#", "").replace("-", " ")}
+                </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── CONNECT / FOOTER ── */}
-        <section
-          id="connect"
-          className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 pb-0 pt-20"
-        >
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            {/* Heading */}
-            <div className="fade-section mb-12 text-center">
-              <SectionLabel>Let's Talk</SectionLabel>
-              <SectionTitle>Get in touch</SectionTitle>
-              <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-500">
-                Open to product roles, collaborations, and conversations about
-                growth, systems, and AI.
-              </p>
-            </div>
-
-            {/* Single connect card */}
-            <div className="fade-section mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-2xl shadow-slate-200">
-              <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1px_1fr] lg:items-center">
-
-                {/* Left — bio + CTAs */}
-                <div>
-                  <p className="text-2xl font-bold tracking-tight text-slate-950">
-                    Arunesh Kumar
-                  </p>
-                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-indigo-500">
-                    Product Manager
-                  </p>
-                  <p className="mt-5 text-sm leading-7 text-slate-500">
-                    Building revenue-driving product experiences across e-commerce
-                    systems, experimentation, and AI-powered workflows.
-                  </p>
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <a
-                      href="mailto:aruneshk30@gmail.com"
-                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
-                    >
-                      <Mail className="h-4 w-4" /> Email me
-                    </a>
-                    <a
-                      href="/Arunesh_Kumar_Resume.pdf"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50"
-                    >
-                      ↓ Resume
-                    </a>
-                  </div>
-                </div>
-
-                {/* Divider */}
-                <div className="hidden bg-slate-200 lg:block" style={{ minHeight: 180 }} />
-
-                {/* Right — social links */}
-                <div>
-                  <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                    Find me on
-                  </p>
-                  <div className="flex flex-col gap-3">
-                    {contactLinks.map((c) => (
-                      <a
-                        key={c.label}
-                        href={c.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 no-underline transition hover:translate-x-1 ${c.hoverBorder} ${c.hoverBg}`}
-                      >
-                        <span className="text-xl">{c.emoji}</span>
-                        <div>
-                          <p className="text-sm font-semibold">{c.label}</p>
-                          <p className="text-xs text-slate-400">{c.sub}</p>
-                        </div>
-                        <ArrowRight className="ml-auto h-4 w-4 text-slate-300" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer bar */}
-            <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 py-6">
-              <p className="text-xs text-slate-400">
-                © 2025 Arunesh Kumar · Product Manager
-              </p>
-              <div className="flex gap-6">
-                {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="text-xs text-slate-400 transition hover:text-slate-700"
-                  >
-                    {href.replace("#", "").replace("-", " ") || "Home"}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
     </>
   );
