@@ -380,8 +380,9 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
               {projects.map((p) => (
-                <div
+              <Link
                   key={p.title}
+                  href="/projects"
                   className="fade-section group rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">
@@ -402,7 +403,7 @@ export default function HomePage() {
                     {p.impact}{" "}
                     <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -461,8 +462,9 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               {experience.map((e, i) => (
-                <div
+                <Link
                   key={e.title}
+                  href="/experience"
                   className="fade-section rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">
@@ -475,7 +477,7 @@ export default function HomePage() {
                   <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
                     {e.role} <ArrowRight className="h-4 w-4" />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
