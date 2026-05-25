@@ -20,7 +20,7 @@ const stats = [
 
 const previews = [
   {
-    href: "#projrcts",
+    href: "/projects",
     label: "Projects",
     desc: "Case studies on checkout, pricing, and real-time tooling.",
     badge: "Checkout • Pricing • Calculator",
@@ -44,21 +44,21 @@ const projects = [
     title: "Checkout Funnel Optimization",
     desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.",
     impact: "ATC diversion 20% → 14%",
-    href: "/projrcts"
+    href: "/projects"
     Icon: TrendingUp,
   },
   {
     title: "Automated SKU Pricing System",
     desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
     impact: "~₹35–40L monthly exposure protected",
-    href: "/projrcts"
+    href: "/projects"
     Icon: Monitor,
   },
   {
     title: "Real-Time Pricing Calculator",
     desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
     impact: "~₹1.5Cr additional monthly revenue",
-    href: "/projrcts"
+    href: "/projects"
     Icon: Briefcase,
   },
 ];
@@ -368,7 +368,7 @@ export default function HomePage() {
         </section>
 
         {/* ── PROJECTS ── */}
-        <section id="work" className="py-20">
+        <section id="projects" className="py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="fade-section mb-12">
               <SectionLabel>Projects</SectionLabel>
@@ -564,10 +564,10 @@ export default function HomePage() {
             {/* Footer bar */}
             <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 py-6">
               <p className="text-xs text-slate-400">
-                © 2025 Arunesh Kumar · Product Manager
+                © 2025 Arunesh Kumar
               </p>
               <div className="flex gap-6">
-                {["#home", "#work", "#ai-systems", "#experience"].map((href) => (
+                {["#Home", "#Projects", "#AI-Systems", "#Experience"].map((href) => (
                   <Link
                     key={href}
                     href={href}
