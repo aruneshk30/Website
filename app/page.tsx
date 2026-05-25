@@ -44,21 +44,21 @@ const projects = [
     title: "Checkout Funnel Optimization",
     desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.",
     impact: "ATC diversion 20% → 14%",
-    href: "/projects"
+    href: "/projects",
     Icon: TrendingUp,
   },
   {
     title: "Automated SKU Pricing System",
     desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.",
     impact: "~₹35–40L monthly exposure protected",
-    href: "/projects"
+    href: "/projects",
     Icon: Monitor,
   },
   {
     title: "Real-Time Pricing Calculator",
     desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.",
     impact: "~₹1.5Cr additional monthly revenue",
-    href: "/projects"
+    href: "/projects",
     Icon: Briefcase,
   },
 ];
