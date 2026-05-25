@@ -26,7 +26,7 @@ const openTo = [
   },
   {
     title: "Collaborations",
-    desc: "Working together on something interesting — tools, ideas, or shared problems worth solving.",
+    desc: "Working together on something interesting - tools, ideas, or shared problems worth solving.",
   },
 ];
 
@@ -39,7 +39,7 @@ export default function ConnectPage() {
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Connect</p>
             <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">Let's talk</h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              If you have something interesting to discuss — reach out. I respond within 24 hours.
+              If you have something interesting to discuss - reach out. I respond within 24 hours.
             </p>
           </div>
         </div>
