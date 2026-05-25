@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 import {
   ArrowRight,
   Briefcase,
@@ -11,9 +8,6 @@ import {
   Sparkles,
   Blocks,
   Mail,
-  Linkedin,
-  MessageCircle,
-  CalendarDays,
 } from "lucide-react";
 
 // ── DATA ──────────────────────────────────────────────────
@@ -148,48 +142,9 @@ function SectionSub({ children }: { children: string }) {
 
 // ── PAGE ─────────────────────────────────────────────────
 export default function HomePage() {
-  const particlesRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = particlesRef.current;
-    if (!container) return;
-    const colors = ["#c7d2fe", "#bae6fd", "#d1fae5", "#fde68a", "#fbcfe8"];
-    for (let i = 0; i < 20; i++) {
-      const p = document.createElement("div");
-      const size = Math.random() * 5 + 3;
-      p.style.cssText = `
-        position:absolute;border-radius:50%;pointer-events:none;
-        width:${size}px;height:${size}px;
-        background:${colors[Math.floor(Math.random() * colors.length)]};
-        left:${Math.random() * 100}%;
-        animation:floatUp ${Math.random() * 18 + 14}s linear ${-Math.random() * 20}s infinite;
-        opacity:${Math.random() * 0.5 + 0.2};
-      `;
-      container.appendChild(p);
-    }
-
-    // Scroll fade-in
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("opacity-100", "translate-y-0");
-        }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll(".fade-section").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
-      {/* Keyframes */}
       <style>{`
-        @keyframes floatUp {
-          0%   { transform: translateY(100vh) scale(0); opacity: 0; }
-          10%  { opacity: 1; }
-          90%  { opacity: 0.5; }
-          100% { transform: translateY(-80px) scale(1); opacity: 0; }
-        }
         @keyframes drift {
           0%,100% { transform: translate(0,0) scale(1); }
           33%     { transform: translate(40px,-30px) scale(1.05); }
@@ -206,10 +161,6 @@ export default function HomePage() {
           0%,100% { box-shadow:0 0 0 0 rgba(34,197,94,0.4); }
           50%     { box-shadow:0 0 0 7px rgba(34,197,94,0); }
         }
-        .fade-section {
-          opacity:0; transform:translateY(24px);
-          transition:opacity 0.65s ease, transform 0.65s ease;
-        }
       `}</style>
 
       {/* ── FIXED BACKGROUND ── */}
@@ -223,42 +174,19 @@ export default function HomePage() {
             backgroundSize: "48px 48px",
           }}
         />
-        {/* Dots */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle,rgba(99,102,241,0.1) 1px,transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
         {/* Orbs */}
         <div
           className="absolute -top-48 -right-24 h-[600px] w-[600px] rounded-full opacity-30"
-          style={{
-            background: "radial-gradient(circle,#c7d2fe,#818cf8)",
-            filter: "blur(80px)",
-            animation: "drift 18s ease-in-out infinite",
-          }}
+          style={{ background: "radial-gradient(circle,#c7d2fe,#818cf8)", filter: "blur(80px)", animation: "drift 18s ease-in-out infinite" }}
         />
         <div
           className="absolute bottom-20 -left-24 h-[380px] w-[380px] rounded-full opacity-25"
-          style={{
-            background: "radial-gradient(circle,#bae6fd,#38bdf8)",
-            filter: "blur(80px)",
-            animation: "drift 22s ease-in-out -7s infinite",
-          }}
+          style={{ background: "radial-gradient(circle,#bae6fd,#38bdf8)", filter: "blur(80px)", animation: "drift 22s ease-in-out -7s infinite" }}
         />
         <div
           className="absolute top-1/2 right-1/4 h-[300px] w-[300px] rounded-full opacity-20"
-          style={{
-            background: "radial-gradient(circle,#d1fae5,#34d399)",
-            filter: "blur(70px)",
-            animation: "drift 26s ease-in-out -14s infinite",
-          }}
+          style={{ background: "radial-gradient(circle,#d1fae5,#34d399)", filter: "blur(70px)", animation: "drift 26s ease-in-out -14s infinite" }}
         />
-        {/* Particles container */}
-        <div ref={particlesRef} className="absolute inset-0" />
       </div>
 
       <main className="relative z-10">
@@ -271,7 +199,7 @@ export default function HomePage() {
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
 
             {/* Left */}
-            <div className="fade-section">
+            <div>
               {/* Badge */}
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
                 <span
@@ -402,7 +330,7 @@ export default function HomePage() {
         {/* ── OVERVIEW ── */}
         <section className="bg-white/70 py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="fade-section mb-12">
+            <div className="mb-12">
               <SectionLabel>Overview</SectionLabel>
               <SectionTitle>Three spaces, one story</SectionTitle>
               <SectionSub>
