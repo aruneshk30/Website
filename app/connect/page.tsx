@@ -1,3 +1,4 @@
+import React from "react";
 import { CalendarDays, Linkedin, Mail, MessageCircle, ArrowRight, Download } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 
