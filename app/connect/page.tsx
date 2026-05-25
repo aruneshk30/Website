@@ -53,7 +53,7 @@ export default function ConnectPage() {
       </section>
 
       {/* Open to */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHeading
             eyebrow="Open to"
@@ -75,7 +75,7 @@ export default function ConnectPage() {
       </section>
 
       {/* Reach out + Resume */}
-      <section className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-16">
+      <section className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_1px_1fr]">
 
