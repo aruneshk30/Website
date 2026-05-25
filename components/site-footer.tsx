@@ -25,7 +25,7 @@ const connectLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-[#eef2f7]">
-      <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-5 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3">
 
           {/* Brand */}
@@ -35,7 +35,7 @@ export function Footer() {
             </div>
             <h3 className="mt-4 text-xl font-semibold text-slate-950">Arunesh Kumar</h3>
             <p className="mt-3 max-w-xs text-sm leading-7 text-slate-600">
-              Product Manager shipping outcomes that move revenue.
+              Building product systems at the intersection of data, growth, and AI.
             </p>
           </div>
 
