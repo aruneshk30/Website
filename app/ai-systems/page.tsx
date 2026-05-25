@@ -6,7 +6,7 @@ import { aiSystemCards } from "@/lib/site-data";
 export default function AiSystemsPage() {
   return (
     <main>
-      <section className="border-b border-slate-200 bg-gradient-to-b from-indigo-50 to-white py-20">
+      <section className="border-b border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">AI Systems</p>
@@ -19,7 +19,7 @@ export default function AiSystemsPage() {
            <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
               Explore PM Hub <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50">
+            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-2xl border border-indigo-300 bg-indigo-50 px-7 py-3.5 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-100 hover:border-indigo-400">
               Explore 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
