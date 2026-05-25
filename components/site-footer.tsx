@@ -6,7 +6,7 @@ const footerColumns = [
     title: "Pages",
     links: [
       { label: "Home", href: "/" },
-      { label: "Work", href: "/work" },
+      { label: "Projects", href: "/Projects" },
       { label: "AI Systems", href: "/ai-systems" },
       { label: "Experience", href: "/experience" },
     ],
