@@ -24,7 +24,7 @@ const connectLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-[#eef2f7]">
+    <footer className="border-t-2 border-slate-300 bg-[#eef2f7]">
       <div className="mx-auto max-w-7xl px-6 py-5 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3">
 
@@ -71,7 +71,7 @@ export function Footer() {
 
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-slate-300 pt-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t-2 border-slate-300 pt-4 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
           <p>© 2025 Arunesh Kumar. All rights reserved.</p>
           <p>Built for product, growth, and systems thinking.</p>
         </div>
