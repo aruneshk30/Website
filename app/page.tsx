@@ -476,6 +476,86 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── CONNECT / FOOTER ── */}
+        <section
+          id="connect"
+          className="border-t border-slate-200 bg-gradient-to-b from-indigo-50 to-slate-50 pb-0 pt-20"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            {/* Heading */}
+            <div className="fade-section mb-12 text-center">
+              <SectionLabel>Let's Talk</SectionLabel>
+              <SectionTitle>Get in touch</SectionTitle>
+              <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-500">
+                Open to product roles, collaborations, and conversations about
+                growth, systems, and AI.
+              </p>
+            </div>
+
+            {/* Single connect card */}
+            <div className="fade-section mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-10 shadow-2xl shadow-slate-200">
+              <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1px_1fr] lg:items-center">
+
+                {/* Left — bio + CTAs */}
+                <div>
+                  <p className="text-2xl font-bold tracking-tight text-slate-950">
+                    Arunesh Kumar
+                  </p>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-indigo-500">
+                    Product Manager
+                  </p>
+                  <p className="mt-5 text-sm leading-7 text-slate-500">
+                    Building revenue-driving product experiences across e-commerce
+                    systems, experimentation, and AI-powered workflows.
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <a
+                      href="mailto:aruneshk30@gmail.com"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
+                    >
+                      <Mail className="h-4 w-4" /> Email me
+                    </a>
+                    <a
+                      href="/Arunesh_Kumar_Resume.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:bg-indigo-50"
+                    >
+                      ↓ Resume
+                    </a>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="hidden bg-slate-200 lg:block" style={{ minHeight: 180 }} />
+
+                {/* Right — social links */}
+                <div>
+                  <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                    Find me on
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {contactLinks.map((c) => (
+                      <a
+                        key={c.label}
+                        href={c.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-slate-900 no-underline transition hover:translate-x-1 ${c.hoverBorder} ${c.hoverBg}`}
+                      >
+                        <span className="text-xl">{c.emoji}</span>
+                        <div>
+                          <p className="text-sm font-semibold">{c.label}</p>
+                          <p className="text-xs text-slate-400">{c.sub}</p>
+                        </div>
+                        <ArrowRight className="ml-auto h-4 w-4 text-slate-300" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Footer bar */}
             <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 py-6">
               <p className="text-xs text-slate-400">
