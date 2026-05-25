@@ -62,18 +62,6 @@ export default function WorkLandingPage() {
           </div>
         </div>
       </section>
-
-      <section className="border-t border-slate-200 bg-[#eef2f7] py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="rounded-[1.75rem] border border-slate-200 bg-white p-8 shadow-sm">
-            <SectionHeading
-              eyebrow="How to read this page"
-              title="Each card is a case study"
-              subtitle="Open a project, read the problem, understand the solution, and scan the impact. That is the point of the page."
-            />
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
