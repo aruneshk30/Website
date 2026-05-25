@@ -205,5 +205,5 @@ export const connectLinks = [
   { label: "Email", href: "mailto:aruneshk30@gmail.com", icon: "Mail" },
   { label: "LinkedIn", href: "https://linkedin.com/in/arunesh-k", icon: "Linkedin" },
   { label: "WhatsApp", href: "https://wa.me/919012666192", icon: "MessageCircle" },
-  { label: "Book a Meeting", href: "https://calendly.com/your-link", icon: "CalendarDays" },
+  { label: "Book a Meeting", href: "https://calendly.com/aruneshk30/30min", icon: "CalendarDays" },
 ];
