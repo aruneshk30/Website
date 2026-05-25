@@ -48,10 +48,10 @@ export default function ConnectPage() {
             <SectionHeading
               eyebrow="Calendar"
               title="Book a meeting"
-              subtitle="Add your Calendly link and this page becomes your booking entry point."
+              subtitle="Schedule a 30-minute call to discuss product, growth, or any collaboration opportunity."
             />
             <div className="mt-6">
-              <a href="https://calendly.com/your-link" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
+              <a href="https://calendly.com/aruneshk30/30min" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
                 Open booking calendar
               </a>
             </div>
