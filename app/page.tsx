@@ -238,7 +238,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/connect"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-7 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur transition hover:border-indigo-200 hover:bg-indigo-50"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]"
                 >
                   Connect
                 </Link>
