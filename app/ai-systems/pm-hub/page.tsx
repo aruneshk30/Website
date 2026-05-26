@@ -23,11 +23,8 @@ export default function PMHubPage() {
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700">
-              Open 9-Agent CRO Workflow <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/connect" className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-950">
-              Book a Meeting <CalendarDays className="h-4 w-4" />
+            <Link href="/ai-systems/pm-hub/explore" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
+            Explore PM Hub <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
