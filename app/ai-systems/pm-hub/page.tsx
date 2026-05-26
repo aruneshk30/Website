@@ -114,10 +114,6 @@ export default function PMHubPage() {
               subtitle="Designed as a product-grade operating system that helps product managers accelerate research, strategy, and execution workflows."
             />
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/ai-systems/pm-hub/explore" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
-            Explore PM Hub <ArrowRight className="h-4 w-4" />
-            </Link>
         </div>
       </section>
     </main>
