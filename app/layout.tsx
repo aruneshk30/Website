@@ -5,10 +5,11 @@ import { Footer } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "Arunesh Kumar — Product Manager | Growth & Digital Strategy",
-  description:
-    "Premium portfolio for Arunesh Kumar — product systems, growth, experimentation, and AI-powered workflows.",
+  description: "Premium portfolio for Arunesh Kumar — product systems, growth, experimentation, and AI-powered workflows.",
   icons: {
     icon: "public/icon.png",
+    shortcut: "public/icon.png",
+    apple: "public/icon.png",
   },
 };
 
