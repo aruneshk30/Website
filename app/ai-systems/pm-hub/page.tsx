@@ -97,9 +97,9 @@ export default function PMHubPage() {
               </div>
             ))}
           </div>
-          <div className="mt-8">
-            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-              Open the full 9-Agent page <ArrowRight className="h-4 w-4" />
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
+            Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -111,9 +111,13 @@ export default function PMHubPage() {
             <SectionHeading
               eyebrow="Built by a PM, for PMs"
               title="Your own workflow, not generic AI output"
-              subtitle="This page is designed to make the tool feel like a product system that helps real PM work move faster."
+              subtitle="Designed as a product-grade operating system that helps product managers accelerate research, strategy, and execution workflows."
             />
           </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/ai-systems/pm-hub/explore" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
+            Explore PM Hub <ArrowRight className="h-4 w-4" />
+            </Link>
         </div>
       </section>
     </main>
