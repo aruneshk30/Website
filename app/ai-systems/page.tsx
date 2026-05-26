@@ -19,7 +19,7 @@ export default function AiSystemsPage() {
            <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
               Open PM Hub <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
+            <Link href="/ai-systems/cro-workflow" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition hover:scale-[1.02]">
               Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
