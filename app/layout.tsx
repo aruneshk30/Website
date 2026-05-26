@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Premium portfolio for Arunesh Kumar — product systems, growth, experimentation, and AI-powered workflows.",
   icons: {
-    icon: "/icon.png",
+    icon: "public/icon.png",
   },
 };
 
