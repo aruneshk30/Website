@@ -88,7 +88,7 @@ const experience = [
   {
     title: "BoostGrad",
     role: "Growth & Analytics",
-    desc: "Digital strategy and growth analytics focused on insights, dashboards, and student engagement. Built data pipelines and reporting systems.",
+    desc: "Supported marketing and growth initiatives through analytics, dashboard reporting, campaign tracking, and student engagement insights.",
     href: "/experience",
   },
 ];
