@@ -82,7 +82,7 @@ export const aiSystemCards = [
 export const experienceItems = [
   {
     role: "Product Manager",
-    company: "Sierra Living Concepts",
+    company: "Sierra Living Concepts— Growth & Digital Strategy",
     period: "Nov 2025 – Present",
     bullets: [
       "Proposed and drove an automated pricing cascade system across 500+ bundled furniture set SKUs.",
@@ -104,7 +104,7 @@ export const experienceItems = [
     metrics: ["200% category growth", "₹14L → ₹29L / quarter", "Launch roadmap", "Cross-functional execution"],
   },
   {
-    role: "Marketing Intern — Digital Strategy & Growth Analytics",
+    role: "Marketing Intern",
     company: "BoostGrad",
     period: "Feb 2024 – Dec 2024",
     bullets: [
