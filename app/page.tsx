@@ -201,10 +201,10 @@ export default function HomePage() {
           id="home"
           className="relative flex min-h-[85vh] md:min-h-screen items-center overflow-hidden px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8"
         >
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
 
-            {/* Right — profile image with rings */}
-            <div className="relative flex justify-center mt-10 lg:mt-0">
+           {/* Right — profile image with rings */}
+            <div className="relative order-1 flex justify-center mt-2 mb-6 lg:order-2 lg:mt-0">
               <div className="relative flex h-[300px] w-[280px] items-center justify-center md:h-[420px] md:w-[360px] lg:h-[520px] lg:w-[460px]">
                 {/* Rings */}
                 {[
@@ -266,7 +266,7 @@ export default function HomePage() {
               </div>
               
             {/* Left */}
-            <div>
+            <div className="order-2 lg:order-1">
               {/* Badge */}
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
                 <span
