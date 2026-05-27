@@ -202,71 +202,9 @@ export default function HomePage() {
           className="relative flex min-h-[85vh] md:min-h-screen items-center overflow-hidden px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8"
         >
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-
-           {/* Right — profile image with rings */}
-            <div className="relative order-1 flex justify-center mt-2 mb-6 lg:order-2 lg:mt-0">
-              <div className="relative flex h-[300px] w-[280px] items-center justify-center md:h-[420px] md:w-[360px] lg:h-[520px] lg:w-[460px]">
-                {/* Rings */}
-                {[
-                  { size: 360, dur: "32s", dir: "normal" },
-                  { size: 460, dur: "48s", dir: "reverse" },
-                ].map((r, i) => (
-                  <div
-                    key={i}
-                    className="absolute rounded-full border border-indigo-200/40"
-                    style={{
-                      width: r.size,
-                      height: r.size,
-                      top: "50%",
-                      left: "50%",
-                      animation: `spinRing ${r.dur} linear infinite`,
-                      animationDirection: r.dir as any,
-                    }}
-                  />
-                ))}
-                {/* Glow dots */}
-                {[
-                  { top: 60, right: 80, color: "#818cf8", delay: "0s" },
-                  { top: 320, left: 60, color: "#38bdf8", delay: "-1.5s" },
-                ].map((d, i) => (
-                  <div
-                    key={i}
-                    className="absolute h-3 w-3 rounded-full"
-                    style={{
-                      background: d.color,
-                      boxShadow: `0 0 20px ${d.color}`,
-                      top: (d as any).top,
-                      right: (d as any).right,
-                      left: (d as any).left,
-                      animation: `pulseGlow 3s ease-in-out ${d.delay} infinite`,
-                    }}
-                  />
-                ))}
-                {/* Image */}
-                <div className="relative z-10 flex justify-center">
-                <Image
-                src="/profile.png"
-                alt="Arunesh Kumar"
-                width={400}
-                height={460}
-                priority
-                className="h-auto w-44 md:w-64 lg:w-[400px] rounded-3xl object-contain drop-shadow-2xl"
-              />
-                 </div>
-
-                {/* Tag */}
-                <div className="absolute left-1/2 bottom-4 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
-                <p className="text-center text-sm font-bold text-slate-900 md:text-left">
-                 Product · Growth · Systems
-                </p>
-                <p className="mt-1 text-center text-xs leading-5 text-slate-500 md:max-w-[200px] md:text-left md:text-sm md:leading-6">
-                 Building revenue-driving experiences and AI workflows.
-                </p>
-              </div>
-              </div>
               
             {/* Left */}
-            <div className="order-2 lg:order-1">
+            <div>
               {/* Badge */}
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-500 shadow-sm backdrop-blur">
                 <span
@@ -329,6 +267,68 @@ export default function HomePage() {
                 })}
               </div>
             </div>
+            
+            {/* Right — profile image with rings */}
+            <div className="relative flex justify-center mt-10 lg:mt-0">
+              <div className="relative flex h-[300px] w-[280px] items-center justify-center md:h-[420px] md:w-[360px] lg:h-[520px] lg:w-[460px]">
+                {/* Rings */}
+                {[
+                  { size: 360, dur: "32s", dir: "normal" },
+                  { size: 460, dur: "48s", dir: "reverse" },
+                ].map((r, i) => (
+                  <div
+                    key={i}
+                    className="absolute rounded-full border border-indigo-200/40"
+                    style={{
+                      width: r.size,
+                      height: r.size,
+                      top: "50%",
+                      left: "50%",
+                      animation: `spinRing ${r.dur} linear infinite`,
+                      animationDirection: r.dir as any,
+                    }}
+                  />
+                ))}
+                {/* Glow dots */}
+                {[
+                  { top: 60, right: 80, color: "#818cf8", delay: "0s" },
+                  { top: 320, left: 60, color: "#38bdf8", delay: "-1.5s" },
+                ].map((d, i) => (
+                  <div
+                    key={i}
+                    className="absolute h-3 w-3 rounded-full"
+                    style={{
+                      background: d.color,
+                      boxShadow: `0 0 20px ${d.color}`,
+                      top: (d as any).top,
+                      right: (d as any).right,
+                      left: (d as any).left,
+                      animation: `pulseGlow 3s ease-in-out ${d.delay} infinite`,
+                    }}
+                  />
+                ))}
+                {/* Image */}
+                <div className="relative z-10 flex justify-center">
+                <Image
+                src="/profile.png"
+                alt="Arunesh Kumar"
+                width={400}
+                height={460}
+                priority
+                className="h-auto w-44 md:w-64 lg:w-[400px] rounded-3xl object-contain drop-shadow-2xl"
+              />
+                 </div>
+
+                {/* Tag */}
+                <div className="absolute left-1/2 bottom-4 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
+                <p className="text-center text-sm font-bold text-slate-900 md:text-left">
+                 Product · Growth · Systems
+                </p>
+                <p className="mt-1 text-center text-xs leading-5 text-slate-500 md:max-w-[200px] md:text-left md:text-sm md:leading-6">
+                 Building revenue-driving experiences and AI workflows.
+                </p>
+              </div>
+              </div>
             </div>
           </div>
         </section>
