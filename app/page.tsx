@@ -320,14 +320,15 @@ export default function HomePage() {
                  </div>
 
                 {/* Tag */}
-                <div className="absolute left-1/2 -bottom-16 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
-                <p className="text-center text-sm font-bold text-slate-900 md:text-left">
-                 Product · Growth · Systems
-                </p>
-                <p className="mt-1 text-center text-xs leading-5 text-slate-500 md:max-w-[200px] md:text-left md:text-sm md:leading-6">
-                 Building revenue-driving experiences and AI workflows.
-                </p>
-              </div>
+                <div className="absolute left-2 bottom-6 z-20 w-[180px] rounded-2xl border border-slate-200 bg-white/95 px-3 py-2 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:px-5 md:py-4">
+                  <p className="text-xs font-bold text-slate-900 md:text-sm">
+                    Product · Growth · Systems
+                  </p>
+                
+                  <p className="mt-1 text-[11px] leading-4 text-slate-500 md:max-w-[200px] md:text-sm md:leading-6">
+                    Building revenue-driving experiences and AI workflows.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
