@@ -1002,4 +1002,216 @@ function GeneralReplyModule() {
             return (
               <button key={t} onClick={()=>toggle(t)}
                 className={`p-3 rounded-2xl border text-left transition ${sel?"border-indigo-400 bg-indigo-50":"border-slate-200 bg-white hover:border-indigo-200"}`}>
-                <div className={`text-sm font-semi
+                <div className={`text-sm font-semibold mb-1 ${sel?"text-indigo-700":"text-slate-800"}`}>{t}</div>
+                <div className="text-xs text-slate-500 leading-5">{TONE_DESC[t]}</div>
+              </button>
+            );
+          })}
+        </div>
+      </Card>
+      <Btn onClick={generate} disabled={loading||!originalMsg.trim()||selTones.length===0}>
+        {loading?"Generating replies...":"Generate Replies →"}
+      </Btn>
+    </div>
+  );
+
+  const d = active;
+  if (!d) return null;
+  const av = d.variants.find(v=>v.tone===d.activeTone);
+  return (
+    <div className="flex flex-col gap-4 max-w-2xl">
+      <div className="flex gap-2 flex-wrap items-center">
+        <Btn variant="secondary" size="sm" onClick={()=>setView("list")}>← All replies</Btn>
+        <span className="text-xs bg-pink-50 text-pink-600 border border-pink-100 rounded-full px-3 py-1">Reply</span>
+        <span className="text-xs text-slate-400">{d.createdAt}</span>
+        <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(av?.content||"")}>Copy</Btn>
+      </div>
+      <div className="flex gap-3 items-start">
+        <div className="w-36 shrink-0 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 pt-3 pb-2">Tone</div>
+          {d.tones.map(t=>{
+            const act = t===d.activeTone;
+            return (
+              <button key={t} onClick={()=>retone(d,t)}
+                className={`w-full flex items-center justify-between px-3 py-2 text-xs border-l-2 transition text-left ${act?"border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold":"border-transparent text-slate-500 hover:bg-slate-50"}`}>
+                <span>{t}</span>{act&&<span>✓</span>}
+              </button>
+            );
+          })}
+          <div className="border-t border-slate-100 mt-1 pt-1">
+            {TONES.filter(t=>!d.tones.includes(t)).map(t=>(
+              <button key={t} onClick={()=>retone(d,t)}
+                className="w-full px-3 py-2 text-xs text-slate-400 hover:bg-slate-50 text-left transition">
+                + {t}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex-1 relative">
+          {d.chatLoading&&(
+            <div className="absolute inset-0 rounded-2xl bg-white/90 z-10 flex items-center justify-center border border-slate-200">
+              <span className="text-sm text-slate-500">Generating <strong>{d.activeTone}</strong> variant...</span>
+            </div>
+          )}
+          <div className={`rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-700 whitespace-pre-wrap min-h-40 transition ${d.chatLoading?"opacity-30":""}`}>
+            {av?.content||""}
+          </div>
+        </div>
+      </div>
+      <div className="text-xs font-bold uppercase tracking-widest text-indigo-500">Refine</div>
+      <div className="flex flex-col gap-3 max-h-60 overflow-y-auto">
+        {d.chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
+        {d.chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Revising...</div>}
+        <div ref={bottomRef}/>
+      </div>
+      <div className="flex gap-2">
+        <input value={d.chatInput||""} onChange={e=>upd(d.id,{chatInput:e.target.value})} onKeyDown={e=>e.key==="Enter"&&sendChat(d)} placeholder='"Make it shorter", "More direct", "Add a question"'
+          className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
+        <Btn onClick={()=>sendChat(d)} disabled={d.chatLoading||!d.chatInput?.trim()}>Refine</Btn>
+      </div>
+    </div>
+  );
+}
+
+// ─── INSIGHT REPOSITORY MODULE ────────────────────────────
+function RepositoryModule() {
+  type Insight = {id:number;title:string;source:string;date:string;tags:string;summary:string;aiSummary:string};
+  const [insights,setInsights] = useState<Insight[]>([]);
+  const [form,setForm] = useState({title:"",source:"",date:"",tags:"",summary:""});
+  const [aiSummary,setAiSummary] = useState("");
+  const [loading,setLoading] = useState(false);
+  const [search,setSearch] = useState("");
+  const [show,setShow] = useState(true);
+
+  const add = async()=>{
+    if(!form.title||!form.summary) return;
+    setLoading(true);
+    const reply = await callClaude([{role:"user",content:`Summarize this insight in 2 sentences and extract 3 key actions:\n\nTitle: ${form.title}\nSource: ${form.source}\nInsight: ${form.summary}`}],"You are a product insights curator. Be concise and actionable.");
+    setInsights(prev=>[{...form,id:Date.now(),aiSummary:reply},...prev]);
+    setForm({title:"",source:"",date:"",tags:"",summary:""});
+    setLoading(false);
+  };
+
+  const filtered = insights.filter(i=>
+    i.title.toLowerCase().includes(search.toLowerCase())||
+    i.tags.toLowerCase().includes(search.toLowerCase())||
+    i.summary.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="flex flex-col gap-4 max-w-2xl">
+      {show&&(
+        <Card>
+          <div className="text-sm font-semibold text-slate-700 mb-3">Add new insight</div>
+          {[{k:"title",l:"Title",p:"e.g. Users abandon checkout on mobile"},{k:"source",l:"Source",p:"e.g. User interview, analytics"},{k:"date",l:"Date",p:"e.g. May 2025"},{k:"tags",l:"Tags",p:"e.g. mobile, checkout, retention"}].map(f=>(
+            <div key={f.k} className="flex gap-3 items-center mb-2">
+              <span className="text-xs text-slate-400 w-16 shrink-0">{f.l}</span>
+              <input value={(form as Record<string,string>)[f.k]} onChange={e=>setForm({...form,[f.k]:e.target.value})} placeholder={f.p}
+                className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
+            </div>
+          ))}
+          <div className="flex gap-3 items-start mb-3">
+            <span className="text-xs text-slate-400 w-16 shrink-0 pt-2">Insight</span>
+            <textarea rows={3} value={form.summary} onChange={e=>setForm({...form,summary:e.target.value})} placeholder="Describe the insight in detail..."
+              className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400 resize-none"/>
+          </div>
+          <Btn onClick={add} disabled={loading||!form.title||!form.summary}>{loading?"Saving...":"Add & Summarize →"}</Btn>
+        </Card>
+      )}
+      <div className="flex gap-2">
+        <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search insights..."
+          className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
+        <Btn variant="secondary" size="sm" onClick={()=>setShow(!show)}>{show?"Hide form":"+ New insight"}</Btn>
+      </div>
+      {filtered.length===0&&<p className="text-sm text-slate-400 text-center py-8">No insights yet. Add your first one above.</p>}
+      {filtered.map(i=>(
+        <Card key={i.id}>
+          <div className="flex justify-between items-start gap-3 mb-2">
+            <div className="text-sm font-semibold text-slate-800">{i.title}</div>
+            <button onClick={()=>setInsights(prev=>prev.filter(x=>x.id!==i.id))} className="text-xs text-slate-400 hover:text-red-500 shrink-0">✕</button>
+          </div>
+          <div className="flex gap-2 flex-wrap mb-2">
+            {i.source&&<span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg">{i.source}</span>}
+            {i.date&&<span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg">{i.date}</span>}
+            {i.tags.split(",").filter(Boolean).map(t=>(
+              <span key={t} className="text-xs bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-lg">{t.trim()}</span>
+            ))}
+          </div>
+          {i.aiSummary&&<div className="text-xs text-slate-600 leading-5 bg-slate-50 rounded-xl p-3 whitespace-pre-wrap">{i.aiSummary}</div>}
+        </Card>
+      ))}
+    </div>
+  );
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────
+function Dashboard({onNavigate}:{onNavigate:(id:string)=>void}) {
+  const tools = MODULES.filter(m=>m.id!=="dashboard");
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h2 className="text-xl font-bold text-slate-900 mb-1">PM Hub</h2>
+        <p className="text-sm text-slate-500">Your AI-powered product management toolkit.</p>
+      </div>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {tools.map(m=>(
+          <button key={m.id} onClick={()=>onNavigate(m.id)}
+            className="rounded-2xl border border-slate-200 bg-white p-4 text-left hover:border-indigo-300 hover:bg-indigo-50 transition shadow-sm">
+            <i className={`${m.icon} text-xl text-indigo-500 mb-2 block`}></i>
+            <div className="text-sm font-semibold text-slate-800">{m.label}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── PAGE ─────────────────────────────────────────────────
+export default function Page() {
+  const [active,setActive] = useState("dashboard");
+  const mod = MODULES.find(m=>m.id===active);
+
+  const renderModule = () => {
+    if (active==="dashboard") return <Dashboard onNavigate={setActive}/>;
+    if (active==="funnel") return <FunnelModule/>;
+    if (active==="hypothesis") return <HypothesisModule/>;
+    if (active==="prioritization") return <PrioritizationModule/>;
+    if (active==="stakeholder") return <DraftCommsModule/>;
+    if (active==="voc") return <GeneralReplyModule/>;
+    if (active==="repository") return <RepositoryModule/>;
+    return <AIModule moduleId={active}/>;
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+      <div className="flex h-screen overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-56 shrink-0 border-r border-slate-200 bg-white flex flex-col overflow-y-auto">
+          <div className="px-4 py-5 border-b border-slate-100">
+            <div className="text-sm font-bold text-slate-900">PM Hub</div>
+            <div className="text-xs text-slate-400">AI Product Toolkit</div>
+          </div>
+          <nav className="flex-1 py-2">
+            {MODULES.map(m=>(
+              <button key={m.id} onClick={()=>setActive(m.id)}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition text-left ${active===m.id?"bg-indigo-50 text-indigo-700 font-semibold border-r-2 border-indigo-500":"text-slate-600 hover:bg-slate-50"}`}>
+                <i className={`${m.icon} text-base shrink-0`}></i>
+                <span className="truncate">{m.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+        {/* Main */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="px-8 py-6">
+            <div className="mb-6">
+              <h1 className="text-lg font-bold text-slate-900">{mod?.label}</h1>
+            </div>
+            {renderModule()}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
