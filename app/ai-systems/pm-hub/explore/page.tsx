@@ -309,7 +309,9 @@ function FunnelModule() {
   type Step = {name:string;users:number;uxNotes:string;device:string;source:string};
   const [phase,setPhase] = useState<"setup"|"data"|"questions"|"result">("setup");
   const [template,setTemplate] = useState("saas");
-  const [steps,setSteps] = useState<Step[]>(FUNNEL_TEMPLATES.saas.map(s=>({...s})));
+  const [steps,setSteps] = useState<Step[]>(
+  FUNNEL_TEMPLATES.saas.map((s) => ({ ...s }))
+);
   const [newStep,setNewStep] = useState("");
   const [answers,setAnswers] = useState<Record<string,string>>({});
   const [analysis,setAnalysis] = useState("");
