@@ -320,7 +320,7 @@ export default function HomePage() {
                  </div>
 
                 {/* Tag */}
-                <div className="absolute left-1/2 bottom-4 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
+                <div className="absolute left-1/2 -bottom-16 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
                 <p className="text-center text-sm font-bold text-slate-900 md:text-left">
                  Product · Growth · Systems
                 </p>
@@ -333,67 +333,39 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── ABOUT ME ── */}
-<section className="py-16 bg-white/60">
-  <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] items-center">
+       {/* ── ABOUT ME ── */}
+<section className="bg-white/60 py-16">
+  <div className="mx-auto max-w-5xl px-4 md:px-6 lg:px-8">
 
-      {/* Left */}
-      <div className="relative flex justify-center">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-3 shadow-lg">
-          <Image
-            src="/profile.png"
-            alt="Arunesh Kumar"
-            width={320}
-            height={380}
-            className="rounded-[1.5rem] object-cover"
-          />
-        </div>
-      </div>
+    <SectionLabel>About Me</SectionLabel>
 
-      {/* Right */}
-      <div>
-        <SectionLabel>About Me</SectionLabel>
+    <SectionTitle>
+      Building products that drive growth & measurable impact
+    </SectionTitle>
 
-        <SectionTitle>
-          Building products that drive growth & measurable impact
-        </SectionTitle>
+    <div className="mt-6 space-y-5 text-base leading-8 text-slate-600 md:text-lg">
+      <p>
+        I’m{" "}
+        <span className="font-semibold text-slate-900">
+          Arunesh Kumar
+        </span>
+        , a Product Manager focused on growth, experimentation, and
+        digital systems. My work sits at the intersection of product,
+        analytics, UX, and business impact.
+      </p>
 
-        <p className="mt-5 text-base leading-8 text-slate-600">
-          I’m <span className="font-semibold text-slate-900">Arunesh Kumar</span>, 
-          a Product Manager focused on growth, experimentation, and digital systems.
-          My work sits at the intersection of product, analytics, UX, and business impact.
-        </p>
+      <p>
+        At Sierra Living Concepts, I’ve worked on pricing systems,
+        checkout optimization, and revenue-driving workflows —
+        contributing to measurable business outcomes through pricing
+        automation, conversion improvements, and real-time sales tools.
+      </p>
 
-        <p className="mt-4 text-base leading-8 text-slate-600">
-          At Sierra Living Concepts, I’ve worked on pricing systems, checkout optimization,
-          and revenue-driving workflows — contributing to measurable business outcomes,
-          including pricing automation and real-time quoting systems.
-        </p>
-
-        <p className="mt-4 text-base leading-8 text-slate-600">
-          I enjoy solving messy problems, understanding user behavior,
-          and turning insights into scalable systems and product improvements.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/experience"
-            className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:scale-[1.02]"
-          >
-            View Experience
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-
-          <Link
-            href="/Arunesh_Kumar_Resume.pdf"
-            target="_blank"
-            className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-          >
-            Resume
-          </Link>
-        </div>
-      </div>
+      <p>
+        I enjoy solving messy problems, understanding user behavior,
+        and transforming insights into scalable systems, experiments,
+        and product improvements that create measurable business value.
+      </p>
     </div>
   </div>
 </section>
