@@ -4,7 +4,7 @@ import { navLinks } from "@/lib/site-data";
 export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-sm font-semibold text-white shadow-soft">
             AK
@@ -15,7 +15,7 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="flex items-center gap-4 overflow-x-auto text-sm">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="text-sm text-slate-600 transition hover:text-slate-950">
               {link.label}
