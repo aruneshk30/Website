@@ -15,7 +15,7 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-4 overflow-x-auto text-sm">
+        <nav className="flex items-center gap-3 overflow-x-auto whitespace-nowrap text-sm">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="text-sm text-slate-600 transition hover:text-slate-950">
               {link.label}
