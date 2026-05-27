@@ -320,7 +320,7 @@ export default function HomePage() {
                  </div>
 
                 {/* Tag */}
-                <div className="absolute left-1/2 top-[75%] z-20 w-[200px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-3 py-2 shadow-xl backdrop-blur md:left-[20px] md:top-auto md:bottom-8 md:w-[240px] md:px-5 md:py-4">
+                <div className="absolute left-1/2 top-[75%] z-20 w-[200px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-3 py-2 shadow-xl backdrop-blur md:left-[120px] md:top-auto md:bottom-8 md:w-[240px] md:px-5 md:py-4">
                   <p className="text-center text-xs font-bold text-slate-900 md:text-left md:text-sm">
                     Product · Growth · Systems
                   </p>
