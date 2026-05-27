@@ -705,7 +705,7 @@ function PrioritizationModule() {
               <td className="px-4 py-3 font-semibold text-slate-800">{f.name}</td>
               {["reach","impact","confidence","effort"].map(k=>(
                 <td key={k} className="px-4 py-3">
-                  <input type="number" value={(f as Record<string,number>)[k]} min={0} max={k==="confidence"?100:10}
+                  <input type="number" value={(f as unknown as Record<string,number>)[k]} min={0} max={k==="confidence"?100:10}
                     onChange={e=>setFeatures(features.map((x,j)=>features.indexOf(f)===j?{...x,[k]:+e.target.value}:x))}
                     className="w-14 text-sm rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 outline-none focus:border-indigo-400"/>
                 </td>
