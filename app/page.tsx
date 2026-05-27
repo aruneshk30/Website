@@ -269,8 +269,8 @@ export default function HomePage() {
             </div>
 
             {/* Right — profile image with rings */}
-            <div className="relative hidden lg:flex justify-center">
-              <div className="relative flex h-[520px] w-[460px] items-center justify-center">
+            <div className="relative flex justify-center mt-10 lg:mt-0">
+              <div className="relative flex h-[300px] w-[280px] items-center justify-center md:h-[420px] md:w-[360px] lg:h-[520px] lg:w-[460px]">
                 {/* Rings */}
                 {[
                   { size: 360, dur: "32s", dir: "normal" },
@@ -310,13 +310,13 @@ export default function HomePage() {
                 {/* Image */}
                 <div className="relative z-10 flex justify-center">
                 <Image
-                 src="/profile.png"
-                 alt="Arunesh Kumar"
-                 width={400}
-                 height={460}
-                 priority
-                 className="h-auto w-52 md:w-[400px] rounded-3xl object-contain drop-shadow-2xl"
-                 />
+                src="/profile.png"
+                alt="Arunesh Kumar"
+                width={400}
+                height={460}
+                priority
+                className="h-auto w-44 md:w-64 lg:w-[400px] rounded-3xl object-contain drop-shadow-2xl"
+              />
                  </div>
 
                 {/* Tag */}
