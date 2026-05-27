@@ -889,12 +889,12 @@ function DraftCommsModule() {
         {d.chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Revising...</div>}
         <div ref={bottomRef}/>
       </div>
-      <div className="flex gap-2">
+     <div className="flex gap-2">
         <input value={d.chatInput||""} onChange={e=>upd(d.id,{chatInput:e.target.value})} onKeyDown={e=>e.key==="Enter"&&sendChat(d)} placeholder='"Make it shorter", "More urgent", "Add a deadline"'
           className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
         <Btn onClick={()=>sendChat(d)} disabled={d.chatLoading||!d.chatInput?.trim()}>Revise</Btn>
       </div>
-      </div>
+    </div>
   );
 }
 
