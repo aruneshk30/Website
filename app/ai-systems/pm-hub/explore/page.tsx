@@ -894,7 +894,6 @@ function DraftCommsModule() {
           className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
         <Btn onClick={()=>sendChat(d)} disabled={d.chatLoading||!d.chatInput?.trim()}>Revise</Btn>
       </div>
-    </div>
       </div>
   );
 }
