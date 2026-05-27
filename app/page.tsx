@@ -199,7 +199,7 @@ export default function HomePage() {
         {/* ── HERO ── */}
         <section
           id="home"
-          className="relative flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-24 lg:px-8"
+          className="relative flex min-h-[85vh] md:min-h-screen items-center overflow-hidden px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8"
         >
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
 
@@ -308,25 +308,26 @@ export default function HomePage() {
                   />
                 ))}
                 {/* Image */}
-                <div className="relative z-10">
-                  <Image
-                    src="/profile.png"
-                    alt="Arunesh Kumar"
-                    width={400}
-                    height={460}
-                    priority
-                    className="rounded-3xl object-contain drop-shadow-2xl"
-                  />
-                </div>
+                <div className="relative z-10 flex justify-center">
+                <Image
+                 src="/profile.png"
+                 alt="Arunesh Kumar"
+                 width={400}
+                 height={460}
+                 priority
+                 className="h-auto w-52 md:w-[400px] rounded-3xl object-contain drop-shadow-2xl"
+                 />
+                 </div>
+
                 {/* Tag */}
-                <div className="absolute -left-6 bottom-10 z-20 rounded-2xl border border-slate-200 bg-white/95 px-5 py-4 shadow-xl backdrop-blur">
-                  <p className="text-sm font-bold text-slate-900">
-                    Product · Growth · Systems
-                  </p>
-                  <p className="mt-1 max-w-[200px] text-sm leading-6 text-slate-500">
-                    Building revenue-driving experiences and AI workflows.
-                  </p>
-                </div>
+                <div className="absolute left-1/2 bottom-4 z-20 w-[85%] max-w-[260px] -translate-x-1/2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur md:left-auto md:bottom-10 md:w-auto md:max-w-none md:-translate-x-0 md:px-5 md:py-4">
+                <p className="text-center text-sm font-bold text-slate-900 md:text-left">
+                 Product · Growth · Systems
+                </p>
+                <p className="mt-1 text-center text-xs leading-5 text-slate-500 md:max-w-[200px] md:text-left md:text-sm md:leading-6">
+                 Building revenue-driving experiences and AI workflows.
+                </p>
+              </div>
               </div>
             </div>
           </div>
