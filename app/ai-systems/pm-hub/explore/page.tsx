@@ -905,6 +905,14 @@ export default function Page() {
   const [mobileMenuOpen,setMobileMenuOpen]=useState(false);
   const mod=MODULES.find(m=>m.id===active);
 
+  useEffect(()=>{
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css";
+    document.head.appendChild(link);
+    return ()=>{ document.head.removeChild(link); };
+  },[]);
+
   const navigate=(id:string)=>{setActive(id);setMobileMenuOpen(false);};
 
   const renderModule=()=>{
@@ -919,8 +927,6 @@ export default function Page() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
-
       {/* Disclaimer banner */}
       <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-xs text-amber-700 font-medium shrink-0 flex items-center justify-center gap-2">
         <i className="ti ti-info-circle text-sm"></i>
@@ -978,4 +984,15 @@ export default function Page() {
             <div className="flex-1 overflow-y-auto py-2">
               {MODULES.map(m=>(
                 <button key={m.id} onClick={()=>navigate(m.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition border-l-2 justify-start ${active===m.id?"bg-indigo-50 text-indigo-700 border-indigo-500 font-semibol
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition border-l-2 justify-start ${active===m.id?"bg-indigo-50 text-indigo-700 border-indigo-500 font-semibold":"text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-transparent"}`}>
+                  <i className={`${m.icon} text-base shrink-0`}></i>
+                  <span className="truncate">{m.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
