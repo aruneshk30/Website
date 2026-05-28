@@ -848,7 +848,7 @@ function Dashboard({onNavigate}:{onNavigate:(id:string)=>void}) {
       <div className="rounded-[1.75rem] bg-gradient-to-br from-slate-900 to-indigo-800 px-6 py-6 shadow-lg shadow-indigo-200">
         <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-4">PM Hub</div>
         <p className="text-lg font-bold text-white">PM Research & Strategy Hub</p>
-        <p className="mt-1.5 text-sm text-indigo-200 leading-6">Built by <strong className="text-white">Arunesh Kumar</strong> — Product Manager at Sierra Living Concepts.</p>
+        <p className="mt-1.5 text-sm text-indigo-200 leading-6">Built by <strong className="text-white">Arunesh Kumar</strong> </p>
         <p className="mt-1 text-xs text-indigo-300 leading-5">17 AI-powered modules for end-to-end product management work. Built by a PM, for PMs.</p>
         <div className="mt-4 grid grid-cols-3 gap-2">
           {[{v:"17",l:"AI Modules",bg:"from-blue-50 to-indigo-50",t:"text-indigo-600"},{v:"100+",l:"PM Workflows",bg:"from-emerald-50 to-teal-50",t:"text-emerald-600"},{v:"6",l:"PM Tools",bg:"from-violet-50 to-purple-50",t:"text-violet-600"}].map(s=>(
@@ -922,7 +922,6 @@ export default function Page() {
         <i className="ti ti-info-circle text-sm"></i>
         <span>This is a representation of capabilities — a Claude API key is required for actual AI responses.</span>
         <span className="hidden sm:inline text-amber-500">·</span>
-        <span className="hidden sm:inline font-semibold">Built by a PM, for PMs — Arunesh Kumar</span>
       </div>
 
       <div className="flex flex-1 overflow-hidden">
