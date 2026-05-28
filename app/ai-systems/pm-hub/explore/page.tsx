@@ -1,8 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import Head from "next/head";
 
-// ─── CONSTANTS ────────────────────────────────────────────
 const TONES = ["Formal","Polite","Friendly","Fluent & Concise","Assertive","Diplomatic","Informal","Urgent"];
 const TONE_DESC: Record<string,string> = {
   "Formal":"Professional, structured, no contractions.",
@@ -126,15 +124,6 @@ const MODULE_Q: Record<string,{title:string;system:string;questions:{key:string;
     {key:"question",label:"What specific question do you want answered?",placeholder:"e.g. what is driving negative sentiment?"},
     {key:"rawdata",label:"Paste the customer feedback here:",placeholder:"Paste reviews, tickets, quotes...",rows:5},
   ]},
-  "stakeholder":{title:"Stakeholder Analysis",system:"You are a product communication expert. Write clear stakeholder communication: lead with bottom line, support with evidence, anticipate objections, make ask explicit. Include TL;DR, key points, next steps.",questions:[
-    {key:"audience",label:"Who is the primary audience?",placeholder:"e.g. CEO and board, engineering team"},
-    {key:"topic",label:"What is the communication about?",placeholder:"e.g. Q2 roadmap, experiment results"},
-    {key:"findings",label:"What are the key findings?",placeholder:"e.g. we are launching feature X"},
-    {key:"ask",label:"What is your ask?",placeholder:"e.g. get approval, inform only"},
-    {key:"concerns",label:"What concerns might they have?",placeholder:"e.g. Eng worried about scope creep"},
-    {key:"format",label:"What format do you need?",placeholder:"e.g. executive brief, email"},
-    {key:"tone",label:"What tone fits?",placeholder:"e.g. confident, collaborative"},
-  ]},
   "risk":{title:"Risk & Assumptions",system:"You are a product risk analyst. Produce: Assumption Inventory ranked by risk, Risk Register (likelihood x impact), Critical Path Risks, Mitigation Strategies, Validation Experiments, Early Warning Indicators, Go/No-go Checklist.",questions:[
     {key:"feature",label:"What feature are you assessing?",placeholder:"e.g. launching AI recommendations"},
     {key:"assumptions",label:"What key assumptions is this built on?",placeholder:"e.g. users want personalization"},
@@ -146,57 +135,35 @@ const MODULE_Q: Record<string,{title:string;system:string;questions:{key:string;
   ]},
 };
 
-const EMAIL_Q = [
-  {key:"core",label:"Describe your email - who it is to, what it is about, and what you need from them.",placeholder:"e.g. To my VP of Product. Feature X is delayed by 2 weeks. Need approval to adjust timeline.",rows:4},
-  {key:"context",label:"Any background context? (optional)",placeholder:"e.g. They were on the call last Tuesday.",rows:2},
-];
-const MONDAY_Q = [
-  {key:"core",label:"Summarise your week - what got done, what is coming up, and any blockers.",placeholder:"e.g. Shipped onboarding v2 and ran 4 user interviews. Next week launching A/B test. Blocker: waiting on legal.",rows:5},
-  {key:"audience",label:"Who is this update for? (optional)",placeholder:"e.g. Cross-functional team, exec stakeholders",rows:1},
-];
-
-const FUNNEL_TEMPLATES: Record<string,{name:string;users:number;uxNotes:string;device:string;source:string}[]> = {
+const FUNNEL_TEMPLATES: Record<string,{name:string;users:number}[]> = {
   saas:[
-    {name:"Website Visit",users:0,uxNotes:"",device:"",source:""},
-    {name:"Sign Up Page",users:0,uxNotes:"",device:"",source:""},
-    {name:"Account Created",users:0,uxNotes:"",device:"",source:""},
-    {name:"Onboarding Step 1",users:0,uxNotes:"",device:"",source:""},
-    {name:"First Key Action",users:0,uxNotes:"",device:"",source:""},
-    {name:"Paid Conversion",users:0,uxNotes:"",device:"",source:""},
+    {name:"Website Visit",users:0},{name:"Sign Up Page",users:0},{name:"Account Created",users:0},
+    {name:"First Key Action",users:0},{name:"Paid Conversion",users:0},
   ],
   ecommerce:[
-    {name:"Product Page View",users:0,uxNotes:"",device:"",source:""},
-    {name:"Add to Cart",users:0,uxNotes:"",device:"",source:""},
-    {name:"Checkout Started",users:0,uxNotes:"",device:"",source:""},
-    {name:"Payment Details",users:0,uxNotes:"",device:"",source:""},
-    {name:"Order Confirmed",users:0,uxNotes:"",device:"",source:""},
+    {name:"Product Page View",users:0},{name:"Add to Cart",users:0},{name:"Checkout Started",users:0},
+    {name:"Payment Details",users:0},{name:"Order Confirmed",users:0},
   ],
   onboarding:[
-    {name:"App Install",users:0,uxNotes:"",device:"",source:""},
-    {name:"Splash Screen",users:0,uxNotes:"",device:"",source:""},
-    {name:"Registration",users:0,uxNotes:"",device:"",source:""},
-    {name:"Profile Setup",users:0,uxNotes:"",device:"",source:""},
-    {name:"Tutorial Complete",users:0,uxNotes:"",device:"",source:""},
-    {name:"First Value Moment",users:0,uxNotes:"",device:"",source:""},
+    {name:"App Install",users:0},{name:"Registration",users:0},{name:"Profile Setup",users:0},
+    {name:"Tutorial Complete",users:0},{name:"First Value Moment",users:0},
   ],
 };
 
-// ─── API ──────────────────────────────────────────────────
-async function callClaude(messages: {role:string;content:string}[], system = "") {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1500, system, messages }),
+async function callClaude(messages:{role:string;content:string}[],system="") {
+  const res = await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1500,system,messages}),
   });
   const data = await res.json();
-  return data.content?.map((b:{text?:string}) => b.text || "").join("\n") || "No response.";
+  return data.content?.map((b:{text?:string})=>b.text||"").join("\n")||"No response.";
 }
 
-// ─── SHARED UI ────────────────────────────────────────────
 function Btn({onClick,disabled,children,variant="primary",size="md"}:{onClick?:()=>void;disabled?:boolean;children:React.ReactNode;variant?:"primary"|"secondary"|"ghost";size?:"sm"|"md"}) {
-  const base = "inline-flex items-center gap-2 font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed";
-  const sizes = {sm:"px-3 py-1.5 text-xs", md:"px-5 py-2.5 text-sm"};
-  const variants = {
+  const base="inline-flex items-center gap-2 font-semibold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
+  const sizes={sm:"px-3 py-1.5 text-xs",md:"px-5 py-2.5 text-sm"};
+  const variants={
     primary:"bg-gradient-to-r from-slate-900 to-indigo-700 text-white shadow-md shadow-indigo-200 hover:scale-[1.02]",
     secondary:"border border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-600",
     ghost:"text-slate-500 hover:text-slate-800 bg-transparent border-0",
@@ -224,7 +191,36 @@ function ChatBubble({role,content}:{role:string;content:string}) {
   );
 }
 
-// ─── PREFLIGHT FORM ───────────────────────────────────────
+function FileAttach({onFile,fileName,onClear}:{onFile:(content:string,name:string)=>void;fileName:string|null;onClear:()=>void}) {
+  const ref = useRef<HTMLInputElement>(null);
+  const handle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => onFile(ev.target?.result as string, file.name);
+    reader.readAsText(file);
+  };
+  return (
+    <div onClick={()=>ref.current?.click()} className={`rounded-2xl border-2 border-dashed px-4 py-3 cursor-pointer transition flex items-center gap-3 ${fileName?"border-indigo-300 bg-indigo-50":"border-slate-200 bg-white hover:border-indigo-300 hover:bg-indigo-50"}`}>
+      <i className="ti ti-paperclip text-base text-indigo-500 shrink-0"></i>
+      <div className="flex-1 min-w-0">
+        {fileName?(
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-sm font-medium text-indigo-700 truncate">{fileName}</span>
+            <button onClick={e=>{e.stopPropagation();onClear();}} className="text-xs text-slate-400 hover:text-red-500 shrink-0">✕</button>
+          </div>
+        ):(
+          <div>
+            <p className="text-sm font-medium text-slate-700">Attach a data file <span className="text-slate-400 font-normal">(optional)</span></p>
+            <p className="text-xs text-slate-400 mt-0.5">CSV, TXT, JSON, MD — attach and skip the questions</p>
+          </div>
+        )}
+      </div>
+      <input ref={ref} type="file" accept=".csv,.txt,.json,.md,.pdf" onChange={handle} className="hidden"/>
+    </div>
+  );
+}
+
 function PreflightForm({moduleId,onSubmit}:{moduleId:string;onSubmit:(reply:string,ctx:string)=>void}) {
   const config = MODULE_Q[moduleId];
   const [answers,setAnswers] = useState<Record<string,string>>({});
@@ -233,32 +229,16 @@ function PreflightForm({moduleId,onSubmit}:{moduleId:string;onSubmit:(reply:stri
   const [customPrompt,setCustomPrompt] = useState("");
   const [fileContent,setFileContent] = useState<string|null>(null);
   const [fileName,setFileName] = useState<string|null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
-
   if (!config) return null;
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = (ev) => setFileContent(ev.target?.result as string);
-    reader.readAsText(file);
-  };
-
-  const handle = async () => {
+  const handle = async() => {
     setLoading(true);
-    let context = "";
-    if (mode === "questions") {
-      context = config.questions.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
-    } else {
-      context = customPrompt;
-    }
-    if (fileContent) {
-      context += `\n\n--- Attached file: ${fileName} ---\n${fileContent.slice(0,8000)}`;
-    }
-    const prompt = mode === "custom"
-      ? `${customPrompt}${fileContent ? `\n\nFile data (${fileName}):\n${fileContent.slice(0,8000)}` : ""}`
+    let context = mode==="questions"
+      ? config.questions.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n")
+      : customPrompt;
+    if (fileContent) context+=`\n\n--- Attached: ${fileName} ---\n${fileContent.slice(0,8000)}`;
+    const prompt = mode==="custom"
+      ? `${customPrompt}${fileContent?`\n\nFile (${fileName}):\n${fileContent.slice(0,8000)}`:""}`
       : `Context:\n\n${context}\n\nProvide a thorough structured analysis.`;
     const reply = await callClaude([{role:"user",content:prompt}],config.system);
     onSubmit(reply,context);
@@ -266,80 +246,47 @@ function PreflightForm({moduleId,onSubmit}:{moduleId:string;onSubmit:(reply:stri
   };
 
   const filled = config.questions.filter(q=>answers[q.key]?.trim()).length;
-  const canSubmit = mode==="questions" ? filled>0||!!fileContent : !!customPrompt.trim()||!!fileContent;
+  const canSubmit = mode==="questions"?filled>0||!!fileContent:!!customPrompt.trim()||!!fileContent;
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      {/* Mode toggle */}
       <div className="flex rounded-2xl border border-slate-200 bg-white p-1 gap-1 w-fit shadow-sm">
-        <button onClick={()=>setMode("questions")}
-          className={`px-4 py-2 text-sm rounded-xl font-medium transition ${mode==="questions"?"bg-indigo-600 text-white shadow":"text-slate-500 hover:text-slate-800"}`}>
-          Guided Questions
-        </button>
-        <button onClick={()=>setMode("custom")}
-          className={`px-4 py-2 text-sm rounded-xl font-medium transition ${mode==="custom"?"bg-indigo-600 text-white shadow":"text-slate-500 hover:text-slate-800"}`}>
-          Custom Prompt
-        </button>
+        <button onClick={()=>setMode("questions")} className={`px-4 py-2 text-sm rounded-xl font-medium transition ${mode==="questions"?"bg-indigo-600 text-white shadow":"text-slate-500 hover:text-slate-800"}`}>Guided Questions</button>
+        <button onClick={()=>setMode("custom")} className={`px-4 py-2 text-sm rounded-xl font-medium transition ${mode==="custom"?"bg-indigo-600 text-white shadow":"text-slate-500 hover:text-slate-800"}`}>Custom Prompt</button>
       </div>
-
-      {/* File attach — available in both modes */}
-      <div
-        onClick={()=>fileRef.current?.click()}
-        className={`rounded-2xl border-2 border-dashed px-5 py-4 cursor-pointer transition flex items-center gap-3 ${fileContent?"border-indigo-300 bg-indigo-50":"border-slate-200 bg-white hover:border-indigo-300 hover:bg-indigo-50"}`}>
-        <i className="ti ti-paperclip text-lg text-indigo-500 shrink-0"></i>
-        <div className="flex-1 min-w-0">
-          {fileContent ? (
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-sm font-medium text-indigo-700 truncate">{fileName}</span>
-              <button onClick={e=>{e.stopPropagation();setFileContent(null);setFileName(null);}} className="text-xs text-slate-400 hover:text-red-500 shrink-0">✕ Remove</button>
-            </div>
-          ) : (
-            <div>
-              <p className="text-sm font-medium text-slate-700">Attach a data file <span className="text-slate-400 font-normal">(optional)</span></p>
-              <p className="text-xs text-slate-400 mt-0.5">CSV, TXT, JSON, MD — skip the questions and let the file speak</p>
-            </div>
-          )}
-        </div>
-        <input ref={fileRef} type="file" accept=".csv,.txt,.json,.md,.pdf" onChange={handleFile} className="hidden"/>
-      </div>
-
-      {mode==="questions" && (
+      <FileAttach onFile={(c,n)=>{setFileContent(c);setFileName(n);}} fileName={fileName} onClear={()=>{setFileContent(null);setFileName(null);}}/>
+      {mode==="questions"&&(
         <>
-          <InfoBox>Answer these questions for a targeted analysis. More context = better output. Or attach a file above and skip the questions.</InfoBox>
+          <InfoBox>Answer questions for a targeted analysis. Or attach a file above and skip the questions entirely.</InfoBox>
           {config.questions.map((q,i)=>(
             <Card key={q.key}>
               <div className="text-sm font-medium text-slate-700 mb-2"><span className="text-slate-400 mr-2">{i+1}</span>{q.label}</div>
               <textarea rows={q.rows||2} value={answers[q.key]||""} onChange={e=>setAnswers({...answers,[q.key]:e.target.value})} placeholder={q.placeholder}
-                className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 outline-none focus:border-indigo-400 focus:bg-white transition"/>
+                className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400 focus:bg-white transition"/>
             </Card>
           ))}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <Btn onClick={handle} disabled={loading||!canSubmit}>{loading?"Generating...":"Generate Analysis →"}</Btn>
-            <span className="text-xs text-slate-400">{filled}/{config.questions.length} answered{fileContent?" · file attached":""}</span>
+            <span className="text-xs text-slate-400">{filled}/{config.questions.length} answered{fileName?" · file attached":""}</span>
           </div>
         </>
       )}
-
-      {mode==="custom" && (
+      {mode==="custom"&&(
         <>
           <Card>
             <div className="text-sm font-medium text-slate-700 mb-2">Write your custom prompt</div>
-            <textarea
-              rows={6}
-              value={customPrompt}
-              onChange={e=>setCustomPrompt(e.target.value)}
-              placeholder={`e.g. Analyze the attached CSV and identify the top 3 drop-off points in our checkout funnel. Suggest 5 hypotheses with effort and impact scores.`}
-              className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 outline-none focus:border-indigo-400 focus:bg-white transition"/>
-            <p className="text-xs text-slate-400 mt-2">The AI will use the {config.title} system context — just tell it what to do.</p>
+            <textarea rows={6} value={customPrompt} onChange={e=>setCustomPrompt(e.target.value)}
+              placeholder="e.g. Analyze the attached CSV and identify the top 3 drop-off points. Suggest 5 hypotheses with effort and impact scores."
+              className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400 focus:bg-white transition"/>
+            <p className="text-xs text-slate-400 mt-2">The AI will still use the {config.title} specialist context.</p>
           </Card>
-          <Btn onClick={handle} disabled={loading||!canSubmit}>{loading?"Generating...":"Run →"}</Btn>
+          <Btn onClick={handle} disabled={loading||!canSubmit}>{loading?"Running...":"Run →"}</Btn>
         </>
       )}
     </div>
   );
 }
 
-// ─── AI MODULE ────────────────────────────────────────────
 function AIModule({moduleId}:{moduleId:string}) {
   const [phase,setPhase] = useState<"form"|"result"|"chat">("form");
   const [result,setResult] = useState("");
@@ -349,28 +296,28 @@ function AIModule({moduleId}:{moduleId:string}) {
   const [chatLoading,setChatLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"});},[chatMsgs]);
-  const onSubmit = (reply:string,ctx:string) => {setResult(reply);setContext(ctx);setPhase("result");};
-  const sendChat = async () => {
-    if (!chatInput.trim()||chatLoading) return;
-    const sys = MODULE_Q[moduleId]?.system||"";
-    const history = [{role:"user",content:`Context:\n${context}\n\nInitial analysis:\n${result}`},{role:"assistant",content:"Understood. How can I help further?"},...chatMsgs,{role:"user",content:chatInput}];
-    const next = [...chatMsgs,{role:"user",content:chatInput}];
+  const onSubmit=(reply:string,ctx:string)=>{setResult(reply);setContext(ctx);setPhase("result");};
+  const sendChat=async()=>{
+    if(!chatInput.trim()||chatLoading) return;
+    const sys=MODULE_Q[moduleId]?.system||"";
+    const history=[{role:"user",content:`Context:\n${context}\n\nInitial analysis:\n${result}`},{role:"assistant",content:"Understood. How can I help further?"},...chatMsgs,{role:"user",content:chatInput}];
+    const next=[...chatMsgs,{role:"user",content:chatInput}];
     setChatMsgs(next);setChatInput("");setChatLoading(true);
-    const reply = await callClaude(history,sys);
+    const reply=await callClaude(history,sys);
     setChatMsgs([...next,{role:"assistant",content:reply}]);setChatLoading(false);
   };
   if (phase==="form") return <PreflightForm moduleId={moduleId} onSubmit={onSubmit}/>;
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-2">
+    <div className="flex flex-col gap-4 max-w-2xl">
+      <div className="flex gap-2 flex-wrap">
         <Btn variant="secondary" size="sm" onClick={()=>{setPhase("form");setResult("");setChatMsgs([]);}}>← Start over</Btn>
         <Btn variant="secondary" size="sm" onClick={()=>setPhase(phase==="result"?"chat":"result")}>{phase==="result"?"Continue in chat →":"View result"}</Btn>
         <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(result)}>Copy</Btn>
       </div>
       {phase==="result"&&<ResultBox>{result}</ResultBox>}
       {phase==="chat"&&(
-        <div className="flex flex-col h-[460px] gap-3">
-          <div className="flex-1 overflow-y-auto flex flex-col gap-3">
+        <div className="flex flex-col h-[420px] gap-3">
+          <div className="flex-1 overflow-y-auto flex flex-col gap-3 p-1">
             <div className="self-start max-w-[85%] bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm leading-7 text-slate-700 whitespace-pre-wrap">{result}</div>
             {chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
             {chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Thinking...</div>}
@@ -387,71 +334,59 @@ function AIModule({moduleId}:{moduleId:string}) {
   );
 }
 
-// ─── FUNNEL MODULE ────────────────────────────────────────
 function FunnelModule() {
-  type Step = {name:string;users:number;uxNotes:string;device:string;source:string};
-  const [phase,setPhase] = useState<"setup"|"data"|"questions"|"result">("setup");
-  const [template,setTemplate] = useState("saas");
-  const [steps,setSteps] = useState<Step[]>(FUNNEL_TEMPLATES.saas.map(s=>({...s})));
-  const [newStep,setNewStep] = useState("");
-  const [answers,setAnswers] = useState<Record<string,string>>({});
-  const [analysis,setAnalysis] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [chatMsgs,setChatMsgs] = useState<{role:string;content:string}[]>([]);
-  const [chatInput,setChatInput] = useState("");
-  const [chatLoading,setChatLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  type Step={name:string;users:number};
+  const [phase,setPhase]=useState<"setup"|"data"|"result">("setup");
+  const [template,setTemplate]=useState("saas");
+  const [steps,setSteps]=useState<Step[]>(FUNNEL_TEMPLATES.saas.map(s=>({...s})));
+  const [newStep,setNewStep]=useState("");
+  const [customPrompt,setCustomPrompt]=useState("");
+  const [fileContent,setFileContent]=useState<string|null>(null);
+  const [fileName,setFileName]=useState<string|null>(null);
+  const [analysis,setAnalysis]=useState("");
+  const [loading,setLoading]=useState(false);
+  const [chatMsgs,setChatMsgs]=useState<{role:string;content:string}[]>([]);
+  const [chatInput,setChatInput]=useState("");
+  const [chatLoading,setChatLoading]=useState(false);
+  const bottomRef=useRef<HTMLDivElement>(null);
   useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"});},[chatMsgs]);
 
-  const applyTemplate = (t:string)=>{setTemplate(t);if(t==="custom")setSteps([{name:"Step 1",users:0,uxNotes:"",device:"",source:""}]);else setSteps(FUNNEL_TEMPLATES[t].map(s=>({...s})));};
-  const upd = (i:number,f:string,v:string|number)=>setSteps(steps.map((s,j)=>j===i?{...s,[f]:v}:s));
-  const move = (i:number,d:number)=>{const s=[...steps];const j=i+d;if(j<0||j>=s.length)return;[s[i],s[j]]=[s[j],s[i]];setSteps(s);};
-  const maxU = Math.max(...steps.map(s=>s.users),1);
+  const applyTemplate=(t:string)=>{setTemplate(t);if(t==="custom")setSteps([{name:"Step 1",users:0}]);else setSteps(FUNNEL_TEMPLATES[t].map(s=>({...s})));};
+  const upd=(i:number,f:string,v:string|number)=>setSteps(steps.map((s,j)=>j===i?{...s,[f]:v}:s));
+  const maxU=Math.max(...steps.map(s=>s.users),1);
 
-  const ctxQ = [
-    {key:"product",label:"What product does this funnel represent?",placeholder:"e.g. SaaS signup-to-paid funnel"},
-    {key:"users",label:"Who are the users?",placeholder:"e.g. organic web visitors"},
-    {key:"timeframe",label:"What time period?",placeholder:"e.g. last 30 days"},
-    {key:"changes",label:"Any recent changes?",placeholder:"e.g. redesigned checkout 3 weeks ago"},
-    {key:"goal",label:"What is your target conversion rate?",placeholder:"e.g. 5% visit-to-purchase"},
-    {key:"devices",label:"Device or channel breakdown?",placeholder:"e.g. 60% mobile, 40% desktop"},
-    {key:"research",label:"Any existing user research?",placeholder:"e.g. Hotjar shows rage clicks on payment"},
-  ];
-  const dynQ = steps.map((s,i)=>{
-    const dr = i===0?null:steps[i-1].users>0?(((steps[i-1].users-s.users)/steps[i-1].users)*100).toFixed(1):null;
-    return [{key:`ux_${i}`,label:`"${s.name}" - What UX friction exists here?`,placeholder:"e.g. confusing form, slow load"},
-      dr&&+dr>20?{key:`why_${i}`,label:`"${s.name}" drops ${dr}% - what do you think causes this?`,placeholder:"e.g. users do not understand the value"}:null
-    ].filter(Boolean) as {key:string;label:string;placeholder:string}[];
-  }).flat();
-
-  const analyze = async()=>{
+  const analyze=async()=>{
     setLoading(true);
-    const funnelText = steps.map((s,i)=>{
-      const prev = i===0?s.users:steps[i-1].users;
-      const dr = i===0?"":prev>0?`${(((prev-s.users)/prev)*100).toFixed(1)}% drop-off`:"";
-      return `Step ${i+1}: ${s.name}\n  Users: ${s.users.toLocaleString()}\n  Drop-off: ${dr||"n/a"}${s.uxNotes?`\n  UX: ${s.uxNotes}`:""}`;
-    }).join("\n\n");
-    const ctx = [...ctxQ,...dynQ].map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
-    const sys = "You are a senior growth PM and UX strategist. Produce: Executive Summary, Funnel Performance Overview, Step-by-Step Drop-off Analysis, UX Audit, Optimization Roadmap (30/60/90 day), Hypothesis Backlog (5 If/Then/Because), Benchmarks.";
-    const reply = await callClaude([{role:"user",content:`FUNNEL DATA:\n${funnelText}\n\nCONTEXT:\n${ctx}`}],sys);
+    let funnelText="";
+    if (fileContent) {
+      funnelText=`File data (${fileName}):\n${fileContent.slice(0,8000)}`;
+    } else {
+      funnelText=steps.map((s,i)=>{
+        const prev=i===0?s.users:steps[i-1].users;
+        const dr=i===0?"":prev>0?`${(((prev-s.users)/prev)*100).toFixed(1)}% drop-off`:"";
+        return `Step ${i+1}: ${s.name} — ${s.users.toLocaleString()} users${dr?" ("+dr+")":""}`;
+      }).join("\n");
+    }
+    const prompt=customPrompt
+      ?`${customPrompt}\n\nFunnel data:\n${funnelText}`
+      :`Analyze this funnel and provide: Executive Summary, Step-by-Step Drop-off Analysis, Root Cause Hypotheses, Quick Wins, A/B Test Recommendations.\n\nFunnel data:\n${funnelText}`;
+    const sys="You are a senior growth PM and UX strategist. Produce a thorough funnel analysis with actionable recommendations.";
+    const reply=await callClaude([{role:"user",content:prompt}],sys);
     setAnalysis(reply);setPhase("result");setLoading(false);
   };
 
-  const sendChat = async()=>{
+  const sendChat=async()=>{
     if(!chatInput.trim()||chatLoading) return;
-    const msg = {role:"user",content:chatInput};
-    const next = [...chatMsgs,msg];
+    const next=[...chatMsgs,{role:"user",content:chatInput}];
     setChatMsgs(next);setChatInput("");setChatLoading(true);
-    const reply = await callClaude([{role:"user",content:`Analysis:\n${analysis}`},{role:"assistant",content:"Understood."},...next],"You are a senior growth PM. Answer follow-up questions.");
+    const reply=await callClaude([{role:"user",content:`Analysis:\n${analysis}`},{role:"assistant",content:"Understood."},...next],"You are a senior growth PM.");
     setChatMsgs([...next,{role:"assistant",content:reply}]);setChatLoading(false);
   };
-
-  const templates = [["saas","SaaS"],["ecommerce","E-commerce"],["onboarding","App Onboarding"],["custom","Custom"]];
 
   if (phase==="setup") return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <div className="flex gap-2 flex-wrap">
-        {templates.map(([val,label])=>(
+        {[["saas","SaaS"],["ecommerce","E-commerce"],["onboarding","Onboarding"],["custom","Custom"]].map(([val,label])=>(
           <button key={val} onClick={()=>applyTemplate(val)}
             className={`px-4 py-2 text-sm rounded-xl border transition ${template===val?"border-indigo-400 bg-indigo-50 text-indigo-700 font-semibold":"border-slate-200 bg-white text-slate-600 hover:border-indigo-300"}`}>{label}</button>
         ))}
@@ -459,19 +394,17 @@ function FunnelModule() {
       <Card>
         <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Funnel Steps</div>
         {steps.map((s,i)=>(
-          <div key={i} className={`flex items-center gap-3 py-3 ${i<steps.length-1?"border-b border-slate-100":""}`}>
-            <span className="text-xs text-slate-400 w-5">{i+1}</span>
+          <div key={i} className={`flex items-center gap-3 py-2.5 ${i<steps.length-1?"border-b border-slate-100":""}`}>
+            <span className="text-xs text-slate-400 w-5 shrink-0">{i+1}</span>
             <input value={s.name} onChange={e=>upd(i,"name",e.target.value)}
               className="flex-1 font-medium text-sm text-slate-800 border-b border-dashed border-slate-200 bg-transparent outline-none pb-1"/>
-            <button onClick={()=>move(i,-1)} disabled={i===0} className="text-xs text-slate-400 hover:text-slate-700 disabled:opacity-30">↑</button>
-            <button onClick={()=>move(i,1)} disabled={i===steps.length-1} className="text-xs text-slate-400 hover:text-slate-700 disabled:opacity-30">↓</button>
             <button onClick={()=>setSteps(steps.filter((_,j)=>j!==i))} disabled={steps.length<=2} className="text-xs text-red-400 hover:text-red-600 disabled:opacity-30">✕</button>
           </div>
         ))}
         <div className="flex gap-2 pt-3 border-t border-slate-100 mt-2">
-          <input value={newStep} onChange={e=>setNewStep(e.target.value)} onKeyDown={e=>e.key==="Enter"&&newStep.trim()&&(setSteps([...steps,{name:newStep,users:0,uxNotes:"",device:"",source:""}]),setNewStep(""))}
+          <input value={newStep} onChange={e=>setNewStep(e.target.value)} onKeyDown={e=>e.key==="Enter"&&newStep.trim()&&(setSteps([...steps,{name:newStep,users:0}]),setNewStep(""))}
             placeholder="New step name..." className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-          <Btn variant="secondary" size="sm" onClick={()=>{if(newStep.trim()){setSteps([...steps,{name:newStep,users:0,uxNotes:"",device:"",source:""}]);setNewStep("");}}} disabled={!newStep.trim()}>+ Add</Btn>
+          <Btn variant="secondary" size="sm" onClick={()=>{if(newStep.trim()){setSteps([...steps,{name:newStep,users:0}]);setNewStep("");}}} disabled={!newStep.trim()}>+ Add</Btn>
         </div>
       </Card>
       <Btn onClick={()=>setPhase("data")} disabled={steps.length<2}>Next: Enter data →</Btn>
@@ -481,85 +414,51 @@ function FunnelModule() {
   if (phase==="data") return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <Btn variant="secondary" size="sm" onClick={()=>setPhase("setup")}>← Edit steps</Btn>
-      {steps.map((s,i)=>{
-        const prev = i===0?s.users:steps[i-1].users;
-        const dr = i>0&&prev>0?(((prev-s.users)/prev)*100).toFixed(1):null;
-        const pct = maxU>0?Math.round((s.users/maxU)*100):0;
-        const barColor = i===0?"bg-indigo-500":dr&&+dr>50?"bg-red-400":dr&&+dr>25?"bg-amber-400":"bg-emerald-400";
-        return (
-          <Card key={i}>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold text-slate-800"><span className="text-slate-400 mr-2">{i+1}</span>{s.name}</span>
-              {dr&&<span className={`text-xs font-semibold ${+dr>40?"text-red-500":"text-amber-500"}`}>-{dr}%</span>}
-            </div>
-            <div className="grid grid-cols-3 gap-2 mb-3">
-              <div>
-                <div className="text-xs text-slate-400 mb-1">Users *</div>
-                <input type="number" value={s.users||""} onChange={e=>upd(i,"users",+e.target.value)} placeholder="e.g. 10000"
+      <FileAttach onFile={(c,n)=>{setFileContent(c);setFileName(n);}} fileName={fileName} onClear={()=>{setFileContent(null);setFileName(null);}}/>
+      {!fileContent&&(
+        <>
+          {steps.map((s,i)=>{
+            const prev=i===0?s.users:steps[i-1].users;
+            const dr=i>0&&prev>0?(((prev-s.users)/prev)*100).toFixed(1):null;
+            const pct=maxU>0?Math.round((s.users/maxU)*100):0;
+            const barColor=i===0?"bg-indigo-500":dr&&+dr>50?"bg-red-400":dr&&+dr>25?"bg-amber-400":"bg-emerald-400";
+            return (
+              <Card key={i} className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-slate-800"><span className="text-slate-400 mr-2 text-xs">{i+1}</span>{s.name}</span>
+                  {dr&&<span className={`text-xs font-semibold ${+dr>40?"text-red-500":"text-amber-500"}`}>-{dr}%</span>}
+                </div>
+                <input type="number" value={s.users||""} onChange={e=>upd(i,"users",+e.target.value)} placeholder="Number of users"
                   className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400 mb-1">Traffic source</div>
-                <input value={s.source} onChange={e=>upd(i,"source",e.target.value)} placeholder="e.g. Organic"
-                  className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400 mb-1">Device split</div>
-                <input value={s.device} onChange={e=>upd(i,"device",e.target.value)} placeholder="e.g. 60% mobile"
-                  className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-              </div>
-            </div>
-            <div>
-              <div className="text-xs text-slate-400 mb-1">UX friction observed</div>
-              <input value={s.uxNotes} onChange={e=>upd(i,"uxNotes",e.target.value)} placeholder={`e.g. rage clicks on ${s.name} CTA`}
-                className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-            </div>
-            {s.users>0&&<div className="mt-3 h-1.5 bg-slate-100 rounded-full"><div className={`h-full ${barColor} rounded-full transition-all`} style={{width:`${pct}%`}}/></div>}
-          </Card>
-        );
-      })}
-      <Btn onClick={()=>setPhase("questions")} disabled={steps.filter(s=>s.users>0).length<2}>Next: Context questions →</Btn>
-    </div>
-  );
-
-  if (phase==="questions") return (
-    <div className="flex flex-col gap-4 max-w-2xl">
-      <Btn variant="secondary" size="sm" onClick={()=>setPhase("data")}>← Edit data</Btn>
-      <InfoBox>Answer these for a deeper analysis. Step-specific questions are auto-generated from your drop-off data.</InfoBox>
-      <div className="text-xs font-semibold uppercase tracking-widest text-indigo-500">General context</div>
-      {ctxQ.map((q,i)=>(
-        <Card key={q.key}>
-          <div className="text-sm font-medium text-slate-700 mb-2"><span className="text-slate-400 mr-2">{i+1}</span>{q.label}</div>
-          <textarea rows={2} value={answers[q.key]||""} onChange={e=>setAnswers({...answers,[q.key]:e.target.value})} placeholder={q.placeholder}
-            className="w-full text-sm resize-none rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-        </Card>
-      ))}
-      {dynQ.length>0&&<>
-        <div className="text-xs font-semibold uppercase tracking-widest text-indigo-500 mt-2">Step-specific UX questions</div>
-        {dynQ.map(q=>(
-          <Card key={q.key}>
-            <div className="text-sm font-medium text-slate-700 mb-2">{q.label}</div>
-            <textarea rows={2} value={answers[q.key]||""} onChange={e=>setAnswers({...answers,[q.key]:e.target.value})} placeholder={q.placeholder}
-              className="w-full text-sm resize-none rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-          </Card>
-        ))}
-      </>}
-      <Btn onClick={analyze} disabled={loading}>{loading?"Generating deep analysis...":"Generate Full Analysis →"}</Btn>
+                {s.users>0&&<div className="mt-2 h-1.5 bg-slate-100 rounded-full"><div className={`h-full ${barColor} rounded-full transition-all`} style={{width:`${pct}%`}}/></div>}
+              </Card>
+            );
+          })}
+        </>
+      )}
+      {fileContent&&<InfoBox>File attached: {fileName}. The AI will analyze it directly.</InfoBox>}
+      <Card>
+        <div className="text-sm font-medium text-slate-700 mb-2">Custom prompt <span className="text-slate-400 font-normal text-xs">(optional)</span></div>
+        <textarea rows={3} value={customPrompt} onChange={e=>setCustomPrompt(e.target.value)}
+          placeholder="e.g. Focus on mobile drop-off. Compare against industry benchmarks. Suggest 3 quick wins."
+          className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
+      </Card>
+      <Btn onClick={analyze} disabled={loading||(steps.filter(s=>s.users>0).length<2&&!fileContent)}>
+        {loading?"Analyzing...":"Analyze Funnel →"}
+      </Btn>
     </div>
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-w-2xl">
       <div className="flex gap-2 flex-wrap">
         <Btn variant="secondary" size="sm" onClick={()=>{setPhase("setup");setAnalysis("");setChatMsgs([]);}}>← Start over</Btn>
-        <Btn variant="secondary" size="sm" onClick={()=>setPhase("data")}>Edit data</Btn>
-        <Btn variant="secondary" size="sm" onClick={()=>setPhase("questions")}>Edit answers</Btn>
         <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(analysis)}>Copy</Btn>
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {steps.map((s,i)=>{
-          const cr = steps[0].users>0?((s.users/steps[0].users)*100).toFixed(1):0;
-          const dr = i>0&&steps[i-1].users>0?(((steps[i-1].users-s.users)/steps[i-1].users)*100).toFixed(1):null;
+          const cr=steps[0].users>0?((s.users/steps[0].users)*100).toFixed(1):0;
+          const dr=i>0&&steps[i-1].users>0?(((steps[i-1].users-s.users)/steps[i-1].users)*100).toFixed(1):null;
           return (
             <Card key={i} className="p-4">
               <div className="text-xs text-slate-400 mb-1">{s.name}</div>
@@ -571,8 +470,7 @@ function FunnelModule() {
         })}
       </div>
       <ResultBox>{analysis}</ResultBox>
-      <div className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Follow-up questions</div>
-      <div className="flex flex-col gap-3 max-h-72 overflow-y-auto">
+      <div className="flex flex-col gap-3 max-h-60 overflow-y-auto">
         {chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
         {chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Thinking...</div>}
         <div ref={bottomRef}/>
@@ -586,20 +484,19 @@ function FunnelModule() {
   );
 }
 
-// ─── HYPOTHESIS MODULE ────────────────────────────────────
 function HypothesisModule() {
-  type Hyp = {id:number;if:string;then:string;because:string;confidence:string;metric:string;timeline:string;evidence:string};
-  const [hyps,setHyps] = useState<Hyp[]>([]);
-  const [form,setForm] = useState({if:"",then:"",because:"",confidence:"medium",metric:"",timeline:"",evidence:""});
-  const [aiResult,setAiResult] = useState<Record<number,string>>({});
-  const [loading,setLoading] = useState<number|null>(null);
-  const [show,setShow] = useState(true);
-  const cc:Record<string,string> = {low:"#ef4444",medium:"#f59e0b",high:"#10b981"};
-  const add = ()=>{if(!form.if||!form.then)return;setHyps([...hyps,{...form,id:Date.now()}]);setForm({if:"",then:"",because:"",confidence:"medium",metric:"",timeline:"",evidence:""});};
-  const validate = async(h:Hyp)=>{
+  type Hyp={id:number;if:string;then:string;because:string;confidence:string;metric:string;timeline:string;evidence:string};
+  const [hyps,setHyps]=useState<Hyp[]>([]);
+  const [form,setForm]=useState({if:"",then:"",because:"",confidence:"medium",metric:"",timeline:"",evidence:""});
+  const [aiResult,setAiResult]=useState<Record<number,string>>({});
+  const [loading,setLoading]=useState<number|null>(null);
+  const [show,setShow]=useState(true);
+  const cc:Record<string,string>={low:"#ef4444",medium:"#f59e0b",high:"#10b981"};
+  const add=()=>{if(!form.if||!form.then)return;setHyps([...hyps,{...form,id:Date.now()}]);setForm({if:"",then:"",because:"",confidence:"medium",metric:"",timeline:"",evidence:""});};
+  const validate=async(h:Hyp)=>{
     setLoading(h.id);
-    const p = `Hypothesis: If ${h.if}, then ${h.then}, because ${h.because}.\nConfidence: ${h.confidence}\nMetric: ${h.metric}\nTimeline: ${h.timeline}\nEvidence: ${h.evidence}\n\nProvide full validation plan.`;
-    const reply = await callClaude([{role:"user",content:p}],"You are a product experimentation expert. Provide: Hypothesis Assessment, Validation Approach, Qualitative methods, Quantitative methods, Sample size and timeline, Success and Failure criteria, Risk factors, Recommendation.");
+    const p=`Hypothesis: If ${h.if}, then ${h.then}, because ${h.because}.\nConfidence: ${h.confidence}\nMetric: ${h.metric}\nTimeline: ${h.timeline}\nEvidence: ${h.evidence}\n\nProvide full validation plan.`;
+    const reply=await callClaude([{role:"user",content:p}],"You are a product experimentation expert.");
     setAiResult(prev=>({...prev,[h.id]:reply}));setLoading(null);
   };
   return (
@@ -607,17 +504,17 @@ function HypothesisModule() {
       {show&&(
         <Card>
           <div className="text-sm font-semibold text-slate-700 mb-3">Build a new hypothesis</div>
-          {[{k:"if",l:"If...",p:"we add feature X"},{k:"then",l:"Then...",p:"conversion will increase by Y%"},{k:"because",l:"Because...",p:"users struggle with Z"},{k:"metric",l:"Success metric",p:"e.g. 10% lift in activation"},{k:"timeline",l:"Timeline",p:"e.g. 2-week A/B test"},{k:"evidence",l:"Existing evidence",p:"optional"}].map(f=>(
+          {[{k:"if",l:"If...",p:"we add feature X"},{k:"then",l:"Then...",p:"conversion will increase"},{k:"because",l:"Because...",p:"users struggle with Z"},{k:"metric",l:"Success metric",p:"e.g. 10% lift"},{k:"timeline",l:"Timeline",p:"e.g. 2-week A/B test"},{k:"evidence",l:"Evidence",p:"optional"}].map(f=>(
             <div key={f.k} className="flex gap-3 items-center mb-2">
-              <span className="text-xs text-slate-400 w-24 shrink-0">{f.l}</span>
+              <span className="text-xs text-slate-400 w-20 shrink-0">{f.l}</span>
               <input value={(form as Record<string,string>)[f.k]} onChange={e=>setForm({...form,[f.k]:e.target.value})} placeholder={f.p}
                 className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
             </div>
           ))}
-          <div className="flex gap-3 items-center mt-2">
-            <span className="text-xs text-slate-400 w-24 shrink-0">Confidence</span>
+          <div className="flex gap-3 items-center mt-2 flex-wrap">
+            <span className="text-xs text-slate-400 w-20 shrink-0">Confidence</span>
             <select value={form.confidence} onChange={e=>setForm({...form,confidence:e.target.value})}
-              className="text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none w-auto">
+              className="text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none">
               <option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option>
             </select>
             <Btn onClick={add} disabled={!form.if||!form.then}>Add hypothesis</Btn>
@@ -641,24 +538,23 @@ function HypothesisModule() {
   );
 }
 
-// ─── PRIORITIZATION MODULE ────────────────────────────────
 function PrioritizationModule() {
-  type Feature = {name:string;reach:number;impact:number;confidence:number;effort:number};
-  const [phase,setPhase] = useState<"form"|"score">("form");
-  const [answers,setAnswers] = useState<Record<string,string>>({});
-  const [features,setFeatures] = useState<Feature[]>([
+  type Feature={name:string;reach:number;impact:number;confidence:number;effort:number};
+  const [phase,setPhase]=useState<"form"|"score">("form");
+  const [answers,setAnswers]=useState<Record<string,string>>({});
+  const [features,setFeatures]=useState<Feature[]>([
     {name:"Onboarding redesign",reach:8,impact:9,confidence:80,effort:3},
     {name:"Email notifications",reach:6,impact:5,confidence:90,effort:2},
     {name:"Analytics dashboard",reach:4,impact:8,confidence:60,effort:8},
   ]);
-  const [newF,setNewF] = useState("");
-  const [fw,setFw] = useState("rice");
-  const [ai,setAi] = useState("");
-  const [loading,setLoading] = useState(false);
-  const rice = (f:Feature)=>Math.round((f.reach*f.impact*(f.confidence/100))/f.effort);
-  const ice = (f:Feature)=>Math.round(f.impact*f.confidence/100*(10-f.effort));
-  const sorted = [...features].sort((a,b)=>fw==="rice"?rice(b)-rice(a):ice(b)-ice(a));
-  const qs = [
+  const [newF,setNewF]=useState("");
+  const [fw,setFw]=useState("rice");
+  const [ai,setAi]=useState("");
+  const [loading,setLoading]=useState(false);
+  const rice=(f:Feature)=>Math.round((f.reach*f.impact*(f.confidence/100))/f.effort);
+  const ice=(f:Feature)=>Math.round(f.impact*f.confidence/100*(10-f.effort));
+  const sorted=[...features].sort((a,b)=>fw==="rice"?rice(b)-rice(a):ice(b)-ice(a));
+  const qs=[
     {key:"goal",label:"Primary product goal this quarter?",placeholder:"e.g. increase activation from 30% to 50%"},
     {key:"constraints",label:"Key constraints?",placeholder:"e.g. 3 engineers, 6 weeks"},
     {key:"stage",label:"Product stage?",placeholder:"e.g. PMF, scaling, mature"},
@@ -666,11 +562,11 @@ function PrioritizationModule() {
     {key:"debt",label:"Any tech debt to consider?",placeholder:"e.g. need to refactor auth"},
     {key:"stakeholder",label:"Any committed stakeholder promises?",placeholder:"e.g. CEO promised feature X"},
   ];
-  const getAI = async()=>{
+  const getAI=async()=>{
     setLoading(true);
-    const ctx = qs.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
-    const list = features.map(f=>`${f.name}: RICE=${rice(f)}, ICE=${ice(f)}, Effort=${f.effort}`).join("\n");
-    const reply = await callClaude([{role:"user",content:`Context:\n${ctx}\n\nFeatures:\n${list}\n\nGive prioritized backlog recommendation.`}],"You are a product prioritization expert. Give: Recommended Backlog Order, Rationale per feature, What to defer, Risk of current ordering, exec summary.");
+    const ctx=qs.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
+    const list=features.map(f=>`${f.name}: RICE=${rice(f)}, ICE=${ice(f)}, Effort=${f.effort}`).join("\n");
+    const reply=await callClaude([{role:"user",content:`Context:\n${ctx}\n\nFeatures:\n${list}\n\nGive prioritized backlog recommendation.`}],"You are a product prioritization expert.");
     setAi(reply);setLoading(false);
   };
   if (phase==="form") return (
@@ -690,7 +586,7 @@ function PrioritizationModule() {
     <div className="flex flex-col gap-4">
       <div className="flex gap-3 items-center flex-wrap">
         <Btn variant="secondary" size="sm" onClick={()=>setPhase("form")}>← Context</Btn>
-        <select value={fw} onChange={e=>setFw(e.target.value)} className="text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none w-auto">
+        <select value={fw} onChange={e=>setFw(e.target.value)} className="text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none">
           <option value="rice">RICE Score</option><option value="ice">ICE Score</option>
         </select>
         <Btn onClick={getAI} disabled={loading}>{loading?"Analyzing...":"AI Recommendation →"}</Btn>
@@ -698,20 +594,20 @@ function PrioritizationModule() {
       <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
         <table className="w-full text-sm border-collapse">
           <thead><tr className="border-b border-slate-100">{["Feature","Reach","Impact","Conf%","Effort","RICE","ICE"].map(h=>(
-            <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">{h}</th>
+            <th key={h} className="px-3 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">{h}</th>
           ))}</tr></thead>
           <tbody>{sorted.map((f,i)=>(
             <tr key={i} className="border-b border-slate-50 last:border-0">
-              <td className="px-4 py-3 font-semibold text-slate-800">{f.name}</td>
+              <td className="px-3 py-3 font-semibold text-slate-800 text-xs">{f.name}</td>
               {["reach","impact","confidence","effort"].map(k=>(
-                <td key={k} className="px-4 py-3">
+                <td key={k} className="px-3 py-2">
                   <input type="number" value={(f as unknown as Record<string,number>)[k]} min={0} max={k==="confidence"?100:10}
                     onChange={e=>setFeatures(features.map((x,j)=>features.indexOf(f)===j?{...x,[k]:+e.target.value}:x))}
-                    className="w-14 text-sm rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 outline-none focus:border-indigo-400"/>
+                    className="w-12 text-sm rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 outline-none focus:border-indigo-400"/>
                 </td>
               ))}
-              <td className={`px-4 py-3 font-bold ${fw==="rice"?"text-indigo-600":"text-slate-400"}`}>{rice(f)}</td>
-              <td className={`px-4 py-3 font-bold ${fw==="ice"?"text-indigo-600":"text-slate-400"}`}>{ice(f)}</td>
+              <td className={`px-3 py-3 font-bold text-sm ${fw==="rice"?"text-indigo-600":"text-slate-400"}`}>{rice(f)}</td>
+              <td className={`px-3 py-3 font-bold text-sm ${fw==="ice"?"text-indigo-600":"text-slate-400"}`}>{ice(f)}</td>
             </tr>
           ))}</tbody>
         </table>
@@ -726,118 +622,127 @@ function PrioritizationModule() {
   );
 }
 
-// ─── DRAFT COMMS MODULE ───────────────────────────────────
-type Draft = {id:number;docType:string;tone:string;answers:Record<string,string>;content:string;chatMsgs:{role:string;content:string}[];chatInput:string;chatLoading:boolean;pendingTone?:string;createdAt:string;label:string};
+type Draft={id:number;docType:string;tone:string;answers:Record<string,string>;content:string;chatMsgs:{role:string;content:string}[];chatInput:string;chatLoading:boolean;pendingTone?:string;createdAt:string;label:string};
 
-function DraftCommsModule() {
-  const [view,setView] = useState<"list"|"new"|"detail">("list");
-  const [drafts,setDrafts] = useState<Draft[]>([]);
-  const [active,setActive] = useState<Draft|null>(null);
-  const [docType,setDocType] = useState<string|null>(null);
-  const [tone,setTone] = useState<string|null>(null);
-  const [answers,setAnswers] = useState<Record<string,string>>({});
-  const [loading,setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"});},[active?.chatMsgs]);
+const PM_TOOLS=[
+  {id:"email",icon:"ti ti-mail",label:"Email",desc:"To a stakeholder, exec, or partner"},
+  {id:"monday",icon:"ti ti-calendar-week",label:"Monday Update",desc:"Weekly status: done, next, blockers"},
+  {id:"slack",icon:"ti ti-brand-slack",label:"Slack Message",desc:"Quick async update or request"},
+  {id:"jira",icon:"ti ti-brand-jira",label:"Jira Ticket",desc:"Bug report, story, or task description"},
+  {id:"notion",icon:"ti ti-notebook",label:"Notion Doc",desc:"Meeting notes or project brief"},
+  {id:"linear",icon:"ti ti-circle-dot",label:"Linear Issue",desc:"Engineering task or feature request"},
+];
 
-  const qs = docType==="email"?EMAIL_Q:MONDAY_Q;
-  const tc:Record<string,string> = {email:"text-blue-600",monday:"text-emerald-600"};
-  const tl:Record<string,string> = {email:"Email",monday:"Monday Update"};
+const TOOL_Q:Record<string,{key:string;label:string;placeholder:string;rows?:number}[]>={
+  email:[
+    {key:"core",label:"Describe your email - who it is to, what it is about, and what you need.",placeholder:"e.g. To my VP of Product. Feature X is delayed. Need approval to adjust timeline.",rows:4},
+    {key:"context",label:"Any background context? (optional)",placeholder:"e.g. They were on the call last Tuesday.",rows:2},
+  ],
+  monday:[
+    {key:"core",label:"Summarise your week - what got done, what is coming up, and any blockers.",placeholder:"e.g. Shipped onboarding v2. Next week launching A/B test. Blocker: waiting on legal.",rows:5},
+    {key:"audience",label:"Who is this update for? (optional)",placeholder:"e.g. Cross-functional team",rows:1},
+  ],
+  slack:[
+    {key:"core",label:"What do you want to communicate?",placeholder:"e.g. Flagging a blocker on the checkout fix. Need eng to review PR before EOD.",rows:3},
+    {key:"channel",label:"Which channel or person? (optional)",placeholder:"e.g. #product-team or @john",rows:1},
+  ],
+  jira:[
+    {key:"core",label:"Describe the ticket - what needs to be done and why.",placeholder:"e.g. Add input validation to the checkout email field. Currently accepts invalid emails causing downstream errors.",rows:4},
+    {key:"type",label:"Ticket type?",placeholder:"e.g. Bug, Story, Task, Spike",rows:1},
+    {key:"acceptance",label:"Acceptance criteria (optional)",placeholder:"e.g. Email field rejects invalid formats and shows inline error",rows:2},
+  ],
+  notion:[
+    {key:"core",label:"What is this document about?",placeholder:"e.g. Notes from the Q2 planning session - decisions made, owners, and next steps.",rows:4},
+    {key:"audience",label:"Who is the audience?",placeholder:"e.g. Product and engineering team",rows:1},
+  ],
+  linear:[
+    {key:"core",label:"Describe the issue - what needs to be built or fixed.",placeholder:"e.g. The dashboard filters reset on page refresh. Users lose their state and have to re-select.",rows:4},
+    {key:"priority",label:"Priority and estimate (optional)",placeholder:"e.g. High priority, ~2 days",rows:1},
+  ],
+};
 
-  const upd = (id:number,patch:Partial<Draft>)=>{setDrafts(prev=>prev.map(d=>d.id===id?{...d,...patch}:d));setActive(prev=>prev?.id===id?{...prev,...patch}:prev);};
+function StakeholderModule() {
+  const [tool,setTool]=useState<string|null>(null);
+  const [tone,setTone]=useState<string|null>(null);
+  const [answers,setAnswers]=useState<Record<string,string>>({});
+  const [result,setResult]=useState("");
+  const [loading,setLoading]=useState(false);
+  const [chatMsgs,setChatMsgs]=useState<{role:string;content:string}[]>([]);
+  const [chatInput,setChatInput]=useState("");
+  const [chatLoading,setChatLoading]=useState(false);
+  const [fileContent,setFileContent]=useState<string|null>(null);
+  const [fileName,setFileName]=useState<string|null>(null);
+  const [phase,setPhase]=useState<"pick-tool"|"pick-tone"|"form"|"result">("pick-tool");
+  const bottomRef=useRef<HTMLDivElement>(null);
+  useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"});},[chatMsgs]);
 
-  const generate = async()=>{
+  const generate=async()=>{
     setLoading(true);
-    const ctx = qs.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
-    const sys = docType==="email"
-      ?`You are an expert communication writer for PMs. Draft a complete email with Subject line, greeting, structured body, clear CTA, sign-off. Tone: ${tone}. ${TONE_DESC[tone!]} Concise, no fluff.`
-      :`You are an expert communication writer for PMs. Draft a clean Monday update with Done, Next, Blockers sections. Tone: ${tone}. ${TONE_DESC[tone!]} Scannable, tight bullets.`;
-    const reply = await callClaude([{role:"user",content:`Draft a ${docType==="email"?"email":"Monday update"}:\n\n${ctx}\n\nTone: ${tone}`}],sys);
-    const d:Draft = {id:Date.now(),docType:docType!,tone:tone!,answers:{...answers},content:reply,chatMsgs:[],chatInput:"",chatLoading:false,createdAt:new Date().toLocaleString(),label:answers.core?.slice(0,50)+"..."};
-    setDrafts(prev=>[d,...prev]);setActive(d);setAnswers({});setLoading(false);setView("detail");
+    const qs=TOOL_Q[tool!]||[];
+    const ctx=qs.map(q=>`${q.label}\n- ${answers[q.key]||"(not provided)"}`).join("\n\n");
+    const toolLabel=PM_TOOLS.find(t=>t.id===tool)?.label||tool;
+    const sys=`You are an expert PM communication writer. Draft a complete ${toolLabel} in a ${tone} tone. ${TONE_DESC[tone!]} Be specific, structured, and ready to send.`;
+    const prompt=`Draft a ${toolLabel}:\n\n${ctx}${fileContent?`\n\nAttached context (${fileName}):\n${fileContent.slice(0,4000)}`:""}`;
+    const reply=await callClaude([{role:"user",content:prompt}],sys);
+    setResult(reply);setPhase("result");setLoading(false);
   };
 
-  const retone = async(draft:Draft,nt:string)=>{
-    upd(draft.id,{chatLoading:true,pendingTone:nt});
-    const sys = draft.docType==="email"?`Rewrite this email in a ${nt} tone. ${TONE_DESC[nt]} Keep same info. Return full email with subject.`:`Rewrite this Monday update in a ${nt} tone. ${TONE_DESC[nt]} Keep same info.`;
-    const reply = await callClaude([{role:"user",content:`Rewrite in ${nt} tone:\n\n${draft.content}`}],sys);
-    const msgs = [...draft.chatMsgs,{role:"user",content:`Change tone to: ${nt}`},{role:"assistant",content:reply}];
-    upd(draft.id,{content:reply,tone:nt,pendingTone:undefined,chatMsgs:msgs,chatLoading:false});
+  const sendChat=async()=>{
+    if(!chatInput.trim()||chatLoading) return;
+    const next=[...chatMsgs,{role:"user",content:chatInput}];
+    setChatMsgs(next);setChatInput("");setChatLoading(true);
+    const reply=await callClaude([{role:"user",content:`Draft:\n${result}`},{role:"assistant",content:"How can I revise?"},...next],`Communication editor. Tone: ${tone}. ${TONE_DESC[tone!]}`);
+    setChatMsgs([...next,{role:"assistant",content:reply}]);setChatLoading(false);
   };
 
-  const sendChat = async(d:Draft)=>{
-    if(!d.chatInput?.trim()) return;
-    const msg = {role:"user",content:d.chatInput};
-    const msgs = [...(d.chatMsgs||[]),msg];
-    upd(d.id,{chatMsgs:msgs,chatInput:"",chatLoading:true});
-    const reply = await callClaude([{role:"user",content:`Draft:\n${d.content}`},{role:"assistant",content:"I have it. How can I revise?"},...msgs],`Communication editor. Tone: ${d.tone}. ${TONE_DESC[d.tone]}`);
-    upd(d.id,{chatMsgs:[...msgs,{role:"assistant",content:reply}],chatLoading:false});
-  };
+  const reset=()=>{setTool(null);setTone(null);setAnswers({});setResult("");setChatMsgs([]);setFileContent(null);setFileName(null);setPhase("pick-tool");};
 
-  if (view==="list") return (
+  if (phase==="pick-tool") return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      <div className="flex justify-between items-center">
-        <span className="text-xs text-slate-400">{drafts.length} saved draft{drafts.length!==1?"s":""}</span>
-        <Btn onClick={()=>{setDocType(null);setTone(null);setAnswers({});setView("new");}}>+ New draft</Btn>
+      <p className="text-sm font-semibold text-slate-800">What do you want to draft?</p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {PM_TOOLS.map(t=>(
+          <button key={t.id} onClick={()=>{setTool(t.id);setPhase("pick-tone");}}
+            className="p-4 rounded-2xl border border-slate-200 bg-white text-left hover:border-indigo-300 hover:bg-indigo-50 transition shadow-sm">
+            <i className={`${t.icon} text-xl text-indigo-500 mb-2 block`}></i>
+            <div className="text-sm font-semibold text-slate-800">{t.label}</div>
+            <div className="text-xs text-slate-500 mt-1 leading-4">{t.desc}</div>
+          </button>
+        ))}
       </div>
-      {drafts.length===0&&(
-        <Card className="text-center py-12">
-          <div className="text-3xl mb-3">✉</div>
-          <div className="text-sm font-semibold text-slate-700 mb-2">No drafts yet</div>
-          <Btn variant="secondary" onClick={()=>{setDocType(null);setTone(null);setAnswers({});setView("new");}}>Create first draft</Btn>
-        </Card>
-      )}
-      {drafts.map(d=>(
-        <div key={d.id} onClick={()=>{setActive(d);setView("detail");}} className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:border-indigo-200 hover:shadow-md transition flex gap-3 items-start">
-          <span className={`text-xs px-3 py-1 rounded-full font-semibold shrink-0 bg-slate-50 border border-slate-200 ${tc[d.docType]}`}>{tl[d.docType]}</span>
-          <div className="flex-1 min-w-0">
-            <div className="text-sm font-semibold text-slate-800 truncate">{d.label}</div>
-            <div className="text-xs text-slate-400">Tone: {d.tone} · {d.chatMsgs.length} revisions · {d.createdAt}</div>
-          </div>
-          <span className="text-slate-300 text-sm">→</span>
-        </div>
-      ))}
     </div>
   );
 
-  if (view==="new") {
-    if (!docType) return (
-      <div className="flex flex-col gap-4 max-w-lg">
-        <Btn variant="secondary" size="sm" onClick={()=>setView("list")}>← Drafts</Btn>
-        <div className="text-sm font-semibold text-slate-800">What do you want to draft?</div>
-        <div className="grid grid-cols-2 gap-3">
-          {[["email","✉","Email","To a stakeholder, exec, or partner"],["monday","🗓","Monday Update","Weekly status: done, next, blockers"]].map(([id,icon,label,desc])=>(
-            <button key={id} onClick={()=>setDocType(id)} className="p-5 rounded-2xl border border-slate-200 bg-white text-left hover:border-indigo-300 hover:bg-indigo-50 transition shadow-sm">
-              <div className="text-2xl mb-2">{icon}</div>
-              <div className="text-sm font-semibold text-slate-800 mb-1">{label}</div>
-              <div className="text-xs text-slate-500 leading-5">{desc}</div>
-            </button>
-          ))}
-        </div>
+  if (phase==="pick-tone") return (
+    <div className="flex flex-col gap-4 max-w-2xl">
+      <Btn variant="secondary" size="sm" onClick={()=>setPhase("pick-tool")}>← Back</Btn>
+      <p className="text-sm font-semibold text-slate-800">Choose a tone</p>
+      <div className="grid grid-cols-2 gap-2">
+        {TONES.map(t=>(
+          <button key={t} onClick={()=>{setTone(t);setPhase("form");}}
+            className="p-3 rounded-2xl border border-slate-200 bg-white text-left hover:border-indigo-300 hover:bg-indigo-50 transition">
+            <div className="text-sm font-semibold text-slate-800 mb-1">{t}</div>
+            <div className="text-xs text-slate-500 leading-4">{TONE_DESC[t]}</div>
+          </button>
+        ))}
       </div>
-    );
-    if (!tone) return (
-      <div className="flex flex-col gap-4 max-w-lg">
-        <Btn variant="secondary" size="sm" onClick={()=>setDocType(null)}>← Back</Btn>
-        <div className="text-sm font-semibold text-slate-800">Choose a tone</div>
-        <div className="grid grid-cols-2 gap-2">
-          {TONES.map(t=>(
-            <button key={t} onClick={()=>setTone(t)} className="p-3 rounded-2xl border border-slate-200 bg-white text-left hover:border-indigo-300 hover:bg-indigo-50 transition">
-              <div className="text-sm font-semibold text-slate-800 mb-1">{t}</div>
-              <div className="text-xs text-slate-500 leading-5">{TONE_DESC[t]}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-    );
+    </div>
+  );
+
+  if (phase==="form") {
+    const qs=TOOL_Q[tool!]||[];
+    const toolInfo=PM_TOOLS.find(t=>t.id===tool);
     return (
       <div className="flex flex-col gap-4 max-w-2xl">
         <div className="flex gap-2 items-center flex-wrap">
-          <Btn variant="secondary" size="sm" onClick={()=>setTone(null)}>← Change tone</Btn>
+          <Btn variant="secondary" size="sm" onClick={()=>setPhase("pick-tone")}>← Change tone</Btn>
           <span className="text-xs bg-indigo-50 text-indigo-600 border border-indigo-100 rounded-full px-3 py-1">{tone}</span>
-          <span className={`text-xs bg-slate-50 border border-slate-200 rounded-full px-3 py-1 ${tc[docType!]}`}>{tl[docType!]}</span>
+          <span className="text-xs bg-slate-50 text-slate-600 border border-slate-200 rounded-full px-3 py-1 flex items-center gap-1">
+            <i className={`${toolInfo?.icon} text-xs`}></i>{toolInfo?.label}
+          </span>
         </div>
-        <InfoBox>Describe it naturally - AI handles the structure.</InfoBox>
+        <FileAttach onFile={(c,n)=>{setFileContent(c);setFileName(n);}} fileName={fileName} onClear={()=>{setFileContent(null);setFileName(null);}}/>
+        <InfoBox>Describe it naturally — AI handles the structure and format.</InfoBox>
         {qs.map(q=>(
           <Card key={q.key}>
             <div className="text-sm font-medium text-slate-700 mb-2">{q.label}</div>
@@ -845,274 +750,68 @@ function DraftCommsModule() {
               className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
           </Card>
         ))}
-        <Btn onClick={generate} disabled={loading||!answers.core?.trim()}>{loading?"Drafting...":"Draft →"}</Btn>
+        <Btn onClick={generate} disabled={loading||!answers[qs[0]?.key]?.trim()}>{loading?"Drafting...":"Draft →"}</Btn>
       </div>
     );
   }
 
-  const d = active;
-  if (!d) return null;
+  const toolInfo=PM_TOOLS.find(t=>t.id===tool);
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
       <div className="flex gap-2 flex-wrap items-center">
-        <Btn variant="secondary" size="sm" onClick={()=>setView("list")}>← All drafts</Btn>
-        <span className={`text-xs bg-slate-50 border border-slate-200 rounded-full px-3 py-1 ${tc[d.docType]}`}>{tl[d.docType]}</span>
-        <span className="text-xs bg-indigo-50 text-indigo-600 border border-indigo-100 rounded-full px-3 py-1">{d.tone}</span>
-        <span className="text-xs text-slate-400">{d.createdAt}</span>
-        <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(d.content)}>Copy</Btn>
+        <Btn variant="secondary" size="sm" onClick={reset}>← Start over</Btn>
+        <span className="text-xs bg-slate-50 text-slate-600 border border-slate-200 rounded-full px-3 py-1 flex items-center gap-1">
+          <i className={`${toolInfo?.icon} text-xs`}></i>{toolInfo?.label}
+        </span>
+        <span className="text-xs bg-indigo-50 text-indigo-600 border border-indigo-100 rounded-full px-3 py-1">{tone}</span>
+        <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(result)}>Copy</Btn>
       </div>
-      <div className="flex gap-3 items-start">
-        <div className="w-36 shrink-0 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
-          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 pt-3 pb-2">Tone</div>
-          {TONES.map(t=>{
-            const act = t===d.tone;
-            return (
-              <button key={t} onClick={()=>!d.chatLoading&&!act&&retone(d,t)}
-                className={`w-full flex items-center justify-between px-3 py-2 text-xs border-l-2 transition text-left ${act?"border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold":"border-transparent text-slate-500 hover:bg-slate-50"}`}>
-                <span>{t}</span>{act&&<span>✓</span>}
-              </button>
-            );
-          })}
-        </div>
-        <div className="flex-1 relative">
-          {d.chatLoading&&(
-            <div className="absolute inset-0 rounded-2xl bg-white/90 z-10 flex items-center justify-center border border-slate-200">
-              <span className="text-sm text-slate-500">Rewriting in <strong>{d.pendingTone||d.tone}</strong>...</span>
-            </div>
-          )}
-          <div className={`rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-700 whitespace-pre-wrap min-h-40 transition ${d.chatLoading?"opacity-30":""}`}>{d.content}</div>
-        </div>
-      </div>
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-700 whitespace-pre-wrap">{result}</div>
       <div className="text-xs font-bold uppercase tracking-widest text-indigo-500">Revise</div>
       <div className="flex flex-col gap-3 max-h-60 overflow-y-auto">
-        {d.chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
-        {d.chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Revising...</div>}
-        <div ref={bottomRef}/>
-      </div>
-     <div className="flex gap-2">
-        <input value={d.chatInput||""} onChange={e=>upd(d.id,{chatInput:e.target.value})} onKeyDown={e=>e.key==="Enter"&&sendChat(d)} placeholder='"Make it shorter", "More urgent", "Add a deadline"'
-          className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
-        <Btn onClick={()=>sendChat(d)} disabled={d.chatLoading||!d.chatInput?.trim()}>Revise</Btn>
-      </div>
-    </div>
-  );
-}
-
-// ─── GENERAL REPLY MODULE ─────────────────────────────────
-type ReplyDraft = {id:number;originalMsg:string;context:string;intent:string;tones:string[];variants:{tone:string;content:string}[];activeTone:string;chatMsgs:{role:string;content:string}[];chatInput:string;chatLoading:boolean;createdAt:string;label:string};
-
-function GeneralReplyModule() {
-  const [view,setView] = useState<"list"|"new"|"detail">("list");
-  const [drafts,setDrafts] = useState<ReplyDraft[]>([]);
-  const [active,setActive] = useState<ReplyDraft|null>(null);
-  const [originalMsg,setOriginalMsg] = useState("");
-  const [context,setContext] = useState("");
-  const [intent,setIntent] = useState("");
-  const [selTones,setSelTones] = useState<string[]>([]);
-  const [loading,setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"});},[active?.chatMsgs]);
-
-  const toggle = (t:string)=>setSelTones(prev=>prev.includes(t)?prev.filter(x=>x!==t):[...prev,t]);
-  const upd = (id:number,patch:Partial<ReplyDraft>)=>{setDrafts(prev=>prev.map(d=>d.id===id?{...d,...patch}:d));setActive(prev=>prev?.id===id?{...prev,...patch}:prev);};
-
-  const generate = async()=>{
-    setLoading(true);
-    const sys = `You are an expert communication writer. Generate one reply per tone. Format exactly as:\n--- [Tone] ---\n[reply]\nKeep each reply natural and true to its tone.`;
-    const prompt = `Original message:\n"${originalMsg}"\n\nWhat I want to say:\n${context||"(not provided)"}\n\nMy intent:\n${intent||"(not provided)"}\n\nGenerate reply for each tone: ${selTones.join(", ")}`;
-    const reply = await callClaude([{role:"user",content:prompt}],sys);
-    const variants = selTones.map(t=>{
-      const rx = new RegExp(`---\\s*${t}\\s*---([\\s\\S]*?)(?=---\\s*\\w|$)`,"i");
-      const m = reply.match(rx);
-      return {tone:t,content:m?m[1].trim():reply};
-    });
-    const d:ReplyDraft = {id:Date.now(),originalMsg,context,intent,tones:selTones,variants,activeTone:selTones[0],chatMsgs:[],chatInput:"",chatLoading:false,createdAt:new Date().toLocaleString(),label:originalMsg.slice(0,52)+"..."};
-    setDrafts(prev=>[d,...prev]);setActive(d);setOriginalMsg("");setContext("");setIntent("");setSelTones([]);setLoading(false);setView("detail");
-  };
-
-  const retone = async(draft:ReplyDraft,nt:string)=>{
-    if(draft.variants.find(v=>v.tone===nt)){upd(draft.id,{activeTone:nt});return;}
-    upd(draft.id,{chatLoading:true,activeTone:nt});
-    const av = draft.variants.find(v=>v.tone===draft.activeTone);
-    const reply = await callClaude([{role:"user",content:`Rewrite in ${nt} tone:\n\n${av?.content}`}],`Rewrite this reply in a ${nt} tone. ${TONE_DESC[nt]} Keep same intent.`);
-    const nv = [...draft.variants,{tone:nt,content:reply}];
-    upd(draft.id,{variants:nv,activeTone:nt,chatMsgs:[...draft.chatMsgs,{role:"user",content:`Generate ${nt} variant`},{role:"assistant",content:reply}],chatLoading:false});
-  };
-
-  const sendChat = async(d:ReplyDraft)=>{
-    if(!d.chatInput?.trim()) return;
-    const av = d.variants.find(v=>v.tone===d.activeTone);
-    const msg = {role:"user",content:d.chatInput};
-    const msgs = [...d.chatMsgs,msg];
-    upd(d.id,{chatMsgs:msgs,chatInput:"",chatLoading:true});
-    const reply = await callClaude([{role:"user",content:`Original:\n"${d.originalMsg}"\nCurrent reply (${d.activeTone}):\n${av?.content}`},{role:"assistant",content:"How can I help?"},...msgs],`Communication editor. Tone: ${d.activeTone}.`);
-    upd(d.id,{chatMsgs:[...msgs,{role:"assistant",content:reply}],chatLoading:false});
-  };
-
-  if (view==="list") return (
-    <div className="flex flex-col gap-4 max-w-2xl">
-      <div className="flex justify-between items-center">
-        <span className="text-xs text-slate-400">{drafts.length} saved repl{drafts.length!==1?"ies":"y"}</span>
-        <Btn onClick={()=>setView("new")}>+ New reply</Btn>
-      </div>
-      {drafts.length===0&&(
-        <Card className="text-center py-12">
-          <div className="text-3xl mb-3">↩</div>
-          <div className="text-sm font-semibold text-slate-700 mb-2">No replies yet</div>
-          <Btn variant="secondary" onClick={()=>setView("new")}>Draft first reply</Btn>
-        </Card>
-      )}
-      {drafts.map(d=>(
-        <div key={d.id} onClick={()=>{setActive(d);setView("detail");}} className="cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:border-indigo-200 hover:shadow-md transition flex gap-3 items-start">
-          <span className="text-xs px-3 py-1 rounded-full font-semibold bg-pink-50 text-pink-600 border border-pink-100 shrink-0">Reply</span>
-          <div className="flex-1 min-w-0">
-            <div className="text-sm font-semibold text-slate-800 truncate">{d.label}</div>
-            <div className="text-xs text-slate-400">{d.tones.length} tones · {d.chatMsgs.length} revisions · {d.createdAt}</div>
-          </div>
-          <span className="text-slate-300 text-sm">→</span>
-        </div>
-      ))}
-    </div>
-  );
-
-  if (view==="new") return (
-    <div className="flex flex-col gap-4 max-w-2xl">
-      <Btn variant="secondary" size="sm" onClick={()=>setView("list")}>← All replies</Btn>
-      <InfoBox>Paste the message, describe what you want to say, pick tones - get ready-to-send replies.</InfoBox>
-      <Card>
-        <div className="text-sm font-medium text-slate-700 mb-2">Paste the message you want to reply to</div>
-        <textarea rows={5} value={originalMsg} onChange={e=>setOriginalMsg(e.target.value)} placeholder="Paste the email, Slack message, or any text you need to reply to..."
-          className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-      </Card>
-      <Card>
-        <div className="text-sm font-medium text-slate-700 mb-2">What do you want to say? <span className="text-slate-400 font-normal">(optional)</span></div>
-        <textarea rows={3} value={context} onChange={e=>setContext(e.target.value)} placeholder="e.g. I want to decline but stay open to async collaboration."
-          className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-      </Card>
-      <Card>
-        <div className="text-sm font-medium text-slate-700 mb-2">Your intent or goal <span className="text-slate-400 font-normal">(optional)</span></div>
-        <input value={intent} onChange={e=>setIntent(e.target.value)} placeholder="e.g. Maintain the relationship, push back on deadline"
-          className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-      </Card>
-      <Card>
-        <div className="text-sm font-semibold text-slate-700 mb-3">Select tones <span className="text-xs text-slate-400 font-normal">pick one or multiple</span></div>
-        <div className="grid grid-cols-2 gap-2">
-          {TONES.map(t=>{
-            const sel = selTones.includes(t);
-            return (
-              <button key={t} onClick={()=>toggle(t)}
-                className={`p-3 rounded-2xl border text-left transition ${sel?"border-indigo-400 bg-indigo-50":"border-slate-200 bg-white hover:border-indigo-200"}`}>
-                <div className={`text-sm font-semibold mb-1 ${sel?"text-indigo-700":"text-slate-800"}`}>{t}</div>
-                <div className="text-xs text-slate-500 leading-5">{TONE_DESC[t]}</div>
-              </button>
-            );
-          })}
-        </div>
-      </Card>
-      <Btn onClick={generate} disabled={loading||!originalMsg.trim()||selTones.length===0}>
-        {loading?"Generating replies...":"Generate Replies →"}
-      </Btn>
-    </div>
-  );
-
-  const d = active;
-  if (!d) return null;
-  const av = d.variants.find(v=>v.tone===d.activeTone);
-  return (
-    <div className="flex flex-col gap-4 max-w-2xl">
-      <div className="flex gap-2 flex-wrap items-center">
-        <Btn variant="secondary" size="sm" onClick={()=>setView("list")}>← All replies</Btn>
-        <span className="text-xs bg-pink-50 text-pink-600 border border-pink-100 rounded-full px-3 py-1">Reply</span>
-        <span className="text-xs text-slate-400">{d.createdAt}</span>
-        <Btn variant="secondary" size="sm" onClick={()=>navigator.clipboard.writeText(av?.content||"")}>Copy</Btn>
-      </div>
-      <div className="flex gap-3 items-start">
-        <div className="w-36 shrink-0 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
-          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 pt-3 pb-2">Tone</div>
-          {d.tones.map(t=>{
-            const act = t===d.activeTone;
-            return (
-              <button key={t} onClick={()=>retone(d,t)}
-                className={`w-full flex items-center justify-between px-3 py-2 text-xs border-l-2 transition text-left ${act?"border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold":"border-transparent text-slate-500 hover:bg-slate-50"}`}>
-                <span>{t}</span>{act&&<span>✓</span>}
-              </button>
-            );
-          })}
-          <div className="border-t border-slate-100 mt-1 pt-1">
-            {TONES.filter(t=>!d.tones.includes(t)).map(t=>(
-              <button key={t} onClick={()=>retone(d,t)}
-                className="w-full px-3 py-2 text-xs text-slate-400 hover:bg-slate-50 text-left transition">
-                + {t}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="flex-1 relative">
-          {d.chatLoading&&(
-            <div className="absolute inset-0 rounded-2xl bg-white/90 z-10 flex items-center justify-center border border-slate-200">
-              <span className="text-sm text-slate-500">Generating <strong>{d.activeTone}</strong> variant...</span>
-            </div>
-          )}
-          <div className={`rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-7 text-slate-700 whitespace-pre-wrap min-h-40 transition ${d.chatLoading?"opacity-30":""}`}>
-            {av?.content||""}
-          </div>
-        </div>
-      </div>
-      <div className="text-xs font-bold uppercase tracking-widest text-indigo-500">Refine</div>
-      <div className="flex flex-col gap-3 max-h-60 overflow-y-auto">
-        {d.chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
-        {d.chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Revising...</div>}
+        {chatMsgs.map((m,i)=><ChatBubble key={i} role={m.role} content={m.content}/>)}
+        {chatLoading&&<div className="self-start bg-white border border-slate-200 rounded-2xl px-4 py-3 text-sm text-slate-400">Revising...</div>}
         <div ref={bottomRef}/>
       </div>
       <div className="flex gap-2">
-        <input value={d.chatInput||""} onChange={e=>upd(d.id,{chatInput:e.target.value})} onKeyDown={e=>e.key==="Enter"&&sendChat(d)} placeholder='"Make it shorter", "More direct", "Add a question"'
+        <input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendChat()} placeholder='"Make it shorter", "More urgent", "Add a deadline"'
           className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
-        <Btn onClick={()=>sendChat(d)} disabled={d.chatLoading||!d.chatInput?.trim()}>Refine</Btn>
+        <Btn onClick={sendChat} disabled={chatLoading||!chatInput.trim()}>Revise</Btn>
       </div>
     </div>
   );
 }
 
-// ─── INSIGHT REPOSITORY MODULE ────────────────────────────
 function RepositoryModule() {
-  type Insight = {id:number;title:string;source:string;date:string;tags:string;summary:string;aiSummary:string};
-  const [insights,setInsights] = useState<Insight[]>([]);
-  const [form,setForm] = useState({title:"",source:"",date:"",tags:"",summary:""});
-  const [aiSummary,setAiSummary] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [search,setSearch] = useState("");
-  const [show,setShow] = useState(true);
-
-  const add = async()=>{
+  type Insight={id:number;title:string;source:string;date:string;tags:string;summary:string;aiSummary:string};
+  const [insights,setInsights]=useState<Insight[]>([]);
+  const [form,setForm]=useState({title:"",source:"",date:"",tags:"",summary:""});
+  const [loading,setLoading]=useState(false);
+  const [search,setSearch]=useState("");
+  const [show,setShow]=useState(true);
+  const add=async()=>{
     if(!form.title||!form.summary) return;
     setLoading(true);
-    const reply = await callClaude([{role:"user",content:`Summarize this insight in 2 sentences and extract 3 key actions:\n\nTitle: ${form.title}\nSource: ${form.source}\nInsight: ${form.summary}`}],"You are a product insights curator. Be concise and actionable.");
+    const reply=await callClaude([{role:"user",content:`Summarize this insight in 2 sentences and extract 3 key actions:\n\nTitle: ${form.title}\nSource: ${form.source}\nInsight: ${form.summary}`}],"You are a product insights curator. Be concise and actionable.");
     setInsights(prev=>[{...form,id:Date.now(),aiSummary:reply},...prev]);
-    setForm({title:"",source:"",date:"",tags:"",summary:""});
-    setLoading(false);
+    setForm({title:"",source:"",date:"",tags:"",summary:""});setLoading(false);
   };
-
-  const filtered = insights.filter(i=>
-    i.title.toLowerCase().includes(search.toLowerCase())||
-    i.tags.toLowerCase().includes(search.toLowerCase())||
-    i.summary.toLowerCase().includes(search.toLowerCase())
-  );
-
+  const filtered=insights.filter(i=>i.title.toLowerCase().includes(search.toLowerCase())||i.tags.toLowerCase().includes(search.toLowerCase())||i.summary.toLowerCase().includes(search.toLowerCase()));
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
       {show&&(
         <Card>
           <div className="text-sm font-semibold text-slate-700 mb-3">Add new insight</div>
-          {[{k:"title",l:"Title",p:"e.g. Users abandon checkout on mobile"},{k:"source",l:"Source",p:"e.g. User interview, analytics"},{k:"date",l:"Date",p:"e.g. May 2025"},{k:"tags",l:"Tags",p:"e.g. mobile, checkout, retention"}].map(f=>(
+          {[{k:"title",l:"Title",p:"e.g. Users abandon checkout on mobile"},{k:"source",l:"Source",p:"e.g. User interview"},{k:"date",l:"Date",p:"e.g. May 2025"},{k:"tags",l:"Tags",p:"e.g. mobile, checkout"}].map(f=>(
             <div key={f.k} className="flex gap-3 items-center mb-2">
-              <span className="text-xs text-slate-400 w-16 shrink-0">{f.l}</span>
+              <span className="text-xs text-slate-400 w-14 shrink-0">{f.l}</span>
               <input value={(form as Record<string,string>)[f.k]} onChange={e=>setForm({...form,[f.k]:e.target.value})} placeholder={f.p}
                 className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
             </div>
           ))}
           <div className="flex gap-3 items-start mb-3">
-            <span className="text-xs text-slate-400 w-16 shrink-0 pt-2">Insight</span>
-            <textarea rows={3} value={form.summary} onChange={e=>setForm({...form,summary:e.target.value})} placeholder="Describe the insight in detail..."
+            <span className="text-xs text-slate-400 w-14 shrink-0 pt-2">Insight</span>
+            <textarea rows={3} value={form.summary} onChange={e=>setForm({...form,summary:e.target.value})} placeholder="Describe the insight..."
               className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400 resize-none"/>
           </div>
           <Btn onClick={add} disabled={loading||!form.title||!form.summary}>{loading?"Saving...":"Add & Summarize →"}</Btn>
@@ -1121,9 +820,9 @@ function RepositoryModule() {
       <div className="flex gap-2">
         <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search insights..."
           className="flex-1 text-sm rounded-xl border border-slate-200 bg-white px-3 py-2 outline-none focus:border-indigo-400"/>
-        <Btn variant="secondary" size="sm" onClick={()=>setShow(!show)}>{show?"Hide form":"+ New insight"}</Btn>
+        <Btn variant="secondary" size="sm" onClick={()=>setShow(!show)}>{show?"Hide form":"+ New"}</Btn>
       </div>
-      {filtered.length===0&&<p className="text-sm text-slate-400 text-center py-8">No insights yet. Add your first one above.</p>}
+      {filtered.length===0&&<p className="text-sm text-slate-400 text-center py-8">No insights yet.</p>}
       {filtered.map(i=>(
         <Card key={i.id}>
           <div className="flex justify-between items-start gap-3 mb-2">
@@ -1144,74 +843,139 @@ function RepositoryModule() {
   );
 }
 
-// ─── DASHBOARD ────────────────────────────────────────────
 function Dashboard({onNavigate}:{onNavigate:(id:string)=>void}) {
-  const tools = MODULES.filter(m=>m.id!=="dashboard");
+  const tools=MODULES.filter(m=>m.id!=="dashboard");
+  const featured=[
+    {id:"funnel",bg:"from-emerald-500 to-teal-600"},
+    {id:"feature-research",bg:"from-blue-500 to-indigo-600"},
+    {id:"prd",bg:"from-violet-500 to-purple-600"},
+    {id:"hypothesis",bg:"from-amber-500 to-orange-500"},
+    {id:"brainstorm",bg:"from-pink-500 to-rose-600"},
+    {id:"stakeholder",bg:"from-indigo-500 to-blue-600"},
+  ];
   return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="text-xl font-bold text-slate-900 mb-1">PM Hub</h2>
-        <p className="text-sm text-slate-500">Your AI-powered product management toolkit.</p>
+    <div className="flex flex-col gap-6 max-w-3xl">
+      <div className="rounded-[1.75rem] bg-gradient-to-br from-slate-900 to-indigo-800 px-6 py-6 shadow-lg shadow-indigo-200">
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-4">PM Hub</div>
+        <p className="text-lg font-bold text-white">PM Research & Strategy Hub</p>
+        <p className="mt-1.5 text-sm text-indigo-200 leading-6">Built by <strong className="text-white">Arunesh Kumar</strong> — Product Manager at Sierra Living Concepts.</p>
+        <p className="mt-1 text-xs text-indigo-300 leading-5">17 AI-powered modules for end-to-end product management work. Built by a PM, for PMs.</p>
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          {[{v:"17",l:"AI Modules",bg:"from-blue-50 to-indigo-50",t:"text-indigo-600"},{v:"100+",l:"PM Workflows",bg:"from-emerald-50 to-teal-50",t:"text-emerald-600"},{v:"6",l:"PM Tools",bg:"from-violet-50 to-purple-50",t:"text-violet-600"}].map(s=>(
+            <div key={s.l} className={`rounded-2xl bg-gradient-to-br ${s.bg} px-3 py-2.5`}>
+              <p className={`text-xl font-bold ${s.t}`}>{s.v}</p>
+              <p className="text-xs text-slate-500">{s.l}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {tools.map(m=>(
-          <button key={m.id} onClick={()=>onNavigate(m.id)}
-            className="rounded-2xl border border-slate-200 bg-white p-4 text-left hover:border-indigo-300 hover:bg-indigo-50 transition shadow-sm">
-            <i className={`${m.icon} text-xl text-indigo-500 mb-2 block`}></i>
-            <div className="text-sm font-semibold text-slate-800">{m.label}</div>
-          </button>
-        ))}
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.28em] text-indigo-500 mb-3">Quick Actions</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {featured.map(f=>{
+            const mod=MODULES.find(m=>m.id===f.id);
+            return mod?(
+              <button key={f.id} onClick={()=>onNavigate(f.id)}
+                className={`text-left flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-2xl bg-gradient-to-r ${f.bg} text-white shadow-sm transition hover:scale-[1.02] hover:shadow-md`}>
+                <i className={`${mod.icon} text-base`}></i>{mod.label}
+              </button>
+            ):null;
+          })}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.28em] text-indigo-500 mb-3">All Modules</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {tools.map(m=>(
+            <button key={m.id} onClick={()=>onNavigate(m.id)}
+              className="text-left flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700 hover:shadow-md">
+              <i className={`${m.icon} text-base text-indigo-500 shrink-0`}></i>
+              <span className="truncate">{m.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-// ─── PAGE ─────────────────────────────────────────────────
 export default function Page() {
-  const [active,setActive] = useState("dashboard");
-  const mod = MODULES.find(m=>m.id===active);
+  const [active,setActive]=useState("dashboard");
+  const [sidebarOpen,setSidebarOpen]=useState(true);
+  const [mobileMenuOpen,setMobileMenuOpen]=useState(false);
+  const mod=MODULES.find(m=>m.id===active);
 
-  const renderModule = () => {
-    if (active==="dashboard") return <Dashboard onNavigate={setActive}/>;
-    if (active==="funnel") return <FunnelModule/>;
-    if (active==="hypothesis") return <HypothesisModule/>;
-    if (active==="prioritization") return <PrioritizationModule/>;
-    if (active==="stakeholder") return <DraftCommsModule/>;
-    if (active==="voc") return <GeneralReplyModule/>;
-    if (active==="repository") return <RepositoryModule/>;
+  const navigate=(id:string)=>{setActive(id);setMobileMenuOpen(false);};
+
+  const renderModule=()=>{
+    if(active==="dashboard") return <Dashboard onNavigate={navigate}/>;
+    if(active==="funnel") return <FunnelModule/>;
+    if(active==="hypothesis") return <HypothesisModule/>;
+    if(active==="prioritization") return <PrioritizationModule/>;
+    if(active==="stakeholder") return <StakeholderModule/>;
+    if(active==="repository") return <RepositoryModule/>;
     return <AIModule moduleId={active}/>;
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
-      <div className="flex h-screen overflow-hidden">
-        {/* Sidebar */}
-        <div className="w-56 shrink-0 border-r border-slate-200 bg-white flex flex-col overflow-y-auto">
-          <div className="px-4 py-5 border-b border-slate-100">
-            <div className="text-sm font-bold text-slate-900">PM Hub</div>
-            <div className="text-xs text-slate-400">AI Product Toolkit</div>
+
+      {/* Disclaimer banner */}
+      <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-xs text-amber-700 font-medium shrink-0 flex items-center justify-center gap-2">
+        <i className="ti ti-info-circle text-sm"></i>
+        <span>This is a representation of capabilities — a Claude API key is required for actual AI responses.</span>
+        <span className="hidden sm:inline text-amber-500">·</span>
+        <span className="hidden sm:inline font-semibold">Built by a PM, for PMs — Arunesh Kumar</span>
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Desktop Sidebar */}
+        <div className={`hidden md:flex ${sidebarOpen?"w-56":"w-14"} transition-all duration-200 bg-white border-r border-slate-200 flex-col shrink-0 shadow-sm`}>
+          <div className="px-3 py-4 border-b border-slate-100 flex items-center justify-between">
+            {sidebarOpen&&<span className="text-sm font-bold text-indigo-600 whitespace-nowrap">PM<span className="text-slate-900">Hub</span></span>}
+            <button onClick={()=>setSidebarOpen(!sidebarOpen)} className="text-slate-400 hover:text-indigo-600 transition p-1 rounded-lg hover:bg-indigo-50 ml-auto">
+              <i className={`ti ${sidebarOpen?"ti-chevron-left":"ti-chevron-right"} text-base`}></i>
+            </button>
           </div>
-          <nav className="flex-1 py-2">
+          <div className="flex-1 overflow-y-auto py-2">
             {MODULES.map(m=>(
-              <button key={m.id} onClick={()=>setActive(m.id)}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition text-left ${active===m.id?"bg-indigo-50 text-indigo-700 font-semibold border-r-2 border-indigo-500":"text-slate-600 hover:bg-slate-50"}`}>
+              <button key={m.id} onClick={()=>navigate(m.id)}
+                className={`w-full flex items-center gap-3 py-2.5 text-sm transition border-l-2 ${sidebarOpen?"px-3 justify-start":"px-0 justify-center"} ${active===m.id?"bg-indigo-50 text-indigo-700 border-indigo-500 font-semibold":"text-slate-500 hover:bg-slate-50 hover:text-slate-800 border-transparent"}`}>
                 <i className={`${m.icon} text-base shrink-0`}></i>
-                <span className="truncate">{m.label}</span>
+                {sidebarOpen&&<span className="truncate text-xs">{m.label}</span>}
               </button>
             ))}
-          </nav>
-        </div>
-        {/* Main */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="px-8 py-6">
-            <div className="mb-6">
-              <h1 className="text-lg font-bold text-slate-900">{mod?.label}</h1>
-            </div>
-            {renderModule()}
           </div>
         </div>
+
+        {/* Main content */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Header */}
+          <div className="px-4 py-3 bg-white border-b border-slate-200 flex items-center gap-3 shadow-sm shrink-0">
+            <button onClick={()=>setMobileMenuOpen(true)} className="md:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 transition shrink-0">
+              <i className="ti ti-menu-2 text-lg"></i>
+            </button>
+            <i className={`${mod?.icon} text-lg hidden md:block text-slate-600`}></i>
+            <span className="text-sm font-bold text-slate-800 truncate">{mod?.label}</span>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-4 md:p-6">{renderModule()}</div>
+        </div>
       </div>
-    </div>
-  );
-}
+
+      {/* Mobile overlay menu */}
+      {mobileMenuOpen&&(
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="absolute inset-0 bg-black/40" onClick={()=>setMobileMenuOpen(false)}/>
+          <div className="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-xl flex flex-col">
+            <div className="px-4 py-4 border-b border-slate-100 flex items-center justify-between">
+              <span className="text-sm font-bold text-indigo-600">PM<span className="text-slate-900">Hub</span></span>
+              <button onClick={()=>setMobileMenuOpen(false)} className="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+                <i className="ti ti-x text-lg"></i>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto py-2">
+              {MODULES.map(m=>(
+                <button key={m.id} onClick={()=>navigate(m.id)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition border-l-2 justify-start ${active===m.id?"bg-indigo-50 text-indigo-700 border-indigo-500 font-semibol
