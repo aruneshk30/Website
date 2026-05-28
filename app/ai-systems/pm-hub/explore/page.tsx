@@ -383,40 +383,22 @@ function FunnelModule() {
     setChatMsgs([...next,{role:"assistant",content:reply}]);setChatLoading(false);
   };
 
-  if (phase==="setup") return (
+  if (phase==="setup"||phase==="data") return (
     <div className="flex flex-col gap-4 max-w-2xl">
+      {/* Template picker */}
       <div className="flex gap-2 flex-wrap">
         {[["saas","SaaS"],["ecommerce","E-commerce"],["onboarding","Onboarding"],["custom","Custom"]].map(([val,label])=>(
           <button key={val} onClick={()=>applyTemplate(val)}
             className={`px-4 py-2 text-sm rounded-xl border transition ${template===val?"border-indigo-400 bg-indigo-50 text-indigo-700 font-semibold":"border-slate-200 bg-white text-slate-600 hover:border-indigo-300"}`}>{label}</button>
         ))}
       </div>
-      <Card>
-        <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Funnel Steps</div>
-        {steps.map((s,i)=>(
-          <div key={i} className={`flex items-center gap-3 py-2.5 ${i<steps.length-1?"border-b border-slate-100":""}`}>
-            <span className="text-xs text-slate-400 w-5 shrink-0">{i+1}</span>
-            <input value={s.name} onChange={e=>upd(i,"name",e.target.value)}
-              className="flex-1 font-medium text-sm text-slate-800 border-b border-dashed border-slate-200 bg-transparent outline-none pb-1"/>
-            <button onClick={()=>setSteps(steps.filter((_,j)=>j!==i))} disabled={steps.length<=2} className="text-xs text-red-400 hover:text-red-600 disabled:opacity-30">✕</button>
-          </div>
-        ))}
-        <div className="flex gap-2 pt-3 border-t border-slate-100 mt-2">
-          <input value={newStep} onChange={e=>setNewStep(e.target.value)} onKeyDown={e=>e.key==="Enter"&&newStep.trim()&&(setSteps([...steps,{name:newStep,users:0}]),setNewStep(""))}
-            placeholder="New step name..." className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
-          <Btn variant="secondary" size="sm" onClick={()=>{if(newStep.trim()){setSteps([...steps,{name:newStep,users:0}]);setNewStep("");}}} disabled={!newStep.trim()}>+ Add</Btn>
-        </div>
-      </Card>
-      <Btn onClick={()=>setPhase("data")} disabled={steps.length<2}>Next: Enter data →</Btn>
-    </div>
-  );
 
-  if (phase==="data") return (
-    <div className="flex flex-col gap-4 max-w-2xl">
-      <Btn variant="secondary" size="sm" onClick={()=>setPhase("setup")}>← Edit steps</Btn>
       <FileAttach onFile={(c,n)=>{setFileContent(c);setFileName(n);}} fileName={fileName} onClear={()=>{setFileContent(null);setFileName(null);}}/>
-      {!fileContent&&(
-        <>
+
+      {fileContent ? (
+        <InfoBox>File attached: {fileName}. The AI will analyze it directly — no need to enter step data.</InfoBox>
+      ) : (
+        <div className="flex flex-col gap-3">
           {steps.map((s,i)=>{
             const prev=i===0?s.users:steps[i-1].users;
             const dr=i>0&&prev>0?(((prev-s.users)/prev)*100).toFixed(1):null;
@@ -424,23 +406,31 @@ function FunnelModule() {
             const barColor=i===0?"bg-indigo-500":dr&&+dr>50?"bg-red-400":dr&&+dr>25?"bg-amber-400":"bg-emerald-400";
             return (
               <Card key={i} className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-semibold text-slate-800"><span className="text-slate-400 mr-2 text-xs">{i+1}</span>{s.name}</span>
-                  {dr&&<span className={`text-xs font-semibold ${+dr>40?"text-red-500":"text-amber-500"}`}>-{dr}%</span>}
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-xs text-slate-400 w-5 shrink-0">{i+1}</span>
+                  <input value={s.name} onChange={e=>upd(i,"name",e.target.value)}
+                    className="flex-1 font-semibold text-sm text-slate-800 border-b border-dashed border-slate-200 bg-transparent outline-none pb-1"/>
+                  {dr&&<span className={`text-xs font-semibold shrink-0 ${+dr>40?"text-red-500":"text-amber-500"}`}>-{dr}%</span>}
+                  <button onClick={()=>setSteps(steps.filter((_,j)=>j!==i))} disabled={steps.length<=2} className="text-xs text-red-400 hover:text-red-600 disabled:opacity-30 shrink-0">✕</button>
                 </div>
-                <input type="number" value={s.users||""} onChange={e=>upd(i,"users",+e.target.value)} placeholder="Number of users"
+                <input type="number" value={s.users||""} onChange={e=>upd(i,"users",+e.target.value)} placeholder="Enter number of users at this step"
                   className="w-full text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
                 {s.users>0&&<div className="mt-2 h-1.5 bg-slate-100 rounded-full"><div className={`h-full ${barColor} rounded-full transition-all`} style={{width:`${pct}%`}}/></div>}
               </Card>
             );
           })}
-        </>
+          <div className="flex gap-2">
+            <input value={newStep} onChange={e=>setNewStep(e.target.value)} onKeyDown={e=>e.key==="Enter"&&newStep.trim()&&(setSteps([...steps,{name:newStep,users:0}]),setNewStep(""))}
+              placeholder="Add a step..." className="flex-1 text-sm rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
+            <Btn variant="secondary" size="sm" onClick={()=>{if(newStep.trim()){setSteps([...steps,{name:newStep,users:0}]);setNewStep("");}}} disabled={!newStep.trim()}>+ Add</Btn>
+          </div>
+        </div>
       )}
-      {fileContent&&<InfoBox>File attached: {fileName}. The AI will analyze it directly.</InfoBox>}
+
       <Card>
         <div className="text-sm font-medium text-slate-700 mb-2">Custom prompt <span className="text-slate-400 font-normal text-xs">(optional)</span></div>
-        <textarea rows={3} value={customPrompt} onChange={e=>setCustomPrompt(e.target.value)}
-          placeholder="e.g. Focus on mobile drop-off. Compare against industry benchmarks. Suggest 3 quick wins."
+        <textarea rows={2} value={customPrompt} onChange={e=>setCustomPrompt(e.target.value)}
+          placeholder="e.g. Focus on mobile drop-off. Suggest 3 quick wins."
           className="w-full text-sm resize-y rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 outline-none focus:border-indigo-400"/>
       </Card>
       <Btn onClick={analyze} disabled={loading||(steps.filter(s=>s.users>0).length<2&&!fileContent)}>
@@ -966,7 +956,7 @@ export default function Page() {
             <span className="text-sm font-bold text-slate-800 truncate">{mod?.label}</span>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 md:p-6">{renderModule()}</div>
+          <div className="flex-1 overflow-y-auto p-4 md:p-8"><div className="max-w-3xl">{renderModule()}</div></div>
         </div>
       </div>
 
