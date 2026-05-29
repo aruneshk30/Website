@@ -165,39 +165,39 @@ export const pmHubAgents = [
 export const croAgents = [
   {
     title: "Data Agent",
-    description: "Pulls the core numbers, identifies trends, and frames the baseline problem.",
+    description: "Establishes the baseline — what is actually happening in the funnel before any opinion enters the room.",
   },
   {
     title: "UX Agent",
-    description: "Reads interface friction, flow problems, and task completion barriers.",
+    description: "Translates numbers into interface problems — where the experience breaks down and why users leave.",
   },
   {
     title: "Research Agent",
-    description: "Looks at market and competitor context to ground the recommendation.",
+    description: "Grounds the diagnosis in market reality — are these problems unique to us or industry-wide patterns?",
   },
   {
-    title: "Customer Voice",
-    description: "Synthesizes reviews, complaints, support tickets, and user feedback.",
+    title: "Customer Voice Agent",
+    description: "Brings the human layer — what buyers actually say, fear, and need before they convert.",
   },
   {
     title: "Tech Agent",
-    description: "Checks implementation constraints, dependencies, and feasibility.",
+    description: "Stress-tests every idea against the stack — filters out what cannot be shipped before prioritization.",
   },
   {
-    title: "Experimentation",
-    description: "Defines hypotheses, test design, and measurement strategy.",
+    title: "Experimentation Agent",
+    description: "Turns validated problems into testable bets — structured hypotheses with measurable success criteria.",
   },
   {
-    title: "Prioritization",
-    description: "Ranks actions by impact, effort, confidence, and sequence.",
+    title: "Prioritization Agent",
+    description: "Forces a decision — which bets get resources first, ranked by impact, effort, and confidence.",
   },
   {
     title: "Risk Agent",
-    description: "Flags downside risk, edge cases, and mitigation steps.",
+    description: "The final filter — what could go wrong, what are we assuming, and what needs a contingency.",
   },
   {
-    title: "Documentation",
-    description: "Produces the final summary, decision memo, and execution plan.",
+    title: "Documentation Agent",
+    description: "Closes the loop — converts decisions into a format engineering can act on without a follow-up meeting.",
   },
 ];
 
