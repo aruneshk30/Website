@@ -7,7 +7,7 @@ const workflowSteps = [
   {
     number: "1",
     title: "Data Agent",
-    desc: "Establishes the baseline — what is actually happening in the funnel before any opinion enters the room.",
+    desc: "Finds funnel leaks, drop-offs, and device splits using GA4, Google Ads, and dashboard data.",
     color: "bg-blue-50 border-blue-200",
     badge: "bg-blue-100 text-blue-700",
     dot: "bg-blue-400",
@@ -16,7 +16,7 @@ const workflowSteps = [
   {
     number: "2",
     title: "UX Agent",
-    desc: "Translates numbers into interface problems — where the experience breaks down and why users leave.",
+    desc: "Identifies page friction, confusing flows, and interaction barriers using data insights.",
     color: "bg-teal-50 border-teal-200",
     badge: "bg-teal-100 text-teal-700",
     dot: "bg-teal-400",
@@ -25,7 +25,7 @@ const workflowSteps = [
   {
     number: "3",
     title: "Research Agent",
-    desc: "Grounds the diagnosis in market reality — are these problems unique to us or industry-wide patterns?",
+    desc: "Validates UX findings against market benchmarks and competitor behaviour.",
     color: "bg-teal-50 border-teal-200",
     badge: "bg-teal-100 text-teal-700",
     dot: "bg-teal-400",
@@ -34,7 +34,7 @@ const workflowSteps = [
   {
     number: "4",
     title: "Customer Voice Agent",
-    desc: "Brings the human layer — what buyers actually say, fear, and need before they convert.",
+    desc: "Maps findings to buyer psychology, trust gaps, and real customer language.",
     color: "bg-violet-50 border-violet-200",
     badge: "bg-violet-100 text-violet-700",
     dot: "bg-violet-400",
@@ -43,7 +43,7 @@ const workflowSteps = [
   {
     number: "5",
     title: "Tech Agent",
-    desc: "Stress-tests every idea against the stack — filters out what cannot be shipped before prioritization.",
+    desc: "Validates technical feasibility on your stack and flags implementation constraints.",
     color: "bg-violet-50 border-violet-200",
     badge: "bg-violet-100 text-violet-700",
     dot: "bg-violet-400",
@@ -52,7 +52,7 @@ const workflowSteps = [
   {
     number: "6",
     title: "Experimentation Agent",
-    desc: "Turns validated problems into testable bets — structured hypotheses with measurable success criteria.",
+    desc: "Designs A/B tests with hypothesis statements, variants, and lift targets.",
     color: "bg-amber-50 border-amber-200",
     badge: "bg-amber-100 text-amber-700",
     dot: "bg-amber-400",
@@ -61,7 +61,7 @@ const workflowSteps = [
   {
     number: "7",
     title: "Prioritization Agent",
-    desc: "Forces a decision — which bets get resources first, ranked by impact, effort, and confidence.",
+    desc: "Ranks every action by RICE and ICE score against effort and business impact.",
     color: "bg-amber-50 border-amber-200",
     badge: "bg-amber-100 text-amber-700",
     dot: "bg-amber-400",
@@ -70,7 +70,7 @@ const workflowSteps = [
   {
     number: "8",
     title: "Risk Agent",
-    desc: "The final filter — what could go wrong, what are we assuming, and what needs a contingency.",
+    desc: "Flags implementation risks, conversion risks, and edge cases before execution.",
     color: "bg-red-50 border-red-200",
     badge: "bg-red-100 text-red-700",
     dot: "bg-red-400",
@@ -79,7 +79,7 @@ const workflowSteps = [
   {
     number: "9",
     title: "Documentation Agent",
-    desc: "Closes the loop — converts decisions into a format engineering can act on without a follow-up meeting.",
+    desc: "Produces a dev-ready action plan, decision memo, and 30-day execution summary.",
     color: "bg-green-50 border-green-200",
     badge: "bg-green-100 text-green-700",
     dot: "bg-green-400",
