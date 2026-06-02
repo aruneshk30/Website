@@ -3,6 +3,7 @@ export const navLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/ai-systems", label: "AI Systems" },
   { href: "/experience", label: "Experience" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/connect", label: "Connect" },
 ];
 
