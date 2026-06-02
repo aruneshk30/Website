@@ -30,7 +30,7 @@ export default function WorkLandingPage() {
                     <p className="mt-4 text-sm leading-7 text-slate-600">{item.brief}</p>
                     <div className="mt-5">
                       <Link href="/connect" className="inline-flex items-center gap-2 text-sm font-medium text-slate-900">
-                        Discuss this project <ArrowRight className="h-4 w-4" />
+                        Case Study <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
                   </div>
