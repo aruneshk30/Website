@@ -46,7 +46,7 @@ export default function PMHubPage() {
           <SectionHeading
             eyebrow="Modules"
             title="17 modules, one operating system"
-            subtitle="This layout comes from your PM Hub build, tightened into a cleaner premium visual language for the portfolio."
+            subtitle="One integrated platform that brings research, planning, prioritization, stakeholder communication, and execution into a single workflow."
           />
           <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {pmHubModules.map((module) => (
