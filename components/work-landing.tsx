@@ -29,7 +29,7 @@ export default function WorkLandingPage() {
                     <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">{item.title}</h2>
                     <p className="mt-4 text-sm leading-7 text-slate-600">{item.brief}</p>
                     <div className="mt-5">
-                      <Link href="/connect" className="inline-flex items-center gap-2 text-sm font-medium text-slate-900">
+                      <Link href="/case-studies" className="inline-flex items-center gap-2 text-sm font-medium text-slate-900">
                         Case Study <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
