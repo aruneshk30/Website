@@ -421,7 +421,7 @@ export default function HomePage() {
               {projects.map((p) => (
               <Link
                   key={p.title}
-                  href="/projects"
+                  href="/case-studies"
                   className="fade-section group flex flex-col rounded-[1.75rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="mb-5 flex items-start justify-between gap-4">
