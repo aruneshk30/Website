@@ -75,7 +75,7 @@ export default function CaseStudiesPage() {
           {caseStudies.map((cs) => (
             <Link
               key={cs.slug}
-              href={`/case-studies/${cs.slug}`}
+              href={`/case studies/${cs.slug}`}
               className="group rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-200"
             >
               <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
