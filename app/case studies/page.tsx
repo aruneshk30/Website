@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 const caseStudies = [
   {
     id: "01",
-    slug: "sku-pricing",
+    slug: "sku pricing",
     tag: "Platform & Systems · Pricing Automation",
     title: "Automated SKU Pricing & Mapping System",
     brief:
@@ -18,7 +18,7 @@ const caseStudies = [
   },
   {
     id: "02",
-    slug: "checkout-funnel",
+    slug: "checkout funnel",
     tag: "UX & Conversion · Funnel Optimization",
     title: "Checkout Funnel Optimization",
     brief:
@@ -32,7 +32,7 @@ const caseStudies = [
   },
   {
     id: "03",
-    slug: "pricing-calculator",
+    slug: "pricing calculator",
     tag: "Internal Tooling · Sales Enablement",
     title: "Real-Time Pricing Calculator for U.S. Sales",
     brief:
