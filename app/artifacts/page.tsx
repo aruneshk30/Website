@@ -53,7 +53,7 @@ const artifacts = [
     tag: "Process Documentation · Cross-functional",
     desc: "End-to-end NPD workflow mapping two initiation paths — Category Manager and Product Team — across 8 departments and 4 stage gates in a 12-day launch cycle. Adopted as the standard operating procedure and onboarding document at Sierra Living Concepts.",
     canvaUrl: "YOUR_CANVA_EMBED_URL", // ← Replace with your Canva embed URL
-    pdfUrl: "/npd-process.pdf", // ← Replace with your PDF path if using Option 2
+    pdfUrl: "public/New Product Development.pdf", // ← Replace with your PDF path if using Option 2
     period: "Management Trainee (Product Strategy) · Jun–Oct 2025",
   },
 ];
@@ -141,6 +141,7 @@ export default function ArtifactsPage() {
             {/* ── OPTION 1: Canva Embed ── */}
             {/* Replace YOUR_CANVA_EMBED_URL with your actual Canva embed URL */}
             {/* To get it: In Canva → Share → More → Embed → Copy embed URL */}
+            {/*
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
                 src="YOUR_CANVA_EMBED_URL"
@@ -154,7 +155,6 @@ export default function ArtifactsPage() {
 
             {/* ── OPTION 2: If using PDF instead of Canva embed ── */}
             {/* Uncomment this and comment out the iframe above */}
-            {/*
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
                 src="/npd-process.pdf"
