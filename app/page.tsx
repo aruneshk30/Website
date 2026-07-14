@@ -37,6 +37,18 @@ const previews = [
     desc: "Sierra Living Concepts and BoostGrad — full journey.",
     badge: "Sierra • BoostGrad",
   },
+  {
+  href: "#casestudies",
+  label: "Case Studies",
+  desc: "Real work case studies.",
+  badge: "Case Studies",
+  },
+  {
+  href: "#ui&artifacts",
+  label: "UI and Artifacts",
+  desc: "UI/UX designs, Process maps, and product documentation from real work.",
+  badge: "UI/UX Designs • NPD Process • Cross-functional",
+  },
 ];
 
 const projects = [
@@ -91,6 +103,24 @@ const experience = [
     desc: "Supported marketing and growth initiatives through analytics, dashboard reporting, campaign tracking, and student engagement insights.",
     href: "/experience",
   },
+];
+
+const casestudies = [
+{
+  title: "Case Studies",
+  desc: "Real work case studies of the projects I worked on with problem, solution, and its impact on the business with detailed study and explanation.",
+  href: "/case-studies",
+  Icon: Book,
+},
+];
+
+const uiandartifacts = [
+{
+  title: "UI and Artifacts",
+  href: "/ui&artifacts",
+  desc: "Explore my UI/UX designs and Process maps from the projects I worked on.",
+  Icon: Monitor,
+},
 ];
 
 const contactLinks = [
