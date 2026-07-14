@@ -38,7 +38,7 @@ const previews = [
     badge: "Sierra • BoostGrad",
   },
   {
-  href: "/casestudies",
+  href: "/case-studies",
   label: "Case Studies",
   desc: "Real work case studies.",
   badge: "Case Studies",
