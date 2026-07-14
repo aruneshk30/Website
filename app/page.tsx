@@ -110,7 +110,7 @@ const casestudies = [
   title: "Case Studies",
   desc: "Real work case studies of the projects I worked on with problem, solution, and its impact on the business with detailed study and explanation.",
   href: "/case-studies",
-  Icon: Book,
+  Icon: Sparkles,
 },
 ];
 
