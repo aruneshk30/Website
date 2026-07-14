@@ -143,7 +143,7 @@ export default function ArtifactsPage() {
             {/* To get it: In Canva → Share → More → Embed → Copy embed URL */}
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
-                src="YOUR_CANVA_EMBED_URL"
+                src="https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view"
                 width="100%"
                 height="600"
                 allowFullScreen
@@ -167,7 +167,7 @@ export default function ArtifactsPage() {
             {/* Open in new tab link */}
             <div className="mt-4 flex justify-end">
               <a
-                href="YOUR_CANVA_SHARE_URL"
+                href="https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800"
