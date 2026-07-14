@@ -141,6 +141,7 @@ export default function ArtifactsPage() {
             {/* ── OPTION 1: Canva Embed ── */}
             {/* Replace YOUR_CANVA_EMBED_URL with your actual Canva embed URL */}
             {/* To get it: In Canva → Share → More → Embed → Copy embed URL */}
+            {/*
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
                 src="https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view"
@@ -151,12 +152,13 @@ export default function ArtifactsPage() {
                 title="New Product Development Process Map"
               />
             </div>
-
+           */}
+            
             {/* ── OPTION 2: If using PDF instead of Canva embed ── */}
             {/* Uncomment this and comment out the iframe above */}
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
-                src="/public/New Product Development.pdf"
+                src="public/New Product Development.pdf"
                 width="100%"
                 height="700"
                 className="w-full"
