@@ -158,7 +158,7 @@ export default function ArtifactsPage() {
             {/* Uncomment this and comment out the iframe above */}
             <div className="overflow-hidden rounded-xl border border-slate-200">
               <iframe
-                src="public/New Product Development.pdf"
+                src="/New Product Development.pdf"
                 width="100%"
                 height="700"
                 className="w-full"
