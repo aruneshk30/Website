@@ -163,7 +163,6 @@ export default function ArtifactsPage() {
                 title="New Product Development Process Map"
               />
             </div>
-            */}
 
             {/* Open in new tab link */}
             <div className="mt-4 flex justify-end">
