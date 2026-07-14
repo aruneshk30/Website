@@ -74,7 +74,7 @@ export default function ArtifactsPage() {
           </Link>
 
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-indigo-400">
-            PM Artifacts
+            UI and Artifacts
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
             Product{" "}
