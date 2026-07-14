@@ -38,13 +38,13 @@ const previews = [
     badge: "Sierra • BoostGrad",
   },
   {
-  href: "#casestudies",
+  href: "/casestudies",
   label: "Case Studies",
   desc: "Real work case studies.",
   badge: "Case Studies",
   },
   {
-  href: "#ui&artifacts",
+  href: "/ui&artifacts",
   label: "UI and Artifacts",
   desc: "UI/UX designs, Process maps, and product documentation from real work.",
   badge: "UI/UX Designs • NPD Process • Cross-functional",
