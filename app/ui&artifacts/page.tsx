@@ -182,7 +182,7 @@ export default function ArtifactsPage() {
               {/* Bottom action row */}
               <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs text-slate-400">
-                  Sierra Living Concepts · Internal Process Documentation · 2025
+                  Sierra Living Concepts · New Product Development Process · 2025
                 </p>
                 <div className="flex gap-3">
                   <a
