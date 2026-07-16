@@ -129,34 +129,9 @@ export default function ArtifactsPage() {
           {/* ── PDF SECTION ── */}
           <div className="p-4 md:p-6 lg:p-8">
 
-            {/* Header row */}
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                Process Map — PDF
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                {/* Open PDF in new tab */}
-                <a
-                  href={PDF_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-700"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" />
-                  Open PDF
-                </a>
-                {/* Open Canva full view */}
-                <a
-                  href={CANVA_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-                >
-                  <Maximize2 className="h-3.5 w-3.5" />
-                  Full Page View
-                </a>
-              </div>
-            </div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
+              Process Map — PDF
+            </p>
 
             {/* ── MOBILE: show download button ── */}
             <div className="block md:hidden">
