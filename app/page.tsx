@@ -200,7 +200,7 @@ export default function HomePage() {
               style={{ animationDelay: "100ms" }}
             >
               <Image
-                src="/profile1.png"
+                src="/profile.png"
                 alt="Arunesh Kumar"
                 fill
                 priority
