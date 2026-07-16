@@ -90,7 +90,7 @@ export const experienceItems = [
       "Proposed and drove an automated pricing cascade system across 500+ bundled furniture set SKUs.",
       "Identified two ATC-to-checkout friction points via Clarity and BI dashboards and coordinated a redesign.",
       "Drove a real-time pricing calculator for the U.S. sales team, reducing quote turnaround from days to live calls.",
-      "Coordinated conditional attribute logic on PDPs and executed 20+ product-page tests that lifted add-to-cart rate by 15.71%.",
+      "Coordinated conditional attribute logic on PDPs and executed 20+ product-page tests that lifted add-to-cart rate by 25.71%.",
     ],
     metrics: ["₹1.2Cr monthly revenue improvement", "₹1.5Cr additional monthly revenue", "20+ tests", "500+ SKUs"],
   },
