@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Maximize2, Layers } from "lucide-react";
 
 // ── DATA ─────────────────────────────────────────────────
 const stats = [
@@ -47,25 +47,19 @@ const stages = [
   },
 ];
 
-const artifacts = [
-  {
-    title: "New Product Development Process Map",
-    tag: "Process Documentation · Cross-functional",
-    desc: "End-to-end NPD workflow mapping two initiation paths — Category Manager and Product Team — across 8 departments and 4 stage gates in a 12-day launch cycle. Adopted as the standard operating procedure and onboarding document at Sierra Living Concepts.",
-    canvaUrl: "https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view", // ← Replace with your Canva embed URL
-    pdfUrl: "/npd-process.pdf", // ← Replace with your PDF path if using Option 2
-    period: "Management Trainee (Product Strategy) · Jun–Oct 2025",
-  },
-];
+// ── PDF URL — already in your public folder ──────────────
+const PDF_URL = "/New Product Development.pdf";
+// ── Canva full view URL ──────────────────────────────────
+const CANVA_URL = "https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view";
 
 // ── PAGE ─────────────────────────────────────────────────
 export default function ArtifactsPage() {
   return (
     <main className="min-h-screen bg-slate-50">
 
-      {/* Hero */}
+      {/* ── HERO ── */}
       <section className="bg-slate-950 px-4 pb-16 pt-28 md:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <Link
             href="/"
             className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
@@ -90,14 +84,14 @@ export default function ArtifactsPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-4xl space-y-12 px-4 py-14 md:px-6 lg:px-8">
+      {/* ── MAIN CONTENT — full width up to 6xl ── */}
+      <div className="mx-auto max-w-6xl space-y-10 px-4 py-14 md:px-6 lg:px-8">
 
-        {/* Artifact Card */}
-        <section className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
+        {/* ── ARTIFACT CARD ── */}
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
 
-          {/* Card Header */}
-          <div className="border-b border-slate-200 bg-slate-950 p-8">
+          {/* Card header */}
+          <div className="border-b border-slate-200 bg-slate-950 p-6 md:p-8">
             <div className="mb-3 flex flex-wrap gap-2">
               <span className="rounded-full bg-indigo-900/60 px-3 py-1 text-xs font-semibold text-indigo-300">
                 Process Map
@@ -109,19 +103,19 @@ export default function ArtifactsPage() {
             <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
               New Product Development Process
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
               End-to-end NPD workflow designed for Sierra Living Concepts —
-              mapping two initiation paths across 8 departments, 4 stage
-              gates, and a 12-day launch cycle. Adopted as the standard
-              operating procedure and onboarding reference across teams.
+              mapping two initiation paths across 8 departments, 4 stage gates,
+              and a 12-day launch cycle. Adopted as the standard operating
+              procedure and onboarding reference across teams.
             </p>
             <p className="mt-3 text-xs text-slate-500">
-              {artifacts[0].period}
+              Management Trainee (Product Strategy) · Jun–Oct 2025
             </p>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 gap-px bg-slate-200 border-b border-slate-200 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-px border-b border-slate-200 bg-slate-200 sm:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="bg-white px-6 py-5 text-center">
                 <p className="text-2xl font-bold tracking-tight text-slate-950">
@@ -132,55 +126,116 @@ export default function ArtifactsPage() {
             ))}
           </div>
 
-          {/* Process Map Embed */}
-          <div className="p-6">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
-              Process Map
-            </p>
+          {/* ── PDF SECTION ── */}
+          <div className="p-4 md:p-6 lg:p-8">
 
-            {/* ── OPTION 1: Canva Embed ── */}
-            {/* Replace YOUR_CANVA_EMBED_URL with your actual Canva embed URL */}
-            {/* To get it: In Canva → Share → More → Embed → Copy embed URL */}
-            {/*
-            <div className="overflow-hidden rounded-xl border border-slate-200">
-              <iframe
-                src="https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view"
-                width="100%"
-                height="600"
-                allowFullScreen
-                className="w-full"
-                title="New Product Development Process Map"
-              />
-            </div>
-           */}
-            
-            {/* ── OPTION 2: If using PDF instead of Canva embed ── */}
-            {/* Uncomment this and comment out the iframe above */}
-            <div className="overflow-hidden rounded-xl border border-slate-200">
-              <iframe
-                src="/New Product Development.pdf"
-                width="100%"
-                height="700"
-                className="w-full"
-                title="New Product Development Process Map"
-              />
+            {/* Header row */}
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                Process Map — PDF
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Open PDF in new tab */}
+                <a
+                  href={PDF_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:text-indigo-700"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Open PDF
+                </a>
+                {/* Open Canva full view */}
+                <a
+                  href={CANVA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                >
+                  <Maximize2 className="h-3.5 w-3.5" />
+                  Full Page View
+                </a>
+              </div>
             </div>
 
-            {/* Open in new tab link */}
-            <div className="mt-4 flex justify-end">
-              <a
-                href="https://www.canva.com/design/DAHPVJk5M5A/LpcmoWFga1LMwvavg5WTnQ/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800"
-              >
-                Open full map <ExternalLink className="h-4 w-4" />
-              </a>
+            {/* ── MOBILE: show download button ── */}
+            <div className="block md:hidden">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-8 text-center">
+                <Layers className="mx-auto mb-3 h-10 w-10 text-slate-400" />
+                <p className="mb-1 text-sm font-semibold text-slate-900">
+                  New Product Development Process
+                </p>
+                <p className="mb-5 text-xs leading-5 text-slate-500">
+                  Best viewed on desktop. Tap below to open the full PDF or
+                  Canva view.
+                </p>
+                <div className="flex flex-col items-center gap-3">
+                  <a
+                    href={PDF_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-indigo-300"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Open PDF
+                  </a>
+                  <a
+                    href={CANVA_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+                  >
+                    <Maximize2 className="h-4 w-4" />
+                    Full Page View
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* ── DESKTOP: tall full-width PDF iframe ── */}
+            <div className="hidden md:block">
+              <div className="overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+                <iframe
+                  src={PDF_URL}
+                  width="100%"
+                  height="1000"
+                  className="w-full"
+                  title="New Product Development Process Map"
+                  style={{ minHeight: "1000px" }}
+                />
+              </div>
+              {/* Bottom action row */}
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs text-slate-400">
+                  Sierra Living Concepts · Internal Process Documentation · 2025
+                </p>
+                <div className="flex gap-3">
+                  <a
+                    href={PDF_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 transition hover:text-slate-800"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    Open PDF
+                  </a>
+                  <span className="text-slate-300">·</span>
+                  <a
+                    href={CANVA_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 transition hover:text-indigo-800"
+                  >
+                    <Maximize2 className="h-3.5 w-3.5" />
+                    Full page view on Canva
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Context Section */}
+        {/* ── PROCESS OVERVIEW ── */}
         <section className="space-y-6">
           <h2 className="text-xl font-bold tracking-tight text-slate-950">
             Process Overview
@@ -213,9 +268,9 @@ export default function ArtifactsPage() {
                 key={s.num}
                 className="rounded-xl border border-slate-200 bg-white p-5"
               >
-                <div className="mb-2 flex items-center justify-between">
+                <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
+                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
                       {i}
                     </div>
                     <div>
@@ -239,12 +294,12 @@ export default function ArtifactsPage() {
           </div>
         </section>
 
-        {/* Two Initiation Paths */}
+        {/* ── TWO INITIATION PATHS ── */}
         <section>
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
             Two Initiation Paths
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
               {
                 title: "Initiated by Category Manager",
@@ -272,12 +327,12 @@ export default function ArtifactsPage() {
           </div>
         </section>
 
-        {/* Why This Matters */}
+        {/* ── WHY THIS MATTERS ── */}
         <section className="rounded-2xl bg-slate-950 p-8">
           <h2 className="mb-6 text-xl font-bold text-white">
             Why This Process Was Built
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-5">
             {[
               {
                 n: "1",
@@ -310,7 +365,7 @@ export default function ArtifactsPage() {
           </div>
         </section>
 
-        {/* Back Link */}
+        {/* ── BACK LINK ── */}
         <Link
           href="/case-studies"
           className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md"
@@ -326,6 +381,8 @@ export default function ArtifactsPage() {
           <ArrowRight className="h-5 w-5 text-indigo-500 transition group-hover:translate-x-1" />
         </Link>
       </div>
+
+      <div className="h-16" />
     </main>
   );
 }
