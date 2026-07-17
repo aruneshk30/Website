@@ -16,6 +16,8 @@ const stats = [
   { value: "500+", label: "bundle SKUs automated" },
   { value: "20→14%", label: "checkout diversion reduced" },
   { value: "25.71%", label: "add-to-cart rate lift" },
+  { value: "5", label: "AI chatbot QA test scenarios" },
+  { value: "6", label: "cross-functional teams coordinated" },
 ];
 
 const statTones = [
@@ -23,11 +25,8 @@ const statTones = [
   { bg: "bg-sage-50", text: "text-sage-800" },
   { bg: "bg-sand", text: "text-sand-800" },
   { bg: "bg-terracotta/10", text: "text-terracotta-600" },
-];
-
-const smallPoints = [
-  "AI chatbot QA across 5 test scenarios",
-  "PCI DSS SAQ D → SAQ A compliance",
+  { bg: "bg-dustyblue-50", text: "text-dustyblue-800" },
+  { bg: "bg-sage-50", text: "text-sage-800" },
 ];
 
 const tickerItems = [
@@ -58,9 +57,38 @@ const aiSystems = [
 ];
 
 const experience = [
-  { title: "Sierra Living Concepts", role: "Product Manager", desc: "Driving pricing systems, checkout improvements, and real-time sales tooling. Also manages QA for an AI support chatbot — running structured evaluation scenarios and error analysis that took recommendation relevance from largely irrelevant to contextually accurate.", href: "/experience" },
-  { title: "Sierra Living Concepts", role: "Management Trainee, Product Strategy", desc: "Coordinated across sourcing, pricing, finance, operations, design, and marketing teams to execute new product launches — end-to-end exposure to the product development lifecycle from planning to go-live.", href: "/experience" },
-  { title: "BoostGrad", role: "Growth & Analytics", desc: "Supported marketing and growth initiatives through analytics, dashboard reporting, campaign tracking, and student engagement insights.", href: "/experience" },
+  {
+    title: "Sierra Living Concepts",
+    role: "Product Manager",
+    roleTag: "Current role",
+    bullets: [
+      "Designed and executed 20+ product-page A/B tests, lifting add-to-cart rate by 25.71% and adding ₹1.67Cr in monthly revenue.",
+      "Identified $600–$1,000+ per-SKU pricing mismatches across 500+ bundled SKUs and drove an automated pricing cascade, protecting ₹35–40L in monthly revenue.",
+      "Diagnosed ATC-to-checkout friction via Clarity recordings and BI dashboards; redesigned the checkout flow, cutting drop-offs from 20% to 14% and contributing ₹1.2Cr in monthly revenue.",
+      "Built a real-time pricing calculator for U.S. sales, cutting quote turnaround from 1–2 days to real-time and improving close rates by 30% — ₹1.5Cr in additional monthly revenue.",
+      "Led PCI DSS compliance migration from SAQ D to SAQ A via an Authorize.net hosted integration, later iterating to an embedded iframe checkout.",
+      "Manages QA for an AI support chatbot — running structured evaluation across 5 test scenarios with detailed error-categorised reports, taking recommendation relevance from largely irrelevant to contextually accurate.",
+    ],
+  },
+  {
+    title: "Sierra Living Concepts",
+    role: "Management Trainee, Product Strategy",
+    roleTag: "Previous role",
+    bullets: [
+      "Coordinated across sourcing, pricing, finance, operations, design, and marketing teams to execute new product launches — end-to-end exposure to the product development lifecycle from planning to go-live.",
+      "Conducted market, competitor, and feasibility research for a Kids' Furniture expansion into the U.S. market.",
+      "Introduced four new products in the Daybeds category, contributing to 158% category sales growth.",
+    ],
+  },
+  {
+    title: "BoostGrad",
+    role: "Growth & Analytics",
+    roleTag: "Previous role",
+    bullets: [
+      "Conducted market, competitor, and audience research contributing to a 12x expansion in brand reach.",
+      "Analysed campaign and user behaviour data via GA4, translating findings into product and positioning recommendations for stakeholders.",
+    ],
+  },
 ];
 
 // ── COMPONENTS ────────────────────────────────────────────
@@ -100,60 +128,47 @@ export default function HomePage() {
       <section id="home" className="relative flex min-h-[85vh] items-center overflow-hidden bg-cream px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8">
         <div className="mx-auto w-full max-w-7xl">
 
-          <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-sand bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-charcoal">
-            <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
-            Arunesh Kumar
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
             <div>
-              <h1 className="animate-fade-up text-4xl font-bold leading-[1.15] tracking-tight text-charcoal md:text-6xl" style={{ animationDelay: "80ms" }}>
+              <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-sand bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-charcoal">
+                <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
+                Arunesh Kumar
+              </div>
+
+              <h1 className="animate-fade-up mt-6 text-4xl font-bold leading-[1.15] tracking-tight text-charcoal md:text-6xl" style={{ animationDelay: "80ms" }}>
                 Product Manager{" "}
                 <span className="font-serif font-normal text-sage-700">building growth systems</span>
               </h1>
+
               <p className="animate-fade-up mt-5 max-w-md text-lg leading-8 text-charcoal/65" style={{ animationDelay: "160ms" }}>
                 I build revenue-driving product experiences across e-commerce systems, experimentation, and AI-powered workflows.
               </p>
+
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link href="/projects" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "240ms" }}>
                   View Work <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/connect" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-sage-800 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-sage-700" style={{ animationDelay: "300ms" }}>
+                <Link href="/connect" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "300ms" }}>
                   Connect <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="animate-fade-up relative mt-4 h-[260px] overflow-hidden rounded-2xl bg-sage lg:mt-10 lg:h-[340px]" style={{ animationDelay: "100ms" }}>
-              <Image src="/profile.png" alt="Arunesh Kumar" fill priority className="object-contain object-bottom" />
+            <div className="animate-fade-up relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl bg-sage lg:max-w-none" style={{ animationDelay: "100ms" }}>
+              <Image src="/profile.png" alt="Arunesh Kumar" fill priority className="object-cover object-top" />
             </div>
           </div>
 
-          {/* Stats box — 4 cards + small points row */}
-          <div className="mt-10 max-w-lg lg:ml-auto lg:mr-0">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {stats.map((s, i) => {
-                const tone = statTones[i % statTones.length];
-                return (
-                  <div key={s.label} className={`animate-fade-up rounded-xl ${tone.bg} p-4`} style={{ animationDelay: `${360 + i * 60}ms` }}>
-                    <p className={`text-lg font-bold ${tone.text}`}>{s.value}</p>
-                    <p className={`mt-0.5 text-xs ${tone.text}`}>{s.label}</p>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {smallPoints.map((point, i) => (
-                <span
-                  key={point}
-                  className="animate-fade-up inline-flex items-center gap-1.5 rounded-full border border-charcoal/10 bg-white px-3 py-1.5 text-xs font-medium text-charcoal/70"
-                  style={{ animationDelay: `${600 + i * 60}ms` }}
-                >
-                  <span className="h-1 w-1 flex-shrink-0 rounded-full bg-terracotta" />
-                  {point}
-                </span>
-              ))}
-            </div>
+          <div className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3 lg:ml-auto lg:mr-0">
+            {stats.map((s, i) => {
+              const tone = statTones[i % statTones.length];
+              return (
+                <div key={s.label} className={`animate-fade-up rounded-xl ${tone.bg} p-4`} style={{ animationDelay: `${360 + i * 60}ms` }}>
+                  <p className={`text-lg font-bold ${tone.text}`}>{s.value}</p>
+                  <p className={`mt-0.5 text-xs ${tone.text}`}>{s.label}</p>
+                </div>
+              );
+            })}
           </div>
 
         </div>
@@ -161,21 +176,21 @@ export default function HomePage() {
 
       <SkillsTicker />
 
-      {/* ── ABOUT ME ── */}
+     {/* ── ABOUT ME ── */}
       <section className="bg-white/60 py-16">
-        <div className="mx-auto max-w-5xl px-4 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeIn>
             <SectionLabel>About Me</SectionLabel>
             <SectionTitle>Building products that drive growth & measurable impact</SectionTitle>
-            <div className="mt-6 space-y-5 text-base leading-8 text-charcoal/70 md:text-lg">
+            <div className="mt-6 max-w-3xl space-y-5 text-base leading-8 text-charcoal/70 md:text-lg">
               <p>
-                I'm <span className="font-semibold text-charcoal">Arunesh Kumar</span>, a Product Manager focused on growth, experimentation, and digital systems. My work sits at the intersection of product, analytics, UX, and business impact.
+                I'm <span className="font-semibold text-charcoal">Arunesh Kumar</span>, a Product Manager focused on growth, experimentation, and digital systems. My work sits at the intersection of product, analytics, UX, business impact, and compliance.
               </p>
               <p>
-                At Sierra Living Concepts, I've worked on pricing systems, checkout optimization, and revenue-driving workflows — contributing to measurable business outcomes through pricing automation, conversion improvements, and real-time sales tools.
+                At Sierra Living Concepts, I build and optimise e-commerce features for a D2C furniture brand serving the U.S. market — spanning pricing systems, checkout UX, payment compliance, chatbot improvement processes, accessibility, and internal tooling — turning operational gaps into automated, revenue-protecting systems.
               </p>
               <p>
-                I enjoy solving messy problems, understanding user behavior, and transforming insights into scalable systems, experiments, and product improvements that create measurable business value.
+                I enjoy solving messy problems, understanding user behavior, and coordinating across engineering, design, pricing, and operations to turn insight into scalable systems, experiments, and measurable business value.
               </p>
             </div>
           </FadeIn>
@@ -281,19 +296,29 @@ export default function HomePage() {
           <FadeIn>
             <SectionLabel>Experience</SectionLabel>
             <SectionTitle>Experience snapshot</SectionTitle>
-            <SectionSub>Two roles, both focused on measurable product and growth outcomes.</SectionSub>
+            <SectionSub>Three roles, each with real, measurable ownership.</SectionSub>
           </FadeIn>
-          <div className="relative mt-12 space-y-10 border-l-2 border-sand pl-8">
+          <div className="relative mt-12 space-y-12 border-l-2 border-sand pl-8">
             {experience.map((e, i) => (
               <FadeIn key={`${e.title}-${e.role}`} delay={i * 100}>
                 <div className="relative">
                   <span className="absolute -left-[38px] top-1.5 h-3 w-3 rounded-full border-2 border-white bg-terracotta" />
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">{i === 0 ? "Current role" : "Previous role"}</p>
-                  <Link href="/experience" className="group mt-2 block">
-                    <h3 className="text-2xl font-bold tracking-tight text-charcoal transition group-hover:text-terracotta">{e.title}</h3>
-                    <p className="mt-1 text-sm font-semibold text-sage-700">{e.role}</p>
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-charcoal/65">{e.desc}</p>
-                  </Link>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">{e.roleTag}</p>
+                  <h3 className="mt-2 text-2xl font-bold tracking-tight text-charcoal">{e.title}</h3>
+                  <p className="mt-1 text-sm font-semibold text-sage-700">{e.role}</p>
+                  <ul className="mt-4 space-y-2.5">
+                    {e.bullets.map((b) => (
+                      <li key={b} className="flex gap-2.5 text-sm leading-6 text-charcoal/65">
+                        <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-terracotta" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {i === 0 && (
+                    <Link href="/experience" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta hover:text-terracotta-600">
+                      Full experience <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  )}
                 </div>
               </FadeIn>
             ))}
