@@ -16,8 +16,8 @@ const stats = [
   { value: "500+", label: "bundle SKUs automated" },
   { value: "20→14%", label: "checkout diversion reduced" },
   { value: "25.71%", label: "add-to-cart rate lift" },
-  { value: "5", label: "AI chatbot QA test scenarios" },
-  { value: "6", label: "cross-functional teams coordinated" },
+  { value: "Chatbot QA", label: "AI chatbot QA test scenarios" },
+  { value: "Process Map", label: "2 initiation paths, 8 departments, 4 stage gates" },
 ];
 
 const statTones = [
