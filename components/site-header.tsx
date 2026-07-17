@@ -24,37 +24,41 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-cream/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6 lg:px-8">
-        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-charcoal text-sm font-semibold text-cream">
-            AK
-          </div>
-          <div className="leading-tight">
-            <div className="text-sm font-semibold tracking-tight text-charcoal">Arunesh Kumar</div>
-            <div className="text-xs text-charcoal/55">Product Manager | Growth & Digital Strategy</div>
-          </div>
-        </Link>
+    <header className="sticky top-0 z-50 border-b border-charcoal/10">
+      {/* backdrop-blur lives here, NOT on <header> itself */}
+      <div className="bg-cream/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6 lg:px-8">
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-charcoal text-sm font-semibold text-cream">
+              AK
+            </div>
+            <div className="leading-tight">
+              <div className="text-sm font-semibold tracking-tight text-charcoal">Arunesh Kumar</div>
+              <div className="text-xs text-charcoal/55">Product Manager | Growth & Digital Strategy</div>
+            </div>
+          </Link>
 
-        <nav className="hidden items-center gap-6 text-sm md:flex lg:gap-8">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-charcoal/70 transition hover:text-terracotta">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+          <nav className="hidden items-center gap-6 text-sm md:flex lg:gap-8">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="text-charcoal/70 transition hover:text-terracotta">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={open}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-charcoal/10 text-charcoal md:hidden"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-charcoal/10 text-charcoal md:hidden"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
+      {/* Panel is a direct child of <header>, sibling of the blurred div above — no filter ancestor now */}
       {open && (
         <div className="fixed inset-0 z-[60] md:hidden">
           <div className="absolute inset-0 bg-charcoal/40" onClick={() => setOpen(false)} aria-hidden="true" />
