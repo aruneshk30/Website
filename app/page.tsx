@@ -128,7 +128,7 @@ export default function HomePage() {
       <section id="home" className="relative flex min-h-[85vh] items-center overflow-hidden bg-cream px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8">
         <div className="mx-auto w-full max-w-7xl">
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <div>
               <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-sand bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-charcoal">
                 <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
@@ -144,31 +144,31 @@ export default function HomePage() {
                 I build revenue-driving product experiences across e-commerce systems, experimentation, and AI-powered workflows.
               </p>
 
+              <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {stats.map((s, i) => {
+                  const tone = statTones[i % statTones.length];
+                  return (
+                    <div key={s.label} className={`animate-fade-up rounded-xl ${tone.bg} p-3.5`} style={{ animationDelay: `${240 + i * 60}ms` }}>
+                      <p className={`text-base font-bold leading-tight ${tone.text}`}>{s.value}</p>
+                      <p className={`mt-0.5 text-[11px] leading-snug ${tone.text}`}>{s.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="/projects" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "240ms" }}>
+                <Link href="/projects" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "620ms" }}>
                   View Work <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/connect" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "300ms" }}>
+                <Link href="/connect" className="animate-fade-up inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600" style={{ animationDelay: "680ms" }}>
                   Connect <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="animate-fade-up relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl bg-sage lg:max-w-none" style={{ animationDelay: "100ms" }}>
+            <div className="animate-fade-up relative mx-auto h-[260px] w-full max-w-xs overflow-hidden rounded-2xl bg-sage lg:mx-0 lg:h-[400px] lg:max-w-sm" style={{ animationDelay: "100ms" }}>
               <Image src="/profile.png" alt="Arunesh Kumar" fill priority className="object-cover object-top" />
             </div>
-          </div>
-
-          <div className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3 lg:ml-auto lg:mr-0">
-            {stats.map((s, i) => {
-              const tone = statTones[i % statTones.length];
-              return (
-                <div key={s.label} className={`animate-fade-up rounded-xl ${tone.bg} p-4`} style={{ animationDelay: `${360 + i * 60}ms` }}>
-                  <p className={`text-lg font-bold ${tone.text}`}>{s.value}</p>
-                  <p className={`mt-0.5 text-xs ${tone.text}`}>{s.label}</p>
-                </div>
-              );
-            })}
           </div>
 
         </div>
