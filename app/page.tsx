@@ -209,7 +209,7 @@ export default function HomePage() {
           <FadeIn className="mb-12">
             <SectionLabel>Overview</SectionLabel>
             <SectionTitle>Five spaces, one story</SectionTitle>
-            <SectionSub>Dedicated sections below for projects, AI systems, experience, case studies, and process work — scroll down for a preview of each.</SectionSub>
+            <SectionSub>Dedicated sections below for Projects, AI systems, Experience, Case Studies, and Ul and Artifacts — scroll down for a preview of each.</SectionSub>
           </FadeIn>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {previews.map((p, i) => (
