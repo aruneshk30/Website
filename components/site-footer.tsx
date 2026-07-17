@@ -14,6 +14,7 @@ const pageLinks = [
   { label: "AI Systems", href: "/ai-systems" },
   { label: "Experience", href: "/experience" },
   { label: "Case Studies", href: "/case-studies" },
+  { label: "UI & Artifacts", href: "/ui&artifacts" },
   { label: "Resume", href: "/Arunesh_Kumar_Resume.pdf" },
 ];
 
@@ -26,42 +27,39 @@ const connectLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-slate-300 bg-[#eef2f7]">
-      <div className="mx-auto max-w-7xl px-6 py-5 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-3">
+    <footer className="border-t border-charcoal/10 bg-charcoal">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
 
-          {/* Brand */}
           <div>
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-sm font-semibold text-white">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-terracotta text-sm font-semibold text-white">
               AK
             </div>
-            <h3 className="mt-4 text-xl font-semibold text-slate-950">Arunesh Kumar</h3>
-            <p className="mt-3 max-w-xs text-sm leading-7 text-slate-600">
+            <h3 className="mt-4 text-xl font-semibold text-cream">Arunesh Kumar</h3>
+            <p className="mt-3 max-w-xs text-sm leading-7 text-cream/60">
               Building product systems at the intersection of data, growth, and AI.
             </p>
           </div>
 
-          {/* Pages */}
           <div>
-            <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Pages</h4>
-            <div className="mt-4 space-y-3 text-sm text-slate-600">
+            <h4 className="border-b border-cream/10 pb-2 text-sm font-semibold text-cream">Pages</h4>
+            <div className="mt-4 space-y-3 text-sm text-cream/60">
               {pageLinks.map((link) => (
-                <a key={link.label} href={link.href} className="block transition hover:text-slate-950">
+                <a key={link.label} href={link.href} className="block transition hover:text-terracotta">
                   {link.label}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Connect */}
           <div>
-            <h4 className="border-b border-slate-300 pb-2 text-sm font-semibold text-slate-900">Connect</h4>
-            <div className="mt-4 flex flex-col gap-3 text-sm text-slate-600">
+            <h4 className="border-b border-cream/10 pb-2 text-sm font-semibold text-cream">Connect</h4>
+            <div className="mt-4 flex flex-col gap-3 text-sm text-cream/60">
               {connectLinks.map(({ label, href }) => {
                 const Icon = iconMap[label];
                 return (
-                  <a key={label} href={href} className="flex items-center gap-3 transition hover:text-slate-950">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
+                  <a key={label} href={href} className="flex items-center gap-3 transition hover:text-terracotta">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-cream/10 bg-white/5">
                       <Icon className="h-4 w-4" />
                     </span>
                     {label}
@@ -73,7 +71,7 @@ export function Footer() {
 
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 border-t-2 border-slate-300 pt-4 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-cream/10 pt-6 text-xs text-cream/40 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2025 Arunesh Kumar. All rights reserved.</p>
           <p>Built for product, growth, and systems thinking.</p>
         </div>
