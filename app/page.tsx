@@ -38,11 +38,11 @@ const tickerItems = [
 ];
 
 const previews = [
-  { href: "/projects", label: "Projects", desc: "Case studies on checkout, pricing, and real-time tooling.", badge: "Checkout • Pricing • Calculator", Icon: Briefcase, tone: "bg-dustyblue-50 text-dustyblue-800" },
-  { href: "/ai-systems", label: "AI Systems", desc: "PM Hub and 9-Agent CRO Workflow built for leverage.", badge: "Research hub • CRO workflow", Icon: Sparkles, tone: "bg-sage-50 text-sage-800" },
-  { href: "/experience", label: "Experience", desc: "Sierra Living Concepts and BoostGrad — full journey.", badge: "Sierra • BoostGrad", Icon: TrendingUp, tone: "bg-sand text-sand-800" },
-  { href: "/case-studies", label: "Case Studies", desc: "Real work case studies.", badge: "Case Studies", Icon: Monitor, tone: "bg-terracotta/10 text-terracotta-600" },
-  { href: "/ui&artifacts", label: "UI and Artifacts", desc: "UI/UX designs, process maps, and product documentation from real work.", badge: "UI/UX Designs • NPD Process", Icon: Blocks, tone: "bg-dustyblue-50 text-dustyblue-800" },
+  { href: "#projects", label: "Projects", desc: "Case studies on checkout, pricing, and real-time tooling.", badge: "Checkout • Pricing • Calculator", Icon: Briefcase, tone: "bg-dustyblue-50 text-dustyblue-800" },
+  { href: "#ai-systems", label: "AI Systems", desc: "PM Hub and 9-Agent CRO Workflow built for leverage.", badge: "Research hub • CRO workflow", Icon: Sparkles, tone: "bg-sage-50 text-sage-800" },
+  { href: "#experience", label: "Experience", desc: "Sierra Living Concepts and BoostGrad — full journey.", badge: "Sierra • BoostGrad", Icon: TrendingUp, tone: "bg-sand text-sand-800" },
+  { href: "#case-studies", label: "Case Studies", desc: "Real work case studies, one problem-to-impact story each.", badge: "Case Studies", Icon: Monitor, tone: "bg-terracotta/10 text-terracotta-600" },
+  { href: "#ui-artifacts", label: "UI and Artifacts", desc: "UI/UX designs, process maps, and product documentation from real work.", badge: "UI/UX Designs • NPD Process", Icon: Blocks, tone: "bg-dustyblue-50 text-dustyblue-800" },
 ];
 
 const projects = [
@@ -91,6 +91,12 @@ const experience = [
   },
 ];
 
+const caseStudyLinks = [
+  { title: "Checkout Funnel Optimization", metric: "20% → 14% diversion", href: "/case-studies/checkout-funnel" },
+  { title: "Automated SKU Pricing System", metric: "500+ SKUs automated", href: "/case-studies/sku-pricing" },
+  { title: "Real-Time Pricing Calculator", metric: "₹1.5Cr additional revenue", href: "/case-studies/pricing-calculator" },
+];
+
 // ── COMPONENTS ────────────────────────────────────────────
 function SectionLabel({ children }: { children: string }) {
   return <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-terracotta">{children}</p>;
@@ -128,7 +134,7 @@ export default function HomePage() {
       <section id="home" className="relative flex min-h-[85vh] items-center overflow-hidden bg-cream px-4 pb-10 pt-16 md:px-6 md:pb-16 md:pt-24 lg:px-8">
         <div className="mx-auto w-full max-w-7xl">
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-16">
             <div>
               <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-sand bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-charcoal">
                 <span className="h-1.5 w-1.5 rounded-full bg-terracotta" />
@@ -166,7 +172,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="animate-fade-up relative mx-auto h-[260px] w-full max-w-xs overflow-hidden rounded-2xl bg-sage lg:mx-0 lg:h-[400px] lg:max-w-sm" style={{ animationDelay: "100ms" }}>
+            <div className="animate-fade-up relative mx-auto h-[260px] w-full max-w-xs overflow-hidden rounded-2xl bg-sage lg:ml-auto lg:mr-0 lg:h-[400px] lg:max-w-sm" style={{ animationDelay: "100ms" }}>
               <Image src="/profile.png" alt="Arunesh Kumar" fill priority className="object-cover object-top" />
             </div>
           </div>
@@ -202,8 +208,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeIn className="mb-12">
             <SectionLabel>Overview</SectionLabel>
-            <SectionTitle>Three spaces, one story</SectionTitle>
-            <SectionSub>Dedicated pages for projects, AI systems, and experience — scroll down for a preview of each.</SectionSub>
+            <SectionTitle>Five spaces, one story</SectionTitle>
+            <SectionSub>Dedicated sections below for projects, AI systems, experience, case studies, and process work — scroll down for a preview of each.</SectionSub>
           </FadeIn>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {previews.map((p, i) => (
@@ -326,6 +332,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── CASE STUDIES ── */}
+      <section id="case-studies" className="border-y border-charcoal/10 bg-white/70 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <FadeIn className="mb-12">
+            <SectionLabel>Case Studies</SectionLabel>
+            <SectionTitle>Three problems, three complete stories</SectionTitle>
+            <SectionSub>Each one walks from discovery to root cause to shipped solution to measured impact.</SectionSub>
+          </FadeIn>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {caseStudyLinks.map((c, i) => (
+              <FadeIn key={c.title} delay={i * 100}>
+                <Link
+                  href={c.href}
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md"
+                >
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-2 text-lg font-bold tracking-tight text-charcoal">{c.title}</h3>
+                    <p className="mt-2 text-sm font-medium text-sage-700">{c.metric}</p>
+                  </div>
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal">
+                    Read case study <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── UI & ARTIFACTS ── */}
+      <section id="ui-artifacts" className="py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <FadeIn>
+            <SectionLabel>UI and Artifacts</SectionLabel>
+            <SectionTitle>Real process documentation, not mockups</SectionTitle>
+            <SectionSub>A New Product Development process map built and adopted at Sierra Living Concepts as the standard operating procedure.</SectionSub>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <Link
+              href="/ui&artifacts"
+              className="group mt-10 flex flex-col gap-6 rounded-2xl border border-charcoal/10 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div>
+                <h3 className="text-xl font-bold tracking-tight text-charcoal">New Product Development Process</h3>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-charcoal/65">
+                  2 initiation paths across 8 departments, 4 stage gates, and a 12-day launch cycle — adopted as onboarding reference across teams.
+                </p>
+              </div>
+              <div className="flex flex-shrink-0 items-center gap-2 rounded-xl bg-terracotta px-5 py-3 text-sm font-semibold text-white transition group-hover:bg-terracotta-600">
+                View process map <ArrowRight className="h-4 w-4" />
+              </div>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+      
     </main>
   );
 }
