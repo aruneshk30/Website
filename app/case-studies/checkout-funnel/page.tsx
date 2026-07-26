@@ -4,11 +4,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 // ── SHARED COMPONENTS ─────────────────────────────────────
 function StepLabel({ num, title }: { num: number; title: string }) {
   return (
-    <div className="mb-6 flex items-center gap-3">
+    <div className="mb-5 flex items-center gap-3 sm:mb-6">
       <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">
         {num}
       </div>
-      <h2 className="text-xl font-bold tracking-tight text-slate-950 md:text-2xl">
+      <h2 className="text-lg font-bold tracking-tight text-slate-950 sm:text-xl md:text-2xl">
         {title}
       </h2>
     </div>
@@ -17,24 +17,24 @@ function StepLabel({ num, title }: { num: number; title: string }) {
 
 function ProblemBlock({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-red-100 bg-red-50 p-5 [border-left:3px_solid_#ef4444]">
-      <div className="text-sm leading-7 text-slate-600">{children}</div>
+    <div className="rounded-xl border border-red-100 bg-red-50 p-4 [border-left:3px_solid_#ef4444] sm:p-5">
+      <div className="text-sm leading-6 text-slate-600 sm:leading-7">{children}</div>
     </div>
   );
 }
 
 function SolutionBlock({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-5 [border-left:3px_solid_#10b981]">
-      <div className="text-sm leading-7 text-slate-600">{children}</div>
+    <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 [border-left:3px_solid_#10b981] sm:p-5">
+      <div className="text-sm leading-6 text-slate-600 sm:leading-7">{children}</div>
     </div>
   );
 }
 
 function PullQuote({ children }: { children: string }) {
   return (
-    <blockquote className="my-6 rounded-r-xl border-l-4 border-indigo-400 bg-indigo-50 px-6 py-4">
-      <p className="text-base italic leading-8 text-indigo-900">{children}</p>
+    <blockquote className="my-5 rounded-r-xl border-l-4 border-indigo-400 bg-indigo-50 px-4 py-4 sm:my-6 sm:px-6">
+      <p className="text-sm italic leading-7 text-indigo-900 sm:text-base sm:leading-8">{children}</p>
     </blockquote>
   );
 }
@@ -52,7 +52,7 @@ function SprintCard({
 }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-      <div className="flex items-center justify-between bg-slate-50 px-5 py-3 border-b border-slate-200">
+      <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-50 px-4 py-3 border-b border-slate-200 sm:px-5">
         <span className="font-semibold text-sm text-slate-900">
           {icon} {title}
         </span>
@@ -60,7 +60,7 @@ function SprintCard({
           Completed
         </span>
       </div>
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <p className="mb-4 text-sm leading-6 text-slate-600">
           <span className="font-semibold text-slate-900">Sprint Goal: </span>
           {goal}
@@ -88,9 +88,9 @@ function ResultCard({
   delta: string;
 }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
-      <p className="text-3xl font-bold tracking-tight text-slate-950">{value}</p>
-      <p className="mt-1 text-sm text-slate-500">{label}</p>
+    <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5">
+      <p className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">{value}</p>
+      <p className="mt-1 text-xs text-slate-500 sm:text-sm">{label}</p>
       <p className="mt-2 text-xs font-semibold text-emerald-600">{delta}</p>
     </div>
   );
@@ -102,11 +102,11 @@ export default function CaseStudy2() {
     <main className="min-h-screen bg-slate-50">
 
       {/* Hero */}
-      <section className="bg-slate-950 px-4 pb-16 pt-28 md:px-6 lg:px-8">
+      <section className="bg-slate-950 px-4 pb-12 pt-20 sm:pb-16 sm:pt-28 md:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           <Link
             href="/case-studies"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
+            className="mb-6 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white sm:mb-8"
           >
             <ArrowLeft className="h-4 w-4" /> All Case Studies
           </Link>
@@ -120,20 +120,20 @@ export default function CaseStudy2() {
             </span>
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-5xl">
             Checkout Funnel{" "}
             <span className="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
               Optimization
             </span>
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-slate-400">
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base sm:leading-8">
             How session recording analysis revealed two hidden friction points
             killing checkout conversions — and fixing them contributed to ₹1.2
             crore in monthly revenue improvement.
           </p>
 
           {/* Meta */}
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-7 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-4 sm:gap-3">
             {[
               { label: "Company", value: "Sierra Living Concepts" },
               { label: "Timeline", value: "Nov 2025 – Jan 2026" },
@@ -142,12 +142,12 @@ export default function CaseStudy2() {
             ].map((m) => (
               <div
                 key={m.label}
-                className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-3"
+                className="rounded-xl border border-slate-800 bg-slate-900 px-3 py-2.5 sm:px-4 sm:py-3"
               >
-                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500 sm:text-[10px]">
                   {m.label}
                 </p>
-                <p className="mt-1 text-sm font-semibold text-white">{m.value}</p>
+                <p className="mt-1 text-xs font-semibold text-white sm:text-sm">{m.value}</p>
               </div>
             ))}
           </div>
@@ -155,30 +155,30 @@ export default function CaseStudy2() {
       </section>
 
       {/* Impact Bar */}
-      <section className="border-b border-slate-200 bg-white px-4 py-6 md:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-4xl grid-cols-3 gap-4">
+      <section className="border-b border-slate-200 bg-white px-4 py-5 sm:py-6 md:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-4xl grid-cols-3 gap-2 sm:gap-4">
           {[
             { value: "~₹1.2Cr", label: "Monthly revenue improvement", color: "text-indigo-600" },
             { value: "20→14%", label: "ATC diversions reduced", color: "text-emerald-600" },
             { value: "84→72%", label: "Checkout abandonment rate", color: "text-blue-600" },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <p className={`text-2xl font-bold tracking-tight ${s.color} md:text-3xl`}>
+              <p className={`text-lg font-bold tracking-tight ${s.color} sm:text-2xl md:text-3xl`}>
                 {s.value}
               </p>
-              <p className="mt-1 text-xs text-slate-500">{s.label}</p>
+              <p className="mt-1 text-[10px] leading-tight text-slate-500 sm:text-xs">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Body */}
-      <div className="mx-auto max-w-4xl space-y-14 px-4 py-14 md:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl space-y-10 px-4 py-10 sm:space-y-14 sm:py-14 md:px-6 lg:px-8">
 
         {/* 1 Background */}
         <section>
           <StepLabel num={1} title="The Background" />
-          <div className="space-y-4 text-sm leading-7 text-slate-600">
+          <div className="space-y-4 text-sm leading-6 text-slate-600 sm:leading-7">
             <p>
               In my early weeks as Product Manager, I made it a habit to review
               Microsoft Clarity session recordings and BI dashboard funnel
@@ -199,15 +199,15 @@ export default function CaseStudy2() {
         {/* 2 Discovery */}
         <section>
           <StepLabel num={2} title="Discovery — What the Data Showed" />
-          <p className="mb-5 text-sm leading-7 text-slate-600">
+          <p className="mb-5 text-sm leading-6 text-slate-600 sm:leading-7">
             Combining Clarity session recordings with BI dashboard funnel
             analysis, I mapped the full ATC-to-checkout journey and identified
             two distinct friction points:
           </p>
 
           {/* Funnel Visual */}
-          <div className="mb-6 space-y-2 rounded-xl border border-slate-200 bg-white p-6">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
+          <div className="mb-6 space-y-4 rounded-xl border border-slate-200 bg-white p-4 sm:space-y-2 sm:p-6">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-slate-400 sm:mb-4">
               Funnel Drop-off Map
             </p>
             {[
@@ -217,24 +217,36 @@ export default function CaseStudy2() {
               { name: "⚠️ Form Abandonment", pct: 84, color: "bg-red-500", stat: "84% abandon", drop: "Friction Point 2" },
               { name: "Order Confirmed", pct: 16, color: "bg-emerald-500", stat: "~16%", drop: "" },
             ].map((f) => (
-              <div key={f.name} className="flex items-center gap-3">
-                <span className="w-52 flex-shrink-0 text-xs font-medium text-slate-700 truncate">
-                  {f.name}
-                </span>
-                <div className="flex-1 h-2 rounded-full bg-slate-100 overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${f.color}`}
-                    style={{ width: `${f.pct}%` }}
-                  />
-                </div>
-                <span className={`w-20 text-right text-xs font-semibold ${f.color.replace("bg-", "text-")}`}>
-                  {f.stat}
-                </span>
-                {f.drop && (
-                  <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-600">
-                    {f.drop}
+              <div
+                key={f.name}
+                className="flex flex-col gap-1.5 border-b border-slate-100 pb-3 last:border-0 last:pb-0 sm:flex-row sm:items-center sm:gap-3 sm:border-0 sm:pb-0"
+              >
+                <div className="flex items-center justify-between gap-2 sm:contents">
+                  <span className="flex-shrink-0 text-xs font-medium text-slate-700 sm:w-52 sm:truncate">
+                    {f.name}
                   </span>
-                )}
+                  {f.drop && (
+                    <span className="flex-shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-600 sm:hidden">
+                      {f.drop}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100">
+                    <div
+                      className={`h-full rounded-full ${f.color}`}
+                      style={{ width: `${f.pct}%` }}
+                    />
+                  </div>
+                  <span className={`w-16 flex-shrink-0 text-right text-xs font-semibold sm:w-20 ${f.color.replace("bg-", "text-")}`}>
+                    {f.stat}
+                  </span>
+                  {f.drop && (
+                    <span className="hidden flex-shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-600 sm:inline-block">
+                      {f.drop}
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -270,8 +282,8 @@ export default function CaseStudy2() {
         {/* 3 Before After */}
         <section>
           <StepLabel num={3} title="Before vs After" />
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200">
-            <div className="bg-white p-6">
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2">
+            <div className="bg-white p-5 sm:p-6">
               <p className="mb-4 text-xs font-bold uppercase tracking-widest text-red-500">
                 Before
               </p>
@@ -282,14 +294,14 @@ export default function CaseStudy2() {
                   "No dedicated checkout step — overlay UX",
                   "84.09% checkout abandonment rate",
                 ].map((item) => (
-                  <div key={item} className="flex gap-2.5 text-sm text-slate-600">
+                  <div key={item} className="flex gap-2.5 text-sm leading-6 text-slate-600">
                     <span className="mt-0.5 font-bold text-red-500">×</span>
                     {item}
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-white p-6">
+            <div className="bg-white p-5 sm:p-6">
               <p className="mb-4 text-xs font-bold uppercase tracking-widest text-emerald-600">
                 After
               </p>
@@ -300,7 +312,7 @@ export default function CaseStudy2() {
                   "Clean next-step page for information capture",
                   "72.77% checkout abandonment rate",
                 ].map((item) => (
-                  <div key={item} className="flex gap-2.5 text-sm text-slate-600">
+                  <div key={item} className="flex gap-2.5 text-sm leading-6 text-slate-600">
                     <span className="mt-0.5 font-bold text-emerald-500">✓</span>
                     {item}
                   </div>
@@ -314,12 +326,12 @@ export default function CaseStudy2() {
         <section>
           <StepLabel num={4} title="Requirements Definition" />
           <div className="overflow-x-auto rounded-xl border border-slate-200">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[640px] text-sm">
               <thead className="bg-slate-950 text-white">
                 <tr>
-                  <th className="px-5 py-3 text-left text-xs font-semibold tracking-wide">Requirement</th>
-                  <th className="px-5 py-3 text-left text-xs font-semibold tracking-wide">Description</th>
-                  <th className="px-5 py-3 text-left text-xs font-semibold tracking-wide">Priority</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide sm:px-5">Requirement</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide sm:px-5">Description</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide sm:px-5">Priority</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
@@ -331,9 +343,9 @@ export default function CaseStudy2() {
                   { req: "Mobile Checkout Optimization", desc: "Dedicated checkout step fully optimized for mobile — sticky CTA, large inputs, minimal scroll", p: "Medium" },
                 ].map((r) => (
                   <tr key={r.req} className="hover:bg-slate-50">
-                    <td className="px-5 py-3.5 font-semibold text-slate-900">{r.req}</td>
-                    <td className="px-5 py-3.5 text-slate-600">{r.desc}</td>
-                    <td className="px-5 py-3.5">
+                    <td className="px-4 py-3.5 font-semibold text-slate-900 sm:px-5">{r.req}</td>
+                    <td className="px-4 py-3.5 text-slate-600 sm:px-5">{r.desc}</td>
+                    <td className="px-4 py-3.5 sm:px-5">
                       <span className={`rounded-full px-3 py-0.5 text-xs font-semibold ${
                         r.p === "High" ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"
                       }`}>
@@ -345,6 +357,7 @@ export default function CaseStudy2() {
               </tbody>
             </table>
           </div>
+          <p className="mt-2 text-[11px] text-slate-400 sm:hidden">Scroll sideways to see the full table →</p>
         </section>
 
         {/* 5 Sprints */}
@@ -387,7 +400,7 @@ export default function CaseStudy2() {
         {/* 6 Key Decision */}
         <section>
           <StepLabel num={6} title="The Key Product Decision" />
-          <p className="mb-4 text-sm leading-7 text-slate-600">
+          <p className="mb-4 text-sm leading-6 text-slate-600 sm:leading-7">
             One deliberate decision I made that isn't obvious: I kept
             complementary cross-sell on the ATC page while removing similar
             product recommendations.
@@ -411,7 +424,7 @@ export default function CaseStudy2() {
         {/* 7 Results */}
         <section>
           <StepLabel num={7} title="Results" />
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
             <ResultCard
               value="20→14%"
               label="ATC page diversions — users leaving for similar products"
@@ -437,8 +450,8 @@ export default function CaseStudy2() {
 
         {/* 8 Learnings */}
         <section>
-          <div className="rounded-2xl bg-slate-950 p-8">
-            <h2 className="mb-6 text-xl font-bold text-white">What I Learned</h2>
+          <div className="rounded-2xl bg-slate-950 p-5 sm:p-8">
+            <h2 className="mb-5 text-lg font-bold text-white sm:mb-6 sm:text-xl">What I Learned</h2>
             <div className="space-y-5">
               {[
                 {
@@ -457,11 +470,11 @@ export default function CaseStudy2() {
                   body: "The popup form data-loss issue had probably been losing orders for months. Customer feedback was the signal — building a habit of reading support tickets surfaces product issues faster than any dashboard.",
                 },
               ].map((l) => (
-                <div key={l.n} className="flex gap-4">
-                  <span className="mt-0.5 text-2xl font-bold text-indigo-400">{l.n}</span>
+                <div key={l.n} className="flex gap-3 sm:gap-4">
+                  <span className="mt-0.5 flex-shrink-0 text-xl font-bold text-indigo-400 sm:text-2xl">{l.n}</span>
                   <div>
-                    <p className="font-semibold text-white">{l.title}</p>
-                    <p className="mt-1 text-sm leading-7 text-slate-400">{l.body}</p>
+                    <p className="text-sm font-semibold text-white sm:text-base">{l.title}</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-400 sm:leading-7">{l.body}</p>
                   </div>
                 </div>
               ))}
@@ -470,10 +483,10 @@ export default function CaseStudy2() {
         </section>
 
         {/* Navigation */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
           <Link
             href="/case-studies/sku-pricing"
-            className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md"
+            className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md sm:p-5"
           >
             <ArrowLeft className="h-4 w-4 flex-shrink-0 text-indigo-500 transition group-hover:-translate-x-1" />
             <div>
@@ -483,7 +496,7 @@ export default function CaseStudy2() {
           </Link>
           <Link
             href="/case-studies/pricing-calculator"
-            className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md"
+            className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-md sm:p-5"
           >
             <div>
               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Next</p>
