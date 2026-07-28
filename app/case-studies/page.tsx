@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { FadeIn } from "@/components/fade-in";
 
 const caseStudies = [
   {
@@ -15,6 +16,7 @@ const caseStudies = [
       { value: "500+", label: "SKUs automated" },
     ],
     tags: ["Pricing Automation", "Backend Systems", "Cross-functional"],
+    tone: "dustyblue",
   },
   {
     id: "02",
@@ -29,6 +31,7 @@ const caseStudies = [
       { value: "84→72%", label: "Checkout abandonment" },
     ],
     tags: ["UX Research", "Funnel Analysis", "Microsoft Clarity"],
+    tone: "sage",
   },
   {
     id: "03",
@@ -43,88 +46,99 @@ const caseStudies = [
       { value: "1–2d→0", label: "Quote turnaround eliminated" },
     ],
     tags: ["Internal Tooling", "Sales Enablement", "Requirements"],
+    tone: "sand",
   },
 ];
 
+const toneMap: Record<string, { chip: string; metric: string; metricText: string }> = {
+  dustyblue: { chip: "bg-dustyblue-50 text-dustyblue-800", metric: "bg-dustyblue-50", metricText: "text-dustyblue-800" },
+  sage: { chip: "bg-sage-50 text-sage-800", metric: "bg-sage-50", metricText: "text-sage-800" },
+  sand: { chip: "bg-sand text-sand-800", metric: "bg-sand", metricText: "text-sand-800" },
+};
+
 export default function CaseStudiesPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-cream">
 
       {/* Hero */}
-      <section className="bg-slate-950 px-4 pb-20 pt-28 text-center md:px-6 lg:px-8">
+      <section className="px-4 pb-16 pt-28 text-center md:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-indigo-400">
-            Product Case Studies
-          </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
-            Real problems.{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
-              Real outcomes.
-            </span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-slate-400">
-            Three product initiatives shipped at Sierra Living Concepts — each
-            told as a complete story from discovery to delivery to results.
-          </p>
+          <FadeIn>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-terracotta">
+              Product Case Studies
+            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-charcoal md:text-5xl lg:text-6xl">
+              Real problems.{" "}
+              <span className="font-serif font-normal text-sage-700">Real outcomes.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-charcoal/65">
+              Three product initiatives shipped at Sierra Living Concepts — each
+              told as a complete story from discovery to delivery to results.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* Cards */}
-      <section className="mx-auto max-w-5xl px-4 py-16 md:px-6 lg:px-8">
+      <section className="mx-auto max-w-5xl px-4 pb-20 md:px-6 lg:px-8">
         <div className="flex flex-col gap-6">
-          {caseStudies.map((cs) => (
-            <Link
-              key={cs.slug}
-              href={`/case-studies/${cs.slug}`}
-              className="group rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-200"
-            >
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          {caseStudies.map((cs, i) => {
+            const tone = toneMap[cs.tone];
+            return (
+              <FadeIn key={cs.slug} delay={i * 100}>
+                <Link
+                  href={`/case-studies/${cs.slug}`}
+                  className="group block rounded-2xl border border-charcoal/10 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lg"
+                >
+                  <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
 
-                {/* Left */}
-                <div className="flex-1">
-                  <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-500">
-                    {cs.tag}
-                  </p>
-                  <h2 className="text-2xl font-bold tracking-tight text-slate-950 md:text-3xl">
-                    {cs.id} — {cs.title}
-                  </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-slate-500">
-                    {cs.brief}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {cs.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right — Metrics */}
-                <div className="flex gap-4 lg:flex-col lg:min-w-[180px]">
-                  {cs.metrics.map((m) => (
-                    <div
-                      key={m.label}
-                      className="flex-1 rounded-xl border border-slate-100 bg-slate-50 p-4 text-center lg:text-left"
-                    >
-                      <p className="text-xl font-bold tracking-tight text-slate-950">
-                        {m.value}
+                    {/* Left */}
+                    <div className="flex-1">
+                      <p className={`mb-3 inline-block rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] ${tone.chip}`}>
+                        {cs.tag}
                       </p>
-                      <p className="mt-0.5 text-xs text-slate-500">{m.label}</p>
+                      <h2 className="text-2xl font-bold tracking-tight text-charcoal md:text-3xl">
+                        {cs.id} — {cs.title}
+                      </h2>
+                      <p className="mt-3 max-w-xl text-sm leading-7 text-charcoal/65">
+                        {cs.brief}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {cs.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-charcoal/5 px-3 py-1 text-xs font-medium text-charcoal/60"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600">
-                Read full case study{" "}
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
+                    {/* Right — Metrics */}
+                    <div className="flex gap-4 lg:flex-col lg:min-w-[180px]">
+                      {cs.metrics.map((m) => (
+                        <div
+                          key={m.label}
+                          className={`flex-1 rounded-xl ${tone.metric} p-4 text-center lg:text-left`}
+                        >
+                          <p className={`text-xl font-bold tracking-tight ${tone.metricText}`}>
+                            {m.value}
+                          </p>
+                          <p className={`mt-0.5 text-xs ${tone.metricText}`}>{m.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terracotta">
+                    Read full case study{" "}
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </FadeIn>
+            );
+          })}
         </div>
       </section>
     </main>
