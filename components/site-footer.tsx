@@ -10,10 +10,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const pageLinks = [
   { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "AI Systems", href: "/ai-systems" },
   { label: "Experience", href: "/experience" },
-  { label: "Case Studies", href: "/case-studies" },
   { label: "UI & Artifacts", href: "/ui&artifacts" },
   { label: "Resume", href: "/Arunesh_Kumar_Resume.pdf" },
 ];
