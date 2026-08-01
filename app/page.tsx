@@ -226,7 +226,7 @@ export default function HomePage() {
       </section>
 
        {/* ── CASE STUDIES ── */}
-      <section id="case-studies" className="border-y border-charcoal/10 bg-white/70 py-20">
+      <section id="case-studies" className="py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeIn className="mb-12">
             <SectionLabel>Case Studies</SectionLabel>
@@ -326,7 +326,7 @@ export default function HomePage() {
       </section>
 
       {/* ── UI & ARTIFACTS ── */}
-      <section id="ui-artifacts" className="py-20">
+      <section id="ui-artifacts" className="border-y border-charcoal/10 bg-white/70 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeIn>
             <SectionLabel>UI and Artifacts</SectionLabel>
