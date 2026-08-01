@@ -38,17 +38,16 @@ const tickerItems = [
 ];
 
 const previews = [
-  { href: "#projects", label: "Projects", desc: "Case studies on checkout, pricing, and real-time tooling.", badge: "Checkout • Pricing • Calculator", Icon: Briefcase, tone: "bg-dustyblue-50 text-dustyblue-800" },
+  { href: "#case-studies", label: "Case Studies", desc: "Real work case studies, one problem-to-impact story each.", badge: "Case Studies", Icon: Monitor, tone: "bg-terracotta/10 text-terracotta-600" },
   { href: "#ai-systems", label: "AI Systems", desc: "PM Hub and 9-Agent CRO Workflow built for leverage.", badge: "Research hub • CRO workflow", Icon: Sparkles, tone: "bg-sage-50 text-sage-800" },
   { href: "#experience", label: "Experience", desc: "Sierra Living Concepts and BoostGrad — full journey.", badge: "Sierra • BoostGrad", Icon: TrendingUp, tone: "bg-sand text-sand-800" },
-  { href: "#case-studies", label: "Case Studies", desc: "Real work case studies, one problem-to-impact story each.", badge: "Case Studies", Icon: Monitor, tone: "bg-terracotta/10 text-terracotta-600" },
   { href: "#ui-artifacts", label: "UI and Artifacts", desc: "UI/UX designs, process maps, and product documentation from real work.", badge: "UI/UX Designs • NPD Process", Icon: Blocks, tone: "bg-dustyblue-50 text-dustyblue-800" },
 ];
 
-const projects = [
-  { title: "Checkout Funnel Optimization", desc: "Reduced friction in checkout using behavioral analysis, Clarity recordings, and targeted UX improvements.", impact: "ATC diversion 20% → 14%", href: "/projects", Icon: TrendingUp },
-  { title: "Automated SKU Pricing System", desc: "Automated pricing cascade for 500+ bundled SKUs with variant-level mapping and sync logic.", impact: "~₹35–40L monthly exposure protected", href: "/projects", Icon: Monitor },
-  { title: "Real-Time Pricing Calculator", desc: "Built a live quoting flow for U.S. sales to reduce quoting time from days to real-time.", impact: "~₹1.5Cr additional monthly revenue", href: "/projects", Icon: Briefcase },
+const caseStudyLinks = [
+  { title: "Checkout Funnel Optimization", metric: "20% → 14% diversion", href: "/case-studies/checkout-funnel" },
+  { title: "Automated SKU Pricing System", metric: "500+ SKUs automated", href: "/case-studies/sku-pricing" },
+  { title: "Real-Time Pricing Calculator", metric: "₹1.5Cr additional revenue", href: "/case-studies/pricing-calculator" },
 ];
 
 const aiSystems = [
@@ -89,12 +88,6 @@ const experience = [
       "Analysed campaign and user behaviour data via GA4, translating findings into product and positioning recommendations for stakeholders.",
     ],
   },
-];
-
-const caseStudyLinks = [
-  { title: "Checkout Funnel Optimization", metric: "20% → 14% diversion", href: "/case-studies/checkout-funnel" },
-  { title: "Automated SKU Pricing System", metric: "500+ SKUs automated", href: "/case-studies/sku-pricing" },
-  { title: "Real-Time Pricing Calculator", metric: "₹1.5Cr additional revenue", href: "/case-studies/pricing-calculator" },
 ];
 
 // ── COMPONENTS ────────────────────────────────────────────
@@ -232,30 +225,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── PROJECTS ── */}
-      <section id="projects" className="py-20">
+       {/* ── CASE STUDIES ── */}
+      <section id="case-studies" className="border-y border-charcoal/10 bg-white/70 py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeIn className="mb-12">
-            <SectionLabel>Projects</SectionLabel>
-            <SectionTitle>Impact through product</SectionTitle>
-            <SectionSub>Three projects, measurable outcomes — driven by data, UX insight, and systematic thinking.</SectionSub>
+            <SectionLabel>Case Studies</SectionLabel>
+            <SectionTitle>Three problems, three complete stories</SectionTitle>
+            <SectionSub>Each one walks from discovery to root cause to shipped solution to measured impact.</SectionSub>
           </FadeIn>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {projects.map((p, i) => (
-              <FadeIn key={p.title} delay={i * 100}>
-                <Link href="/case-studies" className="group flex h-full flex-col rounded-[1.75rem] border border-charcoal/10 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md">
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">Case Study</p>
-                      <h3 className="mt-2 text-xl font-bold tracking-tight text-charcoal">{p.title}</h3>
-                    </div>
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl border border-charcoal/10 bg-cream text-charcoal/60 transition group-hover:border-terracotta/40 group-hover:bg-white">
-                      <p.Icon className="h-5 w-5" />
-                    </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {caseStudyLinks.map((c, i) => (
+              <FadeIn key={c.title} delay={i * 100}>
+                <Link
+                  href={c.href}
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md"
+                >
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">
+                      {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-2 text-lg font-bold tracking-tight text-charcoal">{c.title}</h3>
+                    <p className="mt-2 text-sm font-medium text-sage-700">{c.metric}</p>
                   </div>
-                  <p className="text-sm leading-7 text-charcoal/65">{p.desc}</p>
-                  <div className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-charcoal">
-                    {p.impact} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal">
+                    Read case study <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
                   </div>
                 </Link>
               </FadeIn>
@@ -326,38 +319,6 @@ export default function HomePage() {
                     </Link>
                   )}
                 </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CASE STUDIES ── */}
-      <section id="case-studies" className="border-y border-charcoal/10 bg-white/70 py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <FadeIn className="mb-12">
-            <SectionLabel>Case Studies</SectionLabel>
-            <SectionTitle>Three problems, three complete stories</SectionTitle>
-            <SectionSub>Each one walks from discovery to root cause to shipped solution to measured impact.</SectionSub>
-          </FadeIn>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {caseStudyLinks.map((c, i) => (
-              <FadeIn key={c.title} delay={i * 100}>
-                <Link
-                  href={c.href}
-                  className="group flex h-full flex-col justify-between rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md"
-                >
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-charcoal/50">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-2 text-lg font-bold tracking-tight text-charcoal">{c.title}</h3>
-                    <p className="mt-2 text-sm font-medium text-sage-700">{c.metric}</p>
-                  </div>
-                  <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal">
-                    Read case study <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
-                  </div>
-                </Link>
               </FadeIn>
             ))}
           </div>
