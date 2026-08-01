@@ -1,9 +1,8 @@
 export const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/ai-systems", label: "AI Systems" },
   { href: "/experience", label: "Experience" },
-  { href: "/case-studies", label: "Case Studies" },
   { href: "/ui&artifacts", label: "UI&Artifacts" },
   { href: "/connect", label: "Connect" },
 ];
