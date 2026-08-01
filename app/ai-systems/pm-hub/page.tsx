@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { pmHubModules } from "@/lib/site-data";
 
 const TONES = ["Formal","Polite","Friendly","Fluent & Concise","Assertive","Diplomatic","Informal","Urgent"];
 const TONE_DESC: Record<string,string> = {
@@ -911,6 +912,14 @@ export default function Page() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+  function handleKey(e: KeyboardEvent) {
+    if (e.key === "Escape") setMobileMenuOpen(false);
+  }
+  document.addEventListener("keydown", handleKey);
+  return () => document.removeEventListener("keydown", handleKey);
+}, []);
+
   const mod=MODULES.find(m=>m.id===active);
   const navigate=(id:string)=>{setActive(id);setMobileMenuOpen(false);};
 
@@ -982,7 +991,7 @@ export default function Page() {
 
       {/* Mobile overlay menu */}
       {mobileMenuOpen&&(
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-[70] md:hidden">
           <div className="absolute inset-0 bg-charcoal/40" onClick={()=>setMobileMenuOpen(false)}/>
           <div className="absolute left-0 top-0 bottom-0 w-72 max-w-[80vw] bg-white shadow-xl flex flex-col">
             <div className="px-4 py-4 border-b border-charcoal/10 flex items-center justify-between">
