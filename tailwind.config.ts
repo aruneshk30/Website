@@ -14,16 +14,24 @@ const config: Config = {
         sage: {
           DEFAULT: "#B4C7B8",
           50: "#EEF3EF",
+          400: "#9CB9A2",
+          500: "#7FA588",
+          600: "#5C8567",
           700: "#3A4A3C",
           800: "#2F4A33",
         },
         dustyblue: {
           DEFAULT: "#A9C1D9",
           50: "#EAF1F7",
+          400: "#8FB2D1",
+          600: "#3D6488",
           800: "#1F3A52",
         },
         sand: {
           DEFAULT: "#E9DCC8",
+          400: "#DCC9A8",
+          500: "#D1BB93",
+          600: "#B89A6E",
           800: "#5C4526",
         },
         terracotta: {
