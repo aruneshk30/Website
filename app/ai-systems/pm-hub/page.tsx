@@ -936,24 +936,88 @@ export default function Page() {
   return (
     <div className="flex flex-col min-h-screen bg-cream">
 
-      {/* Intro strip — merged from the old marketing page */}
-      <div className="border-b border-charcoal/10 bg-white px-4 py-3.5 md:px-6">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-dustyblue-50 text-dustyblue-800">
-              <i className="ti ti-sparkles text-lg"></i>
+      {/* ── ABOUT — merged from the old marketing page ── */}
+      <section className="border-b border-charcoal/10 bg-white px-4 py-10 md:px-6 md:py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
+            <i className="ti ti-sparkles text-xl"></i>
+          </div>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-charcoal md:text-4xl">
+            PM Research &amp; Strategy Hub
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-charcoal/65 md:text-base">
+            A complete product management operating system for research, strategy,
+            prioritization, communication, and experiment planning — one integrated
+            workflow instead of switching between separate tools.
+          </p>
+
+          <div className="mt-6 grid grid-cols-3 gap-2 max-w-sm sm:gap-3">
+            {[
+              { v: "17", l: "AI modules" },
+              { v: "100+", l: "PM workflows" },
+              { v: "6", l: "PM tools" },
+            ].map((s) => (
+              <div key={s.l} className="rounded-xl bg-dustyblue-50 px-3 py-2.5 text-center sm:text-left">
+                <p className="text-lg font-bold text-dustyblue-800">{s.v}</p>
+                <p className="text-[11px] text-dustyblue-800/75">{s.l}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-terracotta">How it works</p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight text-charcoal md:text-2xl">
+            17 modules, one operating system
+          </h2>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {pmHubModules.slice(0, 6).map((m) => (
+              <div key={m.title} className="rounded-xl border border-charcoal/10 bg-cream p-4">
+                <p className="text-sm font-semibold text-charcoal">{m.title}</p>
+                <p className="mt-1.5 text-xs leading-5 text-charcoal/60">{m.description}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-charcoal/45">
+            Full list of all 17 modules is in the sidebar below — jump straight to any of them.
+          </p>
+
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-terracotta">Communication suite</p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight text-charcoal md:text-2xl">
+            Stakeholder communication built in
+          </h2>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border border-charcoal/10 bg-cream p-4">
+              <p className="text-sm font-semibold text-charcoal">Email &amp; Monday updates</p>
+              <p className="mt-1.5 text-xs leading-5 text-charcoal/60">Structured updates written from a short prompt plus tone selection.</p>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-charcoal">PM Research &amp; Strategy Hub</p>
-              <p className="text-xs text-charcoal/50">An AI operating system for product work</p>
+            <div className="rounded-xl border border-charcoal/10 bg-cream p-4">
+              <p className="text-sm font-semibold text-charcoal">General informed reply</p>
+              <p className="mt-1.5 text-xs leading-5 text-charcoal/60">Paste a message and generate a reply in multiple tones.</p>
+            </div>
+            <div className="rounded-xl border border-charcoal/10 bg-cream p-4">
+              <p className="text-sm font-semibold text-charcoal">Stakeholder analysis</p>
+              <p className="mt-1.5 text-xs leading-5 text-charcoal/60">Decision framing, objections, next steps, and communication strategy.</p>
             </div>
           </div>
-          <div className="hidden gap-2 sm:flex">
-            <span className="rounded-full bg-dustyblue-50 px-3 py-1 text-xs font-semibold text-dustyblue-800">17 modules</span>
-            <span className="rounded-full bg-sage-50 px-3 py-1 text-xs font-semibold text-sage-800">100+ workflows</span>
+
+          <div className="mt-8 rounded-2xl bg-charcoal p-6 md:p-7">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-terracotta">Built by a PM, for PMs</p>
+            <p className="mt-2 text-sm leading-7 text-cream/70 md:text-base">
+              Designed as a product-grade operating system to accelerate research,
+              strategy, and execution — not a generic chatbot wrapper, but a real
+              workflow built around how PM work actually happens.
+            </p>
           </div>
+
+          
+            href="#tool"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
+          >
+            Try it below <i className="ti ti-arrow-down text-base"></i>
+          </a>
         </div>
-      </div>
+      </section>
+
+      <div id="tool" />
 
       {/* Disclaimer banner */}
       <div className="bg-sand border-b border-sand-600/30 px-4 py-2 text-center text-xs text-sand-800 font-medium shrink-0 flex items-center justify-center gap-2">
