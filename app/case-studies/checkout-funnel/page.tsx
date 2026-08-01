@@ -117,26 +117,24 @@ function ResultCard({
 // ── GRAPHICS ────────────────────────────────────────────
 function JourneyDiagram() {
   const steps = [
-    { icon: MousePointerClick, label: "Add to Cart", tone: "bg-dustyblue-50 text-dustyblue-800" },
-    { icon: Eye, label: "Distracted by similar products", tone: "bg-terracotta/10 text-terracotta-600" },
-    { icon: FileWarning, label: "Popup form loses data", tone: "bg-sand text-sand-800" },
-    { icon: Check, label: "Redesigned → order confirmed", tone: "bg-sage-50 text-sage-800" },
+    { icon: MousePointerClick, label: "Added to cart", tone: "bg-dustyblue-50 text-dustyblue-800" },
+    { icon: Eye, label: "Distracted by similar items", tone: "bg-terracotta/10 text-terracotta-600" },
+    { icon: FileWarning, label: "Popup loses entered data", tone: "bg-sand text-sand-800" },
+    { icon: Check, label: "Redesigned — order confirmed", tone: "bg-sage-50 text-sage-800" },
   ];
   return (
     <div className="rounded-2xl border border-charcoal/10 bg-white p-6">
       <p className="mb-5 text-xs font-bold uppercase tracking-widest text-charcoal/40">
         The journey, before → after
       </p>
-      <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center">
+      <div className="grid grid-cols-2 gap-3">
         {steps.map((s, i) => (
-          <div key={s.label} className="flex flex-1 items-center gap-3">
-            <div className={`flex flex-1 flex-col items-center gap-2 rounded-xl ${s.tone} p-4 text-center`}>
-              <s.icon className="h-5 w-5" />
-              <p className="text-xs font-semibold leading-4">{s.label}</p>
+          <div key={s.label} className={`relative flex flex-col items-center gap-2.5 rounded-xl ${s.tone} p-5 text-center`}>
+            <span className="absolute left-3 top-3 text-[10px] font-bold opacity-40">{i + 1}</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/60">
+              <s.icon className="h-4 w-4" />
             </div>
-            {i < steps.length - 1 && (
-              <ArrowRight className="hidden h-4 w-4 flex-shrink-0 text-charcoal/25 md:block" />
-            )}
+            <p className="text-xs font-semibold leading-5">{s.label}</p>
           </div>
         ))}
       </div>
