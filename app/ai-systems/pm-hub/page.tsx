@@ -612,8 +612,6 @@ function PrioritizationModule() {
   );
 }
 
-type Draft={id:number;docType:string;tone:string;answers:Record<string,string>;content:string;chatMsgs:{role:string;content:string}[];chatInput:string;chatLoading:boolean;pendingTone?:string;createdAt:string;label:string};
-
 const PM_TOOLS=[
   {id:"email",icon:"ti ti-mail",label:"Email",desc:"To a stakeholder, exec, or partner"},
   {id:"monday",icon:"ti ti-calendar-week",label:"Monday Update",desc:"Weekly status: done, next, blockers"},
@@ -845,26 +843,6 @@ function Dashboard({onNavigate}:{onNavigate:(id:string)=>void}) {
   ];
   return (
     <div className="flex flex-col gap-6">
-      <div className="rounded-2xl bg-charcoal px-5 py-6 md:px-6 md:py-7">
-        <div className="inline-flex items-center gap-2 rounded-full border border-cream/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-cream/70 mb-4">About this hub</div>
-        <p className="text-base font-bold text-cream md:text-lg">
-          A complete PM operating system, built by a PM
-        </p>
-        <p className="mt-2 text-sm leading-6 text-cream/60">
-          17 AI-powered modules covering research, strategy, prioritization, and
-          execution — plus a dedicated <span className="text-cream">Stakeholder Communication</span> suite
-          for emails, Slack updates, Jira tickets, and more in 8 tone options.
-          Built as one integrated workflow instead of switching between separate tools.
-        </p>
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          {[{v:"17",l:"AI Modules",tone:"bg-dustyblue-50 text-dustyblue-800"},{v:"100+",l:"PM Workflows",tone:"bg-sage-50 text-sage-800"},{v:"6",l:"PM Tools",tone:"bg-sand text-sand-800"}].map(s=>(
-            <div key={s.l} className={`rounded-xl ${s.tone} px-3 py-2.5`}>
-              <p className="text-xl font-bold">{s.v}</p>
-              <p className="text-xs opacity-80">{s.l}</p>
-            </div>
-          ))}
-        </div>
-      </div>
       <div>
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-terracotta mb-3">Quick Actions</p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -913,12 +891,12 @@ export default function Page() {
   }, [mobileMenuOpen]);
 
   useEffect(() => {
-  function handleKey(e: KeyboardEvent) {
-    if (e.key === "Escape") setMobileMenuOpen(false);
-  }
-  document.addEventListener("keydown", handleKey);
-  return () => document.removeEventListener("keydown", handleKey);
-}, []);
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
 
   const mod=MODULES.find(m=>m.id===active);
   const navigate=(id:string)=>{setActive(id);setMobileMenuOpen(false);};
