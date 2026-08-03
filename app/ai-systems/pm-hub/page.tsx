@@ -918,10 +918,9 @@ export default function Page() {
 
       {/* ── ABOUT — merged from the old marketing page ── */}
       <section className="border-b border-charcoal/10 bg-white px-4 py-10 md:px-6 md:py-14">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
-              <i className="ti ti-sparkles text-xl"></i>
+       <div className="mx-auto max-w-7xl">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
+            <i className="ti ti-sparkles text-xl"></i>
           </div>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-charcoal md:text-4xl">
             PM Research &amp; Strategy Hub
