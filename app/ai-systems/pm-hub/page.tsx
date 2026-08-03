@@ -986,7 +986,7 @@ export default function Page() {
             </p>
           </div>
 
-          
+            <a
             href="#tool"
             className="mt-8 inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
           >
