@@ -919,8 +919,16 @@ export default function Page() {
       {/* ── ABOUT — merged from the old marketing page ── */}
       <section className="border-b border-charcoal/10 bg-white px-4 py-10 md:px-6 md:py-14">
         <div className="mx-auto max-w-7xl">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
-            <i className="ti ti-sparkles text-xl"></i>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
+              <i className="ti ti-sparkles text-xl"></i>
+            </div>
+            <a
+              href="#tool"
+              className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
+            >
+              Try it below <i className="ti ti-arrow-down text-base"></i>
+            </a>
           </div>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-charcoal md:text-4xl">
             PM Research &amp; Strategy Hub
@@ -991,23 +999,16 @@ export default function Page() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/ai-systems"
-              className="inline-flex items-center gap-2 rounded-xl border border-charcoal/15 bg-white px-6 py-3.5 text-sm font-semibold text-charcoal transition hover:border-terracotta/40 hover:text-terracotta-600"
+              className="inline-flex items-center gap-2 rounded-xl bg-charcoal px-6 py-3.5 text-sm font-semibold text-cream transition hover:bg-charcoal/85"
             >
               <ArrowLeft className="h-4 w-4" /> Back to AI Systems
             </Link>
             <Link
               href="/ai-systems/cro-workflow"
-              className="inline-flex items-center gap-2 rounded-xl border border-charcoal/15 bg-white px-6 py-3.5 text-sm font-semibold text-charcoal transition hover:border-terracotta/40 hover:text-terracotta-600"
+              className="inline-flex items-center gap-2 rounded-xl bg-sage-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-sage-800"
             >
               Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
-
-            <a
-              href="#tool"
-              className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
-            >
-              Try it below <i className="ti ti-arrow-down text-base"></i>
-            </a>
           </div>
         </div>
       </section>
