@@ -1001,7 +1001,8 @@ export default function Page() {
             >
               Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
             </Link>
-            
+
+            <a
               href="#tool"
               className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
             >
