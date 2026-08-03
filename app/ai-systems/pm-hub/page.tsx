@@ -1,5 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { pmHubModules } from "@/lib/site-data";
 
 const TONES = ["Formal","Polite","Friendly","Fluent & Concise","Assertive","Diplomatic","Informal","Urgent"];
@@ -987,11 +989,26 @@ export default function Page() {
           </div>
 
             <a
-            href="#tool"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
-          >
-            Try it below <i className="ti ti-arrow-down text-base"></i>
-          </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/ai-systems"
+              className="inline-flex items-center gap-2 rounded-xl border border-charcoal/15 bg-white px-6 py-3.5 text-sm font-semibold text-charcoal transition hover:border-terracotta/40 hover:text-terracotta-600"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to AI Systems
+            </Link>
+            <Link
+              href="/ai-systems/cro-workflow"
+              className="inline-flex items-center gap-2 rounded-xl border border-charcoal/15 bg-white px-6 py-3.5 text-sm font-semibold text-charcoal transition hover:border-terracotta/40 hover:text-terracotta-600"
+            >
+              Open 9-Agent Workflow <ArrowRight className="h-4 w-4" />
+            </Link>
+            
+              href="#tool"
+              className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
+            >
+              Try it below <i className="ti ti-arrow-down text-base"></i>
+            </a>
+          </div>
         </div>
       </section>
 
