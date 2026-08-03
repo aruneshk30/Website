@@ -922,13 +922,6 @@ export default function Page() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
               <i className="ti ti-sparkles text-xl"></i>
-            </div>
-            <a
-              href="#tool"
-              className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
-            >
-              Try it below <i className="ti ti-arrow-down text-base"></i>
-            </a>
           </div>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-charcoal md:text-4xl">
             PM Research &amp; Strategy Hub
@@ -939,17 +932,25 @@ export default function Page() {
             workflow instead of switching between separate tools.
           </p>
 
-          <div className="mt-6 grid grid-cols-3 gap-2 max-w-sm sm:gap-3">
-            {[
-              { v: "17", l: "AI modules" },
-              { v: "100+", l: "PM workflows" },
-              { v: "6", l: "PM tools" },
-            ].map((s) => (
-              <div key={s.l} className="rounded-xl bg-dustyblue-50 px-3 py-2.5 text-center sm:text-left">
-                <p className="text-lg font-bold text-dustyblue-800">{s.v}</p>
-                <p className="text-[11px] text-dustyblue-800/75">{s.l}</p>
-              </div>
-            ))}
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="grid grid-cols-3 gap-2 max-w-sm sm:gap-3">
+              {[
+                { v: "17", l: "AI modules" },
+                { v: "100+", l: "PM workflows" },
+                { v: "6", l: "PM tools" },
+              ].map((s) => (
+                <div key={s.l} className="rounded-xl bg-dustyblue-50 px-3 py-2.5 text-center sm:text-left">
+                  <p className="text-lg font-bold text-dustyblue-800">{s.v}</p>
+                  <p className="text-[11px] text-dustyblue-800/75">{s.l}</p>
+                </div>
+              ))}
+            </div>
+            <a
+              href="#tool"
+              className="inline-flex items-center gap-2 rounded-xl bg-terracotta px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-terracotta-600"
+            >
+              Try it below <i className="ti ti-arrow-down text-base"></i>
+            </a>
           </div>
 
           <p className="mt-8 text-xs font-bold uppercase tracking-[0.28em] text-terracotta">How it works</p>
