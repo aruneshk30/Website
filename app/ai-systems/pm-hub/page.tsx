@@ -979,7 +979,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="mt-8 rounded-2xl bg-charcoal p-6 md:p-7">
+         <div className="mt-8 rounded-2xl bg-charcoal p-6 md:p-7">
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-terracotta">Built by a PM, for PMs</p>
             <p className="mt-2 text-sm leading-7 text-cream/70 md:text-base">
               Designed as a product-grade operating system to accelerate research,
@@ -988,8 +988,7 @@ export default function Page() {
             </p>
           </div>
 
-            <a
-            <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/ai-systems"
               className="inline-flex items-center gap-2 rounded-xl border border-charcoal/15 bg-white px-6 py-3.5 text-sm font-semibold text-charcoal transition hover:border-terracotta/40 hover:text-terracotta-600"
@@ -1011,7 +1010,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-
       <div id="tool" />
 
       {/* Disclaimer banner */}
