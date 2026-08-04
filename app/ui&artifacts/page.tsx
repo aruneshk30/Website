@@ -147,7 +147,7 @@ export default function ArtifactsPage() {
                     Canva view.
                   </p>
                   <div className="flex flex-col items-center gap-3">
-                    
+                    <a
                       href={PDF_URL}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -156,7 +156,7 @@ export default function ArtifactsPage() {
                       <ExternalLink className="h-4 w-4" />
                       Open PDF
                     </a>
-                    
+                    <a
                       href={CANVA_URL}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -186,7 +186,7 @@ export default function ArtifactsPage() {
                     Sierra Living Concepts · New Product Development Process · 2025
                   </p>
                   <div className="flex gap-3">
-                    
+                    <a
                       href={PDF_URL}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -196,7 +196,7 @@ export default function ArtifactsPage() {
                       Open PDF
                     </a>
                     <span className="text-charcoal/20">·</span>
-                    
+                    <a
                       href={CANVA_URL}
                       target="_blank"
                       rel="noopener noreferrer"
