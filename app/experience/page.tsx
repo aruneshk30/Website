@@ -3,13 +3,6 @@ import { FadeIn } from "@/components/fade-in";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { experienceItems, skills } from "@/lib/site-data";
 
-const skillTones = [
-  "bg-dustyblue-50 text-dustyblue-800",
-  "bg-sage-50 text-sage-800",
-  "bg-sand text-sand-800",
-  "bg-terracotta/10 text-terracotta-600",
-];
-
 export default function ExperiencePage() {
   return (
     <main className="bg-cream">
@@ -65,14 +58,14 @@ export default function ExperiencePage() {
             <FadeIn delay={140}>
               <div className="h-full rounded-2xl border border-charcoal/10 bg-cream p-7">
                 <h3 className="text-xl font-semibold text-charcoal">Core Skills</h3>
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {skills.map((skill, i) => (
-                    <div
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  {skills.map((skill) => (
+                    <span
                       key={skill}
-                      className={`rounded-xl px-4 py-3 text-sm font-medium ${skillTones[i % skillTones.length]}`}
+                      className="rounded-full border border-charcoal/15 bg-white px-4 py-2 text-xs font-medium text-charcoal/75"
                     >
                       {skill}
-                    </div>
+                    </span>
                   ))}
                 </div>
               </div>
