@@ -18,7 +18,7 @@ const departments = [
   { name: "Logistics", tone: "bg-dustyblue-50 text-dustyblue-800" },
   { name: "Content", tone: "bg-sage-50 text-sage-800" },
   { name: "SEO", tone: "bg-sand text-sand-800" },
-  { name: "Inventory", tone: "bg-charcoal/8 text-charcoal/70" },
+  { name: "Inventory", tone: "bg-charcoal/10 text-charcoal/75" },
 ];
 
 const stages = [
@@ -224,11 +224,11 @@ export default function ArtifactsPage() {
               <p className="mb-4 text-xs font-bold uppercase tracking-widest text-charcoal/40">
                 Departments Covered
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {departments.map((d) => (
                   <span
                     key={d.name}
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${d.tone}`}
+                    className={`rounded-full px-5 py-2.5 text-sm font-semibold ${d.tone}`}
                   >
                     {d.name}
                   </span>
