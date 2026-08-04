@@ -91,14 +91,6 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
               <h3 className="mt-2 text-xl font-bold tracking-tight text-charcoal md:text-2xl">{job.role}</h3>
               <p className="mt-1 text-sm font-medium text-sage-700">{job.company}</p>
 
-              <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {job.metrics.map((m) => (
-                  <div key={m} className="rounded-xl bg-cream px-3 py-2.5 text-center">
-                    <p className="text-[11px] font-semibold leading-snug text-charcoal/70">{m}</p>
-                  </div>
-                ))}
-              </div>
-
               <div className="mt-5 space-y-2.5">
                 {job.bullets.map((b) => (
                   <div key={b} className="flex gap-2.5 text-sm leading-6 text-charcoal/65">
