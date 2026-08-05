@@ -9,7 +9,11 @@ const education = [
   { degree: "B.Tech, Civil Engineering", school: "Dr. APJ Abdul Kalam Technical University", period: "2016 – 2020" },
 ];
 
-const groupIcons = [Target, TrendingUp, Wrench];
+const groupStyles = [
+  { icon: Target, label: "text-dustyblue-800", chip: "border-dustyblue-800/25 bg-dustyblue-50 text-dustyblue-800 hover:border-dustyblue-800/50" },
+  { icon: TrendingUp, label: "text-sage-800", chip: "border-sage-700/25 bg-sage-50 text-sage-800 hover:border-sage-700/50" },
+  { icon: Wrench, label: "text-sand-800", chip: "border-sand-600/30 bg-sand text-sand-800 hover:border-sand-600/60" },
+];
 
 export default function ExperiencePage() {
   return (
@@ -50,16 +54,16 @@ export default function ExperiencePage() {
           <div className="mt-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
             {/* Education */}
             <FadeIn delay={80}>
-              <div className="h-full rounded-2xl border border-charcoal/10 bg-cream p-7">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-50 text-dustyblue-800">
+              <div className="h-full rounded-2xl border border-dustyblue-800/15 bg-dustyblue-50/40 p-7">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-dustyblue-800 text-white">
                   <GraduationCap className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-charcoal">Education</h3>
+                <h3 className="mt-4 text-xl font-semibold text-dustyblue-800">Education</h3>
 
-                <div className="relative mt-6 space-y-7 border-l-2 border-charcoal/10 pl-6">
+                <div className="relative mt-6 space-y-7 border-l-2 border-dustyblue-800/20 pl-6">
                   {education.map((e) => (
                     <div key={e.degree} className="relative">
-                      <span className="absolute -left-[27px] top-1 h-2.5 w-2.5 rounded-full border-2 border-cream bg-dustyblue-600" />
+                      <span className="absolute -left-[27px] top-1 h-2.5 w-2.5 rounded-full border-2 border-cream bg-dustyblue-800" />
                       <p className="text-[10px] font-bold uppercase tracking-widest text-dustyblue-800/70">
                         {e.period}
                       </p>
@@ -71,18 +75,19 @@ export default function ExperiencePage() {
               </div>
             </FadeIn>
 
-            {/* Skills — grouped, uncolored */}
+            {/* Skills — grouped, color-coded by category */}
             <FadeIn delay={140}>
-              <div className="h-full rounded-2xl border border-charcoal/10 bg-cream p-7">
+              <div className="h-full rounded-2xl border border-charcoal/10 bg-white p-7">
                 <h3 className="text-xl font-semibold text-charcoal">Core Skills</h3>
                 <div className="mt-6 space-y-6">
                   {skillGroups.map((group, gi) => {
-                    const Icon = groupIcons[gi % groupIcons.length];
+                    const style = groupStyles[gi % groupStyles.length];
+                    const Icon = style.icon;
                     return (
                       <div key={group.label}>
                         <div className="mb-3 flex items-center gap-2">
-                          <Icon className="h-4 w-4 text-charcoal/40" />
-                          <p className="text-xs font-bold uppercase tracking-widest text-charcoal/45">
+                          <Icon className={`h-4 w-4 ${style.label}`} />
+                          <p className={`text-xs font-bold uppercase tracking-widest ${style.label}`}>
                             {group.label}
                           </p>
                         </div>
@@ -90,7 +95,7 @@ export default function ExperiencePage() {
                           {group.items.map((skill) => (
                             <span
                               key={skill}
-                              className="rounded-full border border-charcoal/15 bg-white px-4 py-2 text-xs font-medium text-charcoal/75 transition hover:border-terracotta/40 hover:text-terracotta-600"
+                              className={`rounded-full border px-4 py-2 text-xs font-medium transition ${style.chip}`}
                             >
                               {skill}
                             </span>
