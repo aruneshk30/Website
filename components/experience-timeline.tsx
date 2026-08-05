@@ -6,7 +6,6 @@ type ExperienceItem = {
   company: string;
   period: string;
   bullets: string[];
-  metrics: string[];
 };
 
 export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
@@ -49,7 +48,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
             });
           }
         },
-        { threshold: 0.25 }
+        { threshold: 0.15 }
       );
       observer.observe(el);
       observers.push(observer);
@@ -65,16 +64,16 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
         style={{ height: `${fillPercent}%` }}
       />
 
-      <div className="space-y-10">
+      <div>
         {items.map((job, i) => (
           <div
             key={job.role + job.period}
             ref={(el) => {
               itemRefs.current[i] = el;
             }}
-            className={`relative pl-10 transition-all duration-700 md:pl-14 ${
-              activeStates[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
+            className={`relative rounded-2xl pb-10 pl-10 pt-1 transition-all duration-700 hover:bg-white/60 md:pl-14 ${
+              i < items.length - 1 ? "border-b border-charcoal/8 mb-2" : ""
+            } ${activeStates[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           >
             <span
               className={`absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-500 md:h-10 md:w-10 ${
@@ -86,19 +85,17 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
               <span className="text-xs font-bold md:text-sm">{i + 1}</span>
             </span>
 
-            <div className="rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-md md:p-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta">{job.period}</p>
-              <h3 className="mt-2 text-xl font-bold tracking-tight text-charcoal md:text-2xl">{job.role}</h3>
-              <p className="mt-1 text-sm font-medium text-sage-700">{job.company}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta">{job.period}</p>
+            <h3 className="mt-2 text-2xl font-bold tracking-tight text-charcoal md:text-3xl">{job.role}</h3>
+            <p className="mt-1 text-sm font-medium text-sage-700">{job.company}</p>
 
-              <div className="mt-5 space-y-2.5">
-                {job.bullets.map((b) => (
-                  <div key={b} className="flex gap-2.5 text-sm leading-6 text-charcoal/65">
-                    <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-terracotta" />
-                    <span>{b}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="mt-6 space-y-4">
+              {job.bullets.map((b) => (
+                <div key={b} className="flex gap-3 text-sm leading-7 text-charcoal/70 md:text-base">
+                  <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-terracotta" />
+                  <span>{b}</span>
+                </div>
+              ))}
             </div>
           </div>
         ))}
