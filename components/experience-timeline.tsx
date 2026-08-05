@@ -90,8 +90,14 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
             <p className="mt-1 text-sm font-medium text-sage-700">{job.company}</p>
 
             <div className="mt-6 space-y-4">
-              {job.bullets.map((b) => (
-                <div key={b} className="flex gap-3 text-sm leading-7 text-charcoal/70 md:text-base">
+              {job.bullets.map((b, bi) => (
+                <div
+                  key={b}
+                  className={`flex gap-3 text-sm leading-7 text-charcoal/70 transition-all duration-500 ease-out md:text-base ${
+                    activeStates[i] ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"
+                  }`}
+                  style={{ transitionDelay: activeStates[i] ? `${150 + bi * 90}ms` : "0ms" }}
+                >
                   <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-terracotta" />
                   <span>{b}</span>
                 </div>
