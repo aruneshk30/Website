@@ -71,7 +71,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
             ref={(el) => {
               itemRefs.current[i] = el;
             }}
-            className={`relative rounded-2xl pb-10 pl-10 pt-1 transition-all duration-700 hover:bg-white/60 md:pl-14 ${
+            className={`relative pb-10 pl-10 pt-1 transition-all duration-700 md:pl-14 ${
               i < items.length - 1 ? "border-b border-charcoal/8 mb-2" : ""
             } ${activeStates[i] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           >
