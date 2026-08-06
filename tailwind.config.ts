@@ -35,9 +35,10 @@ const config: Config = {
           800: "#5C4526",
         },
         terracotta: {
-          DEFAULT: "#C1694F",
-          600: "#A8543D",
-        },
+        DEFAULT: "#C1694F",
+        50: "#F7E9E3",
+        600: "#A8543D",
+      },
       },
       fontFamily: {
         serif: ["var(--font-dm-serif)", "Georgia", "serif"],
