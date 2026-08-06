@@ -18,7 +18,7 @@ const groupStyles = [
 export default function ExperiencePage() {
   return (
     <main className="bg-cream">
-      <section className="border-b border-charcoal/10 bg-white py-16 md:py-20">
+      <section className="border-b border-charcoal/10 bg-white py-10 md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
           <FadeIn>
             <div className="max-w-3xl">
@@ -35,7 +35,7 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      <section className="py-8 md:py-20">
         <div className="mx-auto max-w-4xl px-4 md:px-6 lg:px-8">
           <ExperienceTimeline items={experienceItems} />
         </div>
