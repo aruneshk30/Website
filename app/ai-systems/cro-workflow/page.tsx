@@ -138,12 +138,12 @@ export default function CroWorkflowPage() {
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {croAgents.map((agent, index) => (
               <FadeIn key={agent.title} delay={index * 60}>
-                <div className="flex h-full flex-col rounded-2xl border border-charcoal/10 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-terracotta/30 hover:shadow-md">
-                  <div className="text-xs font-semibold uppercase tracking-[0.28em] text-terracotta">
+                <div className="flex h-full flex-col rounded-2xl border border-charcoal/10 bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:border-terracotta/30 hover:shadow-md">
+                  <div className="text-sm font-semibold uppercase tracking-[0.28em] text-terracotta">
                     {String(index + 1).padStart(2, "0")}
                   </div>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight text-charcoal">{agent.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-charcoal/65">{agent.description}</p>
+                  <h3 className="mt-3 text-2xl font-semibold tracking-tight text-charcoal">{agent.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-charcoal/65">{agent.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -166,25 +166,25 @@ export default function CroWorkflowPage() {
             {/* Flow diagram */}
             <FadeIn className="flex flex-1 flex-col items-center" delay={80}>
               {/* Input */}
-              <div className="w-full max-w-sm rounded-2xl border border-charcoal/10 bg-cream px-6 py-4 text-center">
-                <p className="text-sm font-semibold text-charcoal">Your business data</p>
-                <p className="mt-1 text-xs text-charcoal/55">GA4 · Google Ads · Sheets dashboard</p>
+              <div className="w-full max-w-md rounded-2xl border border-charcoal/10 bg-cream px-7 py-5 text-center">
+                <p className="text-base font-semibold text-charcoal">Your business data</p>
+                <p className="mt-1 text-sm text-charcoal/55">GA4 · Google Ads · Sheets dashboard</p>
               </div>
 
               <div className="flex flex-col items-center my-1">
                 <div className="w-0.5 h-6 bg-charcoal/20" />
                 <div className="w-3 h-3 rotate-45 border-r-2 border-b-2 border-charcoal/30 -mt-1.5" />
               </div>
-
+Your business data
               {workflowSteps.map((step, i) => (
-                <div key={step.number} className="w-full max-w-sm flex flex-col items-center">
-                  <div className={`w-full rounded-2xl border ${step.tone} px-5 py-4`}>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${step.badge}`}>
+                <div key={step.number} className="w-full max-w-md flex flex-col items-center">
+                  <div className={`w-full rounded-2xl border ${step.tone} px-6 py-5`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-sm font-semibold px-3 py-1 rounded-full ${step.badge}`}>
                         {step.number} · {step.title}
                       </span>
                     </div>
-                    <p className="text-xs text-charcoal/60 leading-5 mt-1">{step.desc}</p>
+                    <p className="text-sm text-charcoal/65 leading-6 mt-1">{step.desc}</p>
                   </div>
                   {i < workflowSteps.length - 1 && (
                     <div className="flex flex-col items-center my-1">
@@ -200,51 +200,51 @@ export default function CroWorkflowPage() {
                 <div className="w-2 h-2 rotate-45 border-r-2 border-b-2 border-charcoal/20 -mt-1" />
               </div>
 
-              <div className="w-full max-w-sm rounded-2xl border border-sage-700/25 bg-sage-50 px-6 py-4 text-center">
-                <p className="text-sm font-semibold text-sage-800">Final output</p>
-                <p className="mt-1 text-xs text-sage-700">Top 3 actions · Revenue impact · 30-day plan</p>
+              <div className="w-full max-w-md rounded-2xl border border-sage-700/25 bg-sage-50 px-7 py-5 text-center">
+                <p className="text-base font-semibold text-sage-800">Final output</p>
+                <p className="mt-1 text-sm text-sage-700">Top 3 actions · Revenue impact · 30-day plan</p>
               </div>
             </FadeIn>
 
             {/* Right side — color key + explanation */}
             <FadeIn className="flex flex-col gap-6 lg:w-72 lg:sticky lg:top-24" delay={120}>
-              <div className="rounded-2xl border border-charcoal/10 bg-cream p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-charcoal/40 mb-3">Color key</p>
-                <div className="flex flex-col gap-2">
+              <div className="rounded-2xl border border-charcoal/10 bg-cream p-6">
+                <p className="text-sm font-bold uppercase tracking-widest text-charcoal/40 mb-4">Color key</p>
+                <div className="flex flex-col gap-3">
                   {colorKey.map((k) => (
                     <div key={k.label} className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-sm shrink-0 ${k.color}`} />
-                      <span className="text-sm text-charcoal/65">{k.label}</span>
+                      <div className={`w-4 h-4 rounded-sm shrink-0 ${k.color}`} />
+                      <span className="text-base text-charcoal/65">{k.label}</span>
                     </div>
                   ))}
                 </div>
               </div>
-
-              <div className="rounded-2xl border border-charcoal/10 bg-cream p-5">
-                <p className="text-xs font-bold uppercase tracking-widest text-charcoal/40 mb-4">Three phases</p>
-                <div className="flex flex-col gap-4">
+             
+              <div className="rounded-2xl border border-charcoal/10 bg-cream p-6">
+                <p className="text-sm font-bold uppercase tracking-widest text-charcoal/40 mb-5">Three phases</p>
+                <div className="flex flex-col gap-5">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-dustyblue-50 flex items-center justify-center text-xs font-bold text-dustyblue-800">1</div>
-                      <p className="text-sm font-semibold text-charcoal">Observe</p>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-lg bg-dustyblue-50 flex items-center justify-center text-sm font-bold text-dustyblue-800">1</div>
+                      <p className="text-base font-semibold text-charcoal">Observe</p>
                     </div>
-                    <p className="text-xs text-charcoal/55 leading-5 pl-8">Data Agent reads funnel signals, drop-offs, and device splits to frame the problem.</p>
+                    <p className="text-sm text-charcoal/55 leading-6 pl-11">Data Agent reads funnel signals, drop-offs, and device splits to frame the problem.</p>
                   </div>
                   <div className="w-full h-px bg-charcoal/10" />
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-sand flex items-center justify-center text-xs font-bold text-sand-800">2</div>
-                      <p className="text-sm font-semibold text-charcoal">Diagnose</p>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-lg bg-sand flex items-center justify-center text-sm font-bold text-sand-800">2</div>
+                      <p className="text-base font-semibold text-charcoal">Diagnose</p>
                     </div>
-                    <p className="text-xs text-charcoal/55 leading-5 pl-8">UX, Research, Customer Voice, and Tech agents each contribute a specialist lens on the problem.</p>
+                    <p className="text-sm text-charcoal/55 leading-6 pl-11">UX, Research, Customer Voice, and Tech agents each contribute a specialist lens on the problem.</p>
                   </div>
                   <div className="w-full h-px bg-charcoal/10" />
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-sage-50 flex items-center justify-center text-xs font-bold text-sage-800">3</div>
-                      <p className="text-sm font-semibold text-charcoal">Decide</p>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-8 h-8 rounded-lg bg-sage-50 flex items-center justify-center text-sm font-bold text-sage-800">3</div>
+                      <p className="text-base font-semibold text-charcoal">Decide</p>
                     </div>
-                    <p className="text-xs text-charcoal/55 leading-5 pl-8">Experimentation, Prioritization, Risk, and Documentation agents produce a ranked, dev-ready action plan.</p>
+                    <p className="text-sm text-charcoal/55 leading-6 pl-11">Experimentation, Prioritization, Risk, and Documentation agents produce a ranked, dev-ready action plan.</p>
                   </div>
                 </div>
               </div>
