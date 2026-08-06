@@ -249,10 +249,10 @@ Your business data
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-terracotta/20 bg-terracotta/5 p-5">
-                <p className="text-sm font-semibold text-charcoal mb-1">Want to see the PM Hub?</p>
-                <p className="text-xs text-charcoal/60 leading-5 mb-3">The PM Hub contains 17 AI modules for end-to-end product work.</p>
-                <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 text-sm font-semibold text-terracotta-600 hover:text-terracotta transition">
+              <div className="rounded-2xl border border-terracotta/20 bg-terracotta-50 p-6">
+                <p className="text-base font-semibold text-charcoal mb-2">Want to see the PM Hub?</p>
+                <p className="text-sm text-charcoal/60 leading-6 mb-4">The PM Hub contains 17 AI modules for end-to-end product work.</p>
+                <Link href="/ai-systems/pm-hub" className="inline-flex items-center gap-2 text-base font-semibold text-terracotta-600 hover:text-terracotta transition">
                   Open PM Hub <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
