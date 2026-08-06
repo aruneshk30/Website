@@ -61,79 +61,84 @@ export default function CaseStudiesPage() {
     <main className="min-h-screen bg-cream">
 
       {/* Hero */}
-      <section className="bg-slate-950 px-4 pb-14 pt-20 text-center sm:pb-20 sm:pt-28 md:px-6 lg:px-8">
+      <section className="px-4 pb-16 pt-28 text-center md:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-400 sm:mb-4 sm:text-xs sm:tracking-[0.3em]">
-            Product Case Studies
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            Real problems.{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
-              Real outcomes.
-            </span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-400 sm:mt-6 sm:text-base sm:leading-8">
-            Three product initiatives shipped at Sierra Living Concepts — each
-            told as a complete story from discovery to delivery to results.
-          </p>
+          <FadeIn>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-terracotta">
+              Product Case Studies
+            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-charcoal md:text-5xl lg:text-6xl">
+              Real problems.{" "}
+              <span className="font-serif font-normal text-sage-700">Real outcomes.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-charcoal/65">
+              Three product initiatives shipped at Sierra Living Concepts — each
+              told as a complete story from discovery to delivery to results.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* Cards */}
-      <section className="mx-auto max-w-5xl px-4 py-10 sm:py-16 md:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 sm:gap-6">
-          {caseStudies.map((cs) => (
-            <Link
-              key={cs.slug}
-              href={`/case-studies/${cs.slug}`}
-              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:border-indigo-200 sm:p-8"
-            >
-              <div className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <section className="mx-auto max-w-5xl px-4 pb-20 md:px-6 lg:px-8">
+        <div className="flex flex-col gap-6">
+          {caseStudies.map((cs, i) => {
+            const tone = toneMap[cs.tone];
+            return (
+              <FadeIn key={cs.slug} delay={i * 100}>
+                <Link
+                  href={`/case-studies/${cs.slug}`}
+                  className="group block rounded-2xl border border-charcoal/10 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lg"
+                >
+                  <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
 
-                {/* Left */}
-                <div className="flex-1 min-w-0">
-                  <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-500 sm:text-[10px] sm:tracking-[0.25em]">
-                    {cs.tag}
-                  </p>
-                  <h2 className="text-xl font-bold leading-snug tracking-tight text-slate-950 sm:text-2xl md:text-3xl">
-                    {cs.id} — {cs.title}
-                  </h2>
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:leading-7">
-                    {cs.brief}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {cs.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Right — Metrics */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:flex lg:flex-col lg:min-w-[180px] lg:gap-4">
-                  {cs.metrics.map((m) => (
-                    <div
-                      key={m.label}
-                      className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center sm:p-4 lg:flex-1 lg:text-left"
-                    >
-                      <p className="text-base font-bold leading-tight tracking-tight text-slate-950 sm:text-xl">
-                        {m.value}
+                    {/* Left */}
+                    <div className="flex-1">
+                      <p className={`mb-3 inline-block rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] ${tone.chip}`}>
+                        {cs.tag}
                       </p>
-                      <p className="mt-0.5 text-[10px] leading-tight text-slate-500 sm:text-xs">
-                        {m.label}
+                      <h2 className="text-2xl font-bold tracking-tight text-charcoal md:text-3xl">
+                        {cs.id} — {cs.title}
+                      </h2>
+                      <p className="mt-3 max-w-xl text-sm leading-7 text-charcoal/65">
+                        {cs.brief}
                       </p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {cs.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-charcoal/5 px-3 py-1 text-xs font-medium text-charcoal/60"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-              <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 sm:mt-6">
-                Read full case study{" "}
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
+                    {/* Right — Metrics */}
+                    <div className="flex gap-4 lg:flex-col lg:min-w-[180px]">
+                      {cs.metrics.map((m) => (
+                        <div
+                          key={m.label}
+                          className={`flex-1 rounded-xl ${tone.metric} p-4 text-center lg:text-left`}
+                        >
+                          <p className={`text-xl font-bold tracking-tight ${tone.metricText}`}>
+                            {m.value}
+                          </p>
+                          <p className={`mt-0.5 text-xs ${tone.metricText}`}>{m.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-terracotta">
+                    Read full case study{" "}
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              </FadeIn>
+            );
+          })}
         </div>
       </section>
     </main>
