@@ -12,7 +12,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [fillPercent, setFillPercent] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeStates, setActiveStates] = useState<boolean[]>(() => items.map(() => false));
+  const [activeStates, setActiveStates] = useState<boolean[]>(() => items.map((_, idx) => idx === 0));
 
   useEffect(() => {
     function updateFill() {
