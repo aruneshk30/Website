@@ -186,7 +186,7 @@ export default function CaseStudy3() {
     <main className="min-h-screen bg-cream">
 
       {/* Hero */}
-      <section className="px-4 pb-14 pt-28 md:px-6 lg:px-8">
+      <section className="px-4 pb-14 pt-16 md:px-6 md:pt-28 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <FadeIn>
             <Link
