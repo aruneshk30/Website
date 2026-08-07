@@ -18,7 +18,7 @@ export function FadeIn({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.1, rootMargin: "0px 0px 150px 0px" }
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
