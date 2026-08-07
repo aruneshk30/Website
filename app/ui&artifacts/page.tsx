@@ -57,7 +57,7 @@ export default function ArtifactsPage() {
     <main className="min-h-screen bg-cream">
 
       {/* ── HERO ── */}
-      <section className="border-b border-charcoal/10 bg-white px-4 pb-14 pt-28 md:px-6 lg:px-8">
+      <section className="border-b border-charcoal/10 bg-white px-4 pb-14 pt-16 md:px-6 md:pt-28 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <FadeIn>
             <Link
@@ -367,7 +367,7 @@ export default function ArtifactsPage() {
         </FadeIn>
       </div>
 
-      <div className="h-16" />
+     <div className="h-8 md:h-16" />
     </main>
   );
 }
