@@ -88,7 +88,7 @@ export default function CaseStudiesPage() {
               <FadeIn key={cs.slug} delay={i * 100}>
                 <Link
                   href={`/case-studies/${cs.slug}`}
-                  className="group block rounded-2xl border border-charcoal/10 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lg"
+                  className="group block rounded-2xl border border-charcoal/10 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lg sm:p-6 lg:p-8"
                 >
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
 
@@ -116,16 +116,18 @@ export default function CaseStudiesPage() {
                     </div>
 
                     {/* Right — Metrics */}
-                    <div className="flex gap-4 lg:flex-col lg:min-w-[180px]">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:flex lg:flex-col lg:min-w-[180px] lg:gap-4">
                       {cs.metrics.map((m) => (
                         <div
                           key={m.label}
-                          className={`flex-1 rounded-xl ${tone.metric} p-4 text-center lg:text-left`}
+                          className={`rounded-xl ${tone.metric} p-3 text-center sm:p-4 lg:text-left`}
                         >
-                          <p className={`text-xl font-bold tracking-tight ${tone.metricText}`}>
+                          <p className={`text-base font-bold tracking-tight sm:text-xl ${tone.metricText}`}>
                             {m.value}
                           </p>
-                          <p className={`mt-0.5 text-xs ${tone.metricText}`}>{m.label}</p>
+                          <p className={`mt-0.5 text-[10px] leading-tight sm:text-xs ${tone.metricText}`}>
+                            {m.label}
+                          </p>
                         </div>
                       ))}
                     </div>
