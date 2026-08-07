@@ -61,7 +61,7 @@ export default function CaseStudiesPage() {
     <main className="min-h-screen bg-cream">
 
       {/* Hero */}
-      <section className="px-4 pb-16 pt-28 text-center md:px-6 lg:px-8">
+      <section className="px-4 pb-16 pt-16 text-center md:px-6 md:pt-28 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <FadeIn>
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-terracotta">
